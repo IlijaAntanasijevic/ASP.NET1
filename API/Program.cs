@@ -1,8 +1,11 @@
 using API.Core.Exceptions;
 using Application;
+using Application.UseCases.Commands.ApartmentType;
 using DataAccess;
 using Implementation;
 using Implementation.Logging.UseCases;
+using Implementation.UseCases.Commands.ApartmentType;
+using Implementation.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +20,12 @@ builder.Services.AddTransient<BookingContext>();
 builder.Services.AddTransient<IUseCaseLogger, ConsoleUseCaseLogger>();
 builder.Services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
 
+builder.Services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
+builder.Services.AddTransient<CreateApartmentTypeValidator>();
 
-//ACTORS
+
+
+#region Actors
 builder.Services.AddTransient<IApplicationActorProvider>(x =>
 {
     return new DefaultActorProvider();
@@ -28,13 +35,15 @@ builder.Services.AddTransient<IApplicationActorProvider>(x =>
 builder.Services.AddTransient<IApplicationActor>(x =>
 {
     var accessor = x.GetService<IHttpContextAccessor>();
-    if (accessor.HttpContext == null)
+    if (accessor == null || accessor.HttpContext == null)
     {
         return new UnauthorizedActor();
     }
 
     return x.GetService<IApplicationActorProvider>().GetActor();
 });
+#endregion
+
 
 var app = builder.Build();
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
