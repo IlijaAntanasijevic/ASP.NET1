@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    partial class BookingContextModelSnapshot : ModelSnapshot
+    [Migration("20240612150308_PaymentApartments")]
+    partial class PaymentApartments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,77 +84,11 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CityCountryId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Name");
 
-                    b.HasIndex("Name", "Price", "MaxGuests", "CityCountryId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Apartments");
-                });
-
-            modelBuilder.Entity("Domain.Booking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ApartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CheckIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CheckOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<int>("TotalGuests")
-                        .HasMaxLength(10)
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApartmentId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("CheckIn", "CheckOut", "ApartmentId");
-
-                    b.ToTable("Bookings");
-                });
-
-            modelBuilder.Entity("Domain.BookingPayment", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentApartmentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookingId", "PaymentApartmentId");
-
-                    b.HasIndex("PaymentApartmentId");
-
-                    b.ToTable("BookingPayments");
                 });
 
             modelBuilder.Entity("Domain.CityCountry", b =>
@@ -464,44 +401,6 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Booking", b =>
-                {
-                    b.HasOne("Domain.Apartment", "Apartment")
-                        .WithMany("Bookings")
-                        .HasForeignKey("ApartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.User", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Apartment");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.BookingPayment", b =>
-                {
-                    b.HasOne("Domain.Booking", "Booking")
-                        .WithMany("BookingPayments")
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.PaymentApartment", "PaymentApartment")
-                        .WithMany("BookingPayments")
-                        .HasForeignKey("PaymentApartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
-
-                    b.Navigation("PaymentApartment");
-                });
-
             modelBuilder.Entity("Domain.CityCountry", b =>
                 {
                     b.HasOne("Domain.Lookup.City", "City")
@@ -572,18 +471,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Apartment", b =>
                 {
-                    b.Navigation("Bookings");
-
                     b.Navigation("FeatureApartments");
 
                     b.Navigation("Images");
 
                     b.Navigation("PaymentApartments");
-                });
-
-            modelBuilder.Entity("Domain.Booking", b =>
-                {
-                    b.Navigation("BookingPayments");
                 });
 
             modelBuilder.Entity("Domain.CityCountry", b =>
@@ -616,16 +508,9 @@ namespace DataAccess.Migrations
                     b.Navigation("PaymentApartments");
                 });
 
-            modelBuilder.Entity("Domain.PaymentApartment", b =>
-                {
-                    b.Navigation("BookingPayments");
-                });
-
             modelBuilder.Entity("Domain.User", b =>
                 {
                     b.Navigation("Apartments");
-
-                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

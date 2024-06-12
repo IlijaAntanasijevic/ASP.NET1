@@ -25,5 +25,8 @@ namespace Domain
 
         public virtual ICollection<FeatureApartment> FeatureApartments { get; set; } = new HashSet<FeatureApartment>();
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
+        public virtual ICollection<PaymentApartment> PaymentApartments { get; set;} = new HashSet<PaymentApartment>();
+        public virtual ICollection<Booking> Bookings { get; set;} = new HashSet<Booking>();
+
     }
 }

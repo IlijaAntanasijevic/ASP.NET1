@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    partial class BookingContextModelSnapshot : ModelSnapshot
+    [Migration("20240612151815_RefactoringApartmentConf")]
+    partial class RefactoringApartmentConf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,21 +140,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("CheckIn", "CheckOut", "ApartmentId");
 
                     b.ToTable("Bookings");
-                });
-
-            modelBuilder.Entity("Domain.BookingPayment", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentApartmentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookingId", "PaymentApartmentId");
-
-                    b.HasIndex("PaymentApartmentId");
-
-                    b.ToTable("BookingPayments");
                 });
 
             modelBuilder.Entity("Domain.CityCountry", b =>
@@ -483,25 +471,6 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.BookingPayment", b =>
-                {
-                    b.HasOne("Domain.Booking", "Booking")
-                        .WithMany("BookingPayments")
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.PaymentApartment", "PaymentApartment")
-                        .WithMany("BookingPayments")
-                        .HasForeignKey("PaymentApartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
-
-                    b.Navigation("PaymentApartment");
-                });
-
             modelBuilder.Entity("Domain.CityCountry", b =>
                 {
                     b.HasOne("Domain.Lookup.City", "City")
@@ -581,11 +550,6 @@ namespace DataAccess.Migrations
                     b.Navigation("PaymentApartments");
                 });
 
-            modelBuilder.Entity("Domain.Booking", b =>
-                {
-                    b.Navigation("BookingPayments");
-                });
-
             modelBuilder.Entity("Domain.CityCountry", b =>
                 {
                     b.Navigation("Apartments");
@@ -614,11 +578,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Lookup.Payment", b =>
                 {
                     b.Navigation("PaymentApartments");
-                });
-
-            modelBuilder.Entity("Domain.PaymentApartment", b =>
-                {
-                    b.Navigation("BookingPayments");
                 });
 
             modelBuilder.Entity("Domain.User", b =>

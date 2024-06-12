@@ -15,6 +15,8 @@ namespace Domain
         public string Avatar { get; set; }
 
         public virtual ICollection<Apartment> Apartments { get; set; } = new HashSet<Apartment>();
+        public virtual ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
+
 
     }
 }

@@ -17,7 +17,7 @@ namespace DataAccess.Configurations
                    .IsRequired()
                    .HasMaxLength(80);
 
-            builder.HasIndex(x => x.Name);
+            builder.HasIndex(x => new { x.Name, x.Price, x.MaxGuests, x.CityCountryId});
 
             builder.Property(x => x.Address)
                    .IsRequired()

@@ -39,8 +39,10 @@ namespace DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<CityCountry> CitiesCountry { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
-
         public DbSet<FeatureApartment> FeatureApartments { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<PaymentApartment> PaymentApartments { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<BookingPayment> BookingPayments { get; set; }
     }
 }

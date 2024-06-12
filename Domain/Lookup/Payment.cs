@@ -8,5 +8,7 @@ namespace Domain.Lookup
     {
         public int Id { get; set; }
         public int Name { get; set; }
+
+        public virtual ICollection<PaymentApartment> PaymentApartments { get; set; } = new HashSet<PaymentApartment>();
     }
 }
