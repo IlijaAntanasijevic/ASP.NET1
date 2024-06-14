@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="UseCases\Commands\User\" />
     <Folder Include="UseCases\Queries\" />
   </ItemGroup>
 

@@ -16,6 +16,7 @@ namespace Domain
 
         public virtual ICollection<Apartment> Apartments { get; set; } = new HashSet<Apartment>();
         public virtual ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
+        public virtual ICollection<UserUseCase> UseCases { get; set; } = new HashSet<UserUseCase>();
 
 
     }

@@ -27,6 +27,10 @@ namespace DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+
+
+            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UseCaseId });
+
             base.OnModelCreating(modelBuilder);
         }
 
