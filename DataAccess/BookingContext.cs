@@ -69,5 +69,8 @@ namespace DataAccess
         public DbSet<PaymentApartment> PaymentApartments { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<BookingPayment> BookingPayments { get; set; }
+        public DbSet<UserUseCase> UserUseCases { get; set; }
+        public DbSet<ErrorLog> ErrorLogs { get; set; }
+        public DbSet<UseCaseLog> UseCaseLogs { get; set; }
     }
 }

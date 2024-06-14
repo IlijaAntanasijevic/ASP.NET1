@@ -2,6 +2,7 @@
 using Application.DTO;
 using Application.UseCases.Commands.ApartmentType;
 using Application.UseCases.Commands.Users;
+using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +14,27 @@ namespace API.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
+        private UseCaseHandler _handler;
+
+        public TestController(UseCaseHandler handler)
+        {
+            _handler = handler;
+        }
+
 
         // POST api/<TestController>
-        [Authorize]
+     
         [HttpPost("/api/apartment")]
-        public void Post([FromBody] NamedDto data, [FromServices] ICreateApartmentTypeCommand command) => command.Execute(data);
+        public IActionResult Post([FromBody] NamedDto data, [FromServices] ICreateApartmentTypeCommand command)
+        {
+            _handler.HandleCommand(command,data);
+            return Created();
+        }
 
         [HttpPost("/auth/register")]
         public IActionResult Post([FromBody] RegisterUserDto data, [FromServices] IRegisterUserCommand command)
         {
-            command.Execute(data);
+            _handler.HandleCommand(command,data);
             return Ok();
         }
 

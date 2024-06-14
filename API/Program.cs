@@ -8,6 +8,7 @@ using Application.UseCases.Commands.Users;
 using DataAccess;
 using Implementation;
 using Implementation.Logging.UseCases;
+using Implementation.UseCases;
 using Implementation.UseCases.Commands.ApartmentType;
 using Implementation.UseCases.Commands.Users;
 using Implementation.Validators;
@@ -26,8 +27,11 @@ builder.Services.AddSingleton(settings.Jwt);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<UseCaseHandler>();
 
 //!!!!!!!!!! ---------- !!!!!!!!!!!!!!!!!!
 builder.Services.AddTransient(x => new BookingContext(settings.ConnectionString));

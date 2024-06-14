@@ -40,8 +40,8 @@ namespace Implementation.UseCases
         {
             if (!_actor.AllowedUseCases.Contains(useCase.Id))
             {
-                //   throw new UnauthorizedAccessException();
-                throw new InvalidOperationException("NEAUTORIZOVANI KORISNIK!");
+                throw new UnauthorizedAccessException();
+
             }
             var log = new UseCaseLog
             {
