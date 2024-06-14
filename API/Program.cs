@@ -35,7 +35,7 @@ builder.Services.AddTransient<UseCaseHandler>();
 
 //!!!!!!!!!! ---------- !!!!!!!!!!!!!!!!!!
 builder.Services.AddTransient(x => new BookingContext(settings.ConnectionString));
-builder.Services.AddTransient<IUseCaseLogger, ConsoleUseCaseLogger>();
+builder.Services.AddTransient<IUseCaseLogger, DbUseCaseLogger>();
 builder.Services.AddTransient<IExceptionLogger, DbExceptionLogger>();
 
 builder.Services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();

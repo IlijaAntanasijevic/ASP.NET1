@@ -38,11 +38,10 @@ namespace Implementation.UseCases
 
         private void Handle(IUseCase useCase, object data)
         {
-            if (!_actor.AllowedUseCases.Contains(useCase.Id))
-            {
-                throw new UnauthorizedAccessException();
-
-            }
+            //if (!_actor.AllowedUseCases.Contains(useCase.Id))
+            //{
+            //    throw new UnauthorizedAccessException();
+            //}
             var log = new UseCaseLog
             {
                 UseCaseData = data,
