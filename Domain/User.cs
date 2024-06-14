@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Domain.Core;
 
-namespace Domain
+
+
+namespace App.Domain
 {
     public class User : Entity
     {

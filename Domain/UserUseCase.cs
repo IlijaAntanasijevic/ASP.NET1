@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using App.Domain;
 
-namespace Domain
+
+namespace App.Domain
 {
     public class UserUseCase
     {

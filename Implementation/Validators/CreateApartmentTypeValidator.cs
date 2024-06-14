@@ -17,7 +17,7 @@ namespace Implementation.Validators
         {
             _context = context;
             RuleFor(x => x.Name).NotNull()
-                  .WithMessage("Category name is required.")
+                                .WithMessage("Category name is required.")
                                 .MinimumLength(3)
                                 .WithMessage("Min number of characters is 3.")
                                 .Must(name => !_context.ApartmentTypes.Any(x => x.Name == name))

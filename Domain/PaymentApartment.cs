@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain
+namespace App.Domain
 {
     public class PaymentApartment : Entity
     {
