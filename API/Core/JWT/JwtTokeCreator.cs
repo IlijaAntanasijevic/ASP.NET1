@@ -50,7 +50,7 @@ namespace API.Core.JWT
                  new Claim(JwtRegisteredClaimNames.Jti, tokenId, ClaimValueTypes.String),
                  new Claim(JwtRegisteredClaimNames.Iss, _settings.Issuer, ClaimValueTypes.String),
                  new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
-                 new Claim("Emila", user.Email),
+                 new Claim("Email", user.Email),
                  new Claim("FirstName", user.FirstName),
                  new Claim("LastName", user.LastName),
                  new Claim("Id", user.Id.ToString()),
