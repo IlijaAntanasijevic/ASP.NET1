@@ -2,6 +2,8 @@
 using App.Domain;
 using Domain.Lookup;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Domain.Core;
 
 namespace DataAccess
 {
@@ -35,6 +37,24 @@ namespace DataAccess
             base.OnModelCreating(modelBuilder);
         }
 
+
+        public override int SaveChanges()
+        {
+            IEnumerable<EntityEntry> entries = this.ChangeTracker.Entries();
+
+            foreach (EntityEntry entry in entries)
+            {
+                if(entry.State == EntityState.Modified)
+                {
+                    if(entry.Entity is Entity e)
+                    {
+                        e.UpdatedAt = DateTime.UtcNow;
+                    }
+                }
+            }
+
+            return base.SaveChanges();
+        }
 
         public DbSet<Payment> Payments { get; set; }
         public DbSet<City> Cities { get; set; }

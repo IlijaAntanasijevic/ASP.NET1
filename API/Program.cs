@@ -1,10 +1,12 @@
 using API.Core.Exceptions;
 using Application;
 using Application.UseCases.Commands.ApartmentType;
+using Application.UseCases.Commands.Users;
 using DataAccess;
 using Implementation;
 using Implementation.Logging.UseCases;
 using Implementation.UseCases.Commands.ApartmentType;
+using Implementation.UseCases.Commands.Users;
 using Implementation.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,9 @@ builder.Services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
 
 builder.Services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
 builder.Services.AddTransient<CreateApartmentTypeValidator>();
+
+builder.Services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
+builder.Services.AddTransient<RegisterUserValidator>();
 
 
 

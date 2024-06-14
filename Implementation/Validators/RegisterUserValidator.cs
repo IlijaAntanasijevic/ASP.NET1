@@ -25,8 +25,8 @@ namespace Implementation.Validators
 
             RuleFor(x => x.Password).NotEmpty()
                                     .WithMessage("Password is required.")
-                                    .Matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
-                                    .WithMessage("Minimum eight characters, at least one letter and one number");
+                                    .Matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
+                                    .WithMessage("Minimum eight characters, at least one letter, one number and one special character");
 
             RuleFor(x => x.FirstName).NotEmpty()
                                      .WithMessage("First name is required")
@@ -41,7 +41,9 @@ namespace Implementation.Validators
             RuleFor(x => x.Phone).NotEmpty()
                                  .WithMessage("Phone number is required")
                                  .MaximumLength(15)
-                                 .WithMessage("Phone number must not exceed 15 characters.");
+                                 .WithMessage("Phone number must not exceed 15 characters.")
+                                 .Must(phone => !context.Users.Any(p => p.Phone == phone))
+                                 .WithMessage("Phone number is already in use.");
 
         }
     }
