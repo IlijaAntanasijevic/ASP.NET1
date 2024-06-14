@@ -5,12 +5,14 @@ using API.Core.JWT;
 using Application;
 using Application.UseCases.Commands.ApartmentType;
 using Application.UseCases.Commands.Users;
+using Application.UseCases.Queries.ApartmentType;
 using DataAccess;
 using Implementation;
 using Implementation.Logging.UseCases;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands.ApartmentType;
 using Implementation.UseCases.Commands.Users;
+using Implementation.UseCases.Queries.ApartmentType;
 using Implementation.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -25,11 +27,14 @@ builder.Services.AddSingleton(settings.Jwt);
 
 // Add services to the container.
 
+// => Last use case: 3
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<UseCaseHandler>();
 
@@ -44,9 +49,9 @@ builder.Services.AddTransient<CreateApartmentTypeValidator>();
 builder.Services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
 builder.Services.AddTransient<RegisterUserValidator>();
 
+builder.Services.AddTransient<IGetApartmentTypesQuery, EfGetApartmentTypesQuery>();
+
 builder.Services.AddTransient<JwtTokenCreator>();
-
-
 builder.Services.AddTransient<ITokenStorage, InMemoryTokenStorage>();
 
 
@@ -69,7 +74,7 @@ builder.Services.AddTransient<IApplicationActorProvider>(x =>
 builder.Services.AddTransient<IApplicationActor>(x =>
 {
     var accessor = x.GetService<IHttpContextAccessor>();
-    if (accessor == null || accessor.HttpContext == null)
+    if (accessor.HttpContext == null)
     {
         return new UnauthorizedActor();
     }

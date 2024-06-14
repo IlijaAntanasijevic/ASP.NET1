@@ -9,13 +9,11 @@ namespace API.Core.Exceptions
     {
         private readonly RequestDelegate _next;
         private IExceptionLogger _logger;
-        private IApplicationActor _actor;
 
-        public GlobalExceptionHandlingMiddleware(RequestDelegate next, IExceptionLogger logger, IApplicationActor actor)
+        public GlobalExceptionHandlingMiddleware(RequestDelegate next, IExceptionLogger logger)
         {
             _next = next;
             _logger = logger;
-            _actor = actor;
         }
 
         public async Task InvokeAsync(HttpContext httpContext)

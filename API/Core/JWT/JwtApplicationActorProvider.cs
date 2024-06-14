@@ -33,7 +33,7 @@ namespace API.Core.JWT
 
             var actor = new Actor
             {
-                Email = claims.First(x => x.Type == "Username").Value,
+                Email = claims.First(x => x.Type == "Email").Value,
                 FirstName = claims.First(x => x.Type == "FirstName").Value,
                 LastName = claims.First(x => x.Type == "LastName").Value,
                 Id = int.Parse(claims.First(x => x.Type == "Id").Value),

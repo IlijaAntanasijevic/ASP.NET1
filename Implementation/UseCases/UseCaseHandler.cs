@@ -13,6 +13,7 @@ namespace Implementation.UseCases
     {
         private readonly IApplicationActor _actor;
         private readonly IUseCaseLogger _logger;
+        private List<int> globbalyAllowedUseCases = new List<int> { 2,3 };
 
         public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
         {
@@ -38,10 +39,10 @@ namespace Implementation.UseCases
 
         private void Handle(IUseCase useCase, object data)
         {
-            //if (!_actor.AllowedUseCases.Contains(useCase.Id))
-            //{
-            //    throw new UnauthorizedAccessException();
-            //}
+            if (!globbalyAllowedUseCases.Contains(useCase.Id) && !_actor.AllowedUseCases.Contains(useCase.Id))
+            {
+                throw new UnauthorizedAccessException();
+            }
             var log = new UseCaseLog
             {
                 UseCaseData = data,
