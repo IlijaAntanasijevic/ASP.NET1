@@ -38,18 +38,11 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<UseCaseHandler>();
 
-//!!!!!!!!!! ---------- !!!!!!!!!!!!!!!!!!
 builder.Services.AddTransient(x => new BookingContext(settings.ConnectionString));
 builder.Services.AddTransient<IUseCaseLogger, DbUseCaseLogger>();
 builder.Services.AddTransient<IExceptionLogger, DbExceptionLogger>();
 
-builder.Services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
-builder.Services.AddTransient<CreateApartmentTypeValidator>();
-
-builder.Services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
-builder.Services.AddTransient<RegisterUserValidator>();
-
-builder.Services.AddTransient<IGetApartmentTypesQuery, EfGetApartmentTypesQuery>();
+builder.Services.AddUseCases();
 
 builder.Services.AddTransient<JwtTokenCreator>();
 builder.Services.AddTransient<ITokenStorage, InMemoryTokenStorage>();
@@ -111,7 +104,7 @@ builder.Services.AddAuthentication(options =>
 
             Guid tokenId = context.HttpContext.Request.GetTokenId().Value;
 
-            var storage = builder.Services.BuildServiceProvider().GetService<ITokenStorage>();
+            ITokenStorage storage = builder.Services.BuildServiceProvider().GetService<ITokenStorage>();
 
             if (!storage.Exists(tokenId))
             {
@@ -127,6 +120,7 @@ builder.Services.AddAuthentication(options =>
 #endregion
 
 var app = builder.Build();
+
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
