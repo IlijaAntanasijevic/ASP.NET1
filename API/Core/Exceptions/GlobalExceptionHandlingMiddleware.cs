@@ -47,7 +47,7 @@ namespace API.Core.Exceptions
                     return;
                 }
 
-                var errorId = _logger.Log(exception, _actor);
+                var errorId = _logger.Log(exception);
                 httpContext.Response.StatusCode = 500;
                 await httpContext.Response.WriteAsJsonAsync(new { Message = $"An unexpected error has occured. Please contact our support with this ID - {errorId}." });
 

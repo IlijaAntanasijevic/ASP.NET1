@@ -4,7 +4,7 @@ namespace API.Core.Exceptions
 {
     public class ConsoleExceptionLogger : IExceptionLogger
     {
-        public Guid Log(Exception ex, IApplicationActor actor)
+        public Guid Log(Exception ex)
         {
             var id = Guid.NewGuid();
             Console.WriteLine(ex.Message + " ID: " + id);
