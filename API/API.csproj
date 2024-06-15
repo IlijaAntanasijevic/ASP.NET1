@@ -17,4 +17,9 @@
     <ProjectReference Include="..\Implementation\Implementation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\apartments\" />
+    <Folder Include="wwwroot\temp\" />
+  </ItemGroup>
+
 </Project>

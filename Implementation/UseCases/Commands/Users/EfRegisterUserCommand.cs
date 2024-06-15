@@ -25,6 +25,17 @@ namespace Implementation.UseCases.Commands.Users
         {
             _validator.ValidateAndThrow(data);
 
+            if(data.Avatar  != null)
+            {
+                var tmpFile = Path.Combine("wwwroot", "temp", data.Avatar);
+                var destinationFile = Path.Combine("wwwroot", "users", data.Avatar);
+                File.Move(tmpFile, destinationFile);
+            }
+            else
+            {
+                data.Avatar = "default.jpg";
+            }
+
             User user = new User
             {
                 Email = data.Email,

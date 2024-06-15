@@ -25,23 +25,20 @@ var settings = new AppSettings();
 builder.Configuration.Bind(settings);
 builder.Services.AddSingleton(settings.Jwt);
 
-// Add services to the container.
+
 
 /* TODO: Subota
  
-    - Fix DbExLogger - Actor (unauth actor)
-    - Files
     - Business Logic
 
  */
 
-// => Last use case: 3
+// => Last use case: 4
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddHttpContextAccessor();
 
 
@@ -141,5 +138,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStaticFiles();
 
 app.Run();

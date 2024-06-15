@@ -45,6 +45,30 @@ namespace Implementation.Validators
                                  .Must(phone => !context.Users.Any(p => p.Phone == phone))
                                  .WithMessage("Phone number is already in use.");
 
+            //RuleFor(x => x.Avatar).Must(ValidateExtensions)
+            //                      .When(x => x.Avatar != null)
+            //                      .WithMessage("Invalid file extension. Allowed extensions are .jpg, .png, .jpeg");
+
+            RuleFor(x => x.Avatar).Must(FindFile)
+                                  .When(x => x.Avatar != null)
+                                  .WithMessage("File doesnt exits");
+
+        }
+
+        private bool ValidateExtensions(string path)
+        {
+            var allowedExtensions = new List<string> { ".jpg", ".jpeg", ".png" };
+
+            var extension = Path.GetExtension(path);
+
+            return allowedExtensions.Contains(extension);
+        }
+
+        private bool FindFile(string fileName) 
+        {
+            var path = Path.Combine("wwwroot", "temp", fileName);
+
+            return Path.Exists(path);
         }
     }
 }

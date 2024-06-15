@@ -1,6 +1,9 @@
-﻿using API.Core.JWT;
+﻿using API.Core;
+using API.Core.JWT;
+using API.DTO;
 using Application.DTO;
 using Application.UseCases.Commands.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
 
@@ -12,26 +15,7 @@ namespace API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        // GET: api/<AuthController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<AuthController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        //Register
-        //public IActionResult Post([FromBody] RegisterUserDto data, [FromServices] IRegisterUserCommand command)
-        //{
-        //    _handler.HandleCommand(command, data);
-        //    return Ok();
-        //}
+    
 
         // POST api/<AuthController>
         [HttpPost]
@@ -42,16 +26,14 @@ namespace API.Controllers
             return Ok(new AuthResponse { Token = token });
         }
 
-        // PUT api/<AuthController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE api/<AuthController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Authorize]
+        [HttpDelete]
+        public IActionResult Delete([FromServices] ITokenStorage storage)
         {
+            storage.Remove(this.Request.GetTokenId().Value);
+
+            return NoContent();
         }
     }
 }

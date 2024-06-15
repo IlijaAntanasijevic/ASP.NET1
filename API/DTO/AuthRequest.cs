@@ -1,4 +1,4 @@
-﻿namespace API
+﻿namespace API.DTO
 {
     public class AuthRequest
     {

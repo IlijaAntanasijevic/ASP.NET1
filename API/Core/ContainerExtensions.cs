@@ -1,10 +1,12 @@
 ﻿using Application.UseCases.Commands.ApartmentType;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.ApartmentType;
+using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands.ApartmentType;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries.ApartmentType;
+using Implementation.UseCases.Queries.Users;
 using Implementation.Validators;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -24,6 +26,7 @@ namespace API.Core
             //User
             services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
             services.AddTransient<RegisterUserValidator>();
+            services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
 
         }
 
