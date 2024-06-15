@@ -1,10 +1,12 @@
 ﻿using API.Core.JWT;
 using Application.UseCases.Commands.ApartmentType;
+using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.ApartmentType;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands.ApartmentType;
+using Implementation.UseCases.Commands.Lookup.Cities;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries.ApartmentType;
 using Implementation.UseCases.Queries.Users;
@@ -21,6 +23,7 @@ namespace API.Core
         public static void AddUseCases(this IServiceCollection services)
         {
             services.AddTransient<UseCaseHandler>();
+          
 
             //Apartment Type
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
@@ -35,6 +38,10 @@ namespace API.Core
             services.AddTransient<IDeleteUserCommand,EfDeleteUserCommand>();
             services.AddTransient<UpdateUserValidator>();
             services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
+
+            //City
+            services.AddTransient<ICreateCityCommand, EfCreateCityCommand>();
+            services.AddTransient<CreateCityValidator>();
 
         }
 

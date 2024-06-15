@@ -1,7 +1,8 @@
 ﻿using Application;
+using Application.Exceptions;
 using FluentValidation;
 using Implementation.Exceptions;
-using System;
+
 
 namespace API.Core.Exceptions
 {
@@ -43,6 +44,15 @@ namespace API.Core.Exceptions
                 if (exception is EntityNotFoundException)
                 {
                     httpContext.Response.StatusCode = 404;
+                    return;
+                }
+
+                if (exception is ConflictException c)
+                {
+                    httpContext.Response.StatusCode = StatusCodes.Status409Conflict;
+                    var body = new { error = c.Message };
+
+                    await httpContext.Response.WriteAsJsonAsync(body);
                     return;
                 }
 

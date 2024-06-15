@@ -55,7 +55,7 @@ namespace API.Controllers
             return NoContent();
         }
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult Put(int id, [FromBody] UpdateUserDto data, 
                                          [FromServices] IUpdateUserCommand command)
         {

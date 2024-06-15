@@ -15,6 +15,7 @@ namespace Implementation.Validators
 
         public CreateApartmentTypeValidator(BookingContext context)
         {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
             RuleFor(x => x.Name).NotNull()
                                 .WithMessage("Category name is required.")
                                 .MinimumLength(3)
