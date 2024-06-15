@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using Application.DTO.Search;
+using Application.DTO.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;

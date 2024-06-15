@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using Application.DTO.Search;
+using Application.DTO.Users;
 using Application.UseCases.Queries.Users;
 using DataAccess;
 using System;
@@ -50,6 +51,7 @@ namespace Implementation.UseCases.Queries.Users
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     Avatar = x.Avatar,
+                    Phone = x.Phone,
                     Id = x.Id
                 }).ToList()
             };

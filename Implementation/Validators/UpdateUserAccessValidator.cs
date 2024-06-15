@@ -1,5 +1,5 @@
 ﻿using App.Domain;
-using Application.DTO;
+using Application.DTO.Users;
 using DataAccess;
 using FluentValidation;
 using System;

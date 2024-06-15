@@ -1,9 +1,9 @@
-﻿using Application.DTO;
-using Application.UseCases.Commands.Users;
+﻿using Application.UseCases.Commands.Users;
 using DataAccess;
 using FluentValidation;
 using Implementation.Validators;
 using App.Domain;
+using Application.DTO.Users;
 
 
 namespace Implementation.UseCases.Commands.Users

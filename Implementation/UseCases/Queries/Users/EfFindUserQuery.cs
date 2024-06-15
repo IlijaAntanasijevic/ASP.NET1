@@ -1,5 +1,5 @@
 ﻿using App.Domain;
-using Application.DTO;
+using Application.DTO.Users;
 using Application.UseCases.Queries.Users;
 using DataAccess;
 using Implementation.Exceptions;
@@ -26,7 +26,7 @@ namespace Implementation.UseCases.Queries.Users
         {
             User user = Context.Users.Include(x => x.Apartments)
                                      .ThenInclude(x => x.Bookings)
-                                     .FirstOrDefault(x => x.Id == userId);
+                                     .FirstOrDefault(x => x.Id == userId && x.IsActive);
             if (user == null)
             {
                 throw new EntityNotFoundException(nameof(User), userId);
@@ -38,6 +38,7 @@ namespace Implementation.UseCases.Queries.Users
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Phone = user.Phone,
                 Id = userId,
             };
         }

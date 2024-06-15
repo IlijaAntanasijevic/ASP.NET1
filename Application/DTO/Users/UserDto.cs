@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTO
+namespace Application.DTO.Users
 {
     public class UserDto
     {
@@ -12,7 +12,8 @@ namespace Application.DTO
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Phone { get; set; }
         public string Avatar { get; set; }
-        
+
     }
 }

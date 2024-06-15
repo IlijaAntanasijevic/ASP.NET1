@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.UseCases.Queries.Users
+namespace Application.UseCases.Commands.Users
 {
-    public interface IFindUserQuery : IQuery<UserDto,  int>
+    public interface IUpdateUserCommand : ICommand<UpdateUserDto>
     {
     }
 }

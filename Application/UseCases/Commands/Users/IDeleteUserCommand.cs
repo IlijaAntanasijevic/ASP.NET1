@@ -1,5 +1,4 @@
-﻿using Application.DTO.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Users
 {
-    public interface IRegisterUserCommand : ICommand<RegisterUserDto>
+    public interface IDeleteUserCommand : ICommand<int>
     {
     }
 }

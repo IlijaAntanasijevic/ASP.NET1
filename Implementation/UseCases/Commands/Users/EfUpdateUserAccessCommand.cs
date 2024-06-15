@@ -1,6 +1,6 @@
 ﻿using App.Domain;
-using Application.DTO;
-using Application.UseCases.Queries.Users;
+using Application.DTO.Users;
+using Application.UseCases.Commands.Users;
 using DataAccess;
 using FluentValidation;
 using Implementation.Validators;

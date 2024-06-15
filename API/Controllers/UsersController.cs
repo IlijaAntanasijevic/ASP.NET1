@@ -1,5 +1,5 @@
-﻿using Application.DTO;
-using Application.DTO.Search;
+﻿using Application.DTO.Search;
+using Application.DTO.Users;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
@@ -24,18 +24,19 @@ namespace API.Controllers
         }
 
 
-          
+        //api/users/1 => Find user  
         [HttpGet("{id}")]
         public IActionResult Get(int id, [FromServices] IFindUserQuery query) 
             => Ok(_handler.HandleQuery(query,id));
      
 
+        //api/users => Get All
         [HttpGet]
         public IActionResult Get([FromQuery] UserSearch search, [FromServices] IGetUsersQuery query)
             => Ok(_handler.HandleQuery(query, search));
 
 
-
+        //api/register => Register
         [HttpPost]
         public IActionResult Post([FromBody] RegisterUserDto data, [FromServices] IRegisterUserCommand command)
         {
@@ -43,10 +44,9 @@ namespace API.Controllers
             return Created();
         }
 
-   
+        //api/1/access => Modify user access 
         [HttpPut("{id}/access")]
         [Authorize]
-        
         public IActionResult ModifyAccess(int id, [FromBody] UpdateUserAccessDto data,
                                                   [FromServices] IUpdateUseAccessCommand command)
         {
@@ -54,11 +54,20 @@ namespace API.Controllers
             _handler.HandleCommand(command, data);
             return NoContent();
         }
-
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut("{id}")]
+        [Authorize]
+        public IActionResult Put(int id)
         {
+            return null;
+        }
+
+        //api/5 => Delete 
+        [HttpDelete("{id}")]
+        [Authorize]
+        public IActionResult Delete(int id, [FromServices] IDeleteUserCommand command)
+        {
+            _handler.HandleCommand(command, id);
+            return NoContent();
         }
     }
 }

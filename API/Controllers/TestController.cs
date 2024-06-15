@@ -1,5 +1,5 @@
 ﻿using API.DTO;
-using Application.DTO;
+using Application.DTO.Users;
 using Application.UseCases.Commands.Users;
 using Implementation;
 using Implementation.UseCases;
