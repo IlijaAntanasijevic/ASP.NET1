@@ -22,4 +22,19 @@ namespace Implementation.Validators
                               .WithMessage("City name must be unique");
         }
     }
+
+
+    public class CreateCountryValidator : AbstractValidator<NamedDto>
+    {
+        public CreateCountryValidator(BookingContext context)
+        {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+            RuleFor(x => x.Name).NotEmpty()
+                              .WithMessage($"Country name is required")
+                              .MinimumLength(2)
+                              .WithMessage("Min number of characters is 2.")
+                              .Must(name => !context.Countries.Any(c => c.Name == name))
+                              .WithMessage("Country name must be unique");
+        }
+    }
 }

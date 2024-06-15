@@ -1,6 +1,6 @@
 ﻿using Application.DTO;
 using Application.DTO.Search;
-using Application.UseCases.Commands.ApartmentType;
+using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Queries.ApartmentType;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;

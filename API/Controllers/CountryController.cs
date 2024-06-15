@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTO;
+using Application.UseCases.Commands.Lookup;
+using Implementation.UseCases;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,7 +11,13 @@ namespace API.Controllers
     [ApiController]
     public class CountryController : ControllerBase
     {
-        // GET: api/<CountryController>
+        private UseCaseHandler _handler;
+
+        public CountryController(UseCaseHandler handler)
+        {
+            _handler = handler;
+        }
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -24,8 +33,11 @@ namespace API.Controllers
 
         // POST api/<CountryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] NamedDto data, ICreateCountryCommand command)
         {
+            _handler.HandleCommand(command, data);
+
+            return NoContent();
         }
 
         // PUT api/<CountryController>/5

@@ -1,12 +1,10 @@
 ﻿using API.Core.JWT;
-using Application.UseCases.Commands.ApartmentType;
 using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.ApartmentType;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
-using Implementation.UseCases.Commands.ApartmentType;
-using Implementation.UseCases.Commands.Lookup.Cities;
+using Implementation.UseCases.Commands.Lookup;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries.ApartmentType;
 using Implementation.UseCases.Queries.Users;
@@ -39,9 +37,11 @@ namespace API.Core
             services.AddTransient<UpdateUserValidator>();
             services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
 
-            //City
+            //Lookup
             services.AddTransient<ICreateCityCommand, EfCreateCityCommand>();
             services.AddTransient<CreateCityValidator>();
+            services.AddTransient<ICreateCountryCommand, EfCreateCountryCommand>();
+            services.AddTransient<CreateCountryValidator>();
 
         }
 

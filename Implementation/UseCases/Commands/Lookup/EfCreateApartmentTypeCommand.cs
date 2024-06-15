@@ -1,16 +1,16 @@
 ﻿using Application.DTO;
-using Application.UseCases.Commands.ApartmentType;
+using Application.UseCases.Commands.Lookup;
 using DataAccess;
 using FluentValidation;
 using Implementation.Validators;
 
-namespace Implementation.UseCases.Commands.ApartmentType
+namespace Implementation.UseCases.Commands.Lookup
 {
     public class EfCreateApartmentTypeCommand : EfUseCase, ICreateApartmentTypeCommand
     {
         private readonly CreateApartmentTypeValidator _validator;
 
-        public EfCreateApartmentTypeCommand(BookingContext context, CreateApartmentTypeValidator validator) 
+        public EfCreateApartmentTypeCommand(BookingContext context, CreateApartmentTypeValidator validator)
             : base(context)
         {
             _validator = validator;

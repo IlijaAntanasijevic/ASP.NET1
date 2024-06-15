@@ -6,7 +6,7 @@ using FluentValidation;
 using Implementation.Validators;
 
 
-namespace Implementation.UseCases.Commands.Lookup.Cities
+namespace Implementation.UseCases.Commands.Lookup
 {
     public class EfCreateCityCommand : EfUseCase, ICreateCityCommand
     {
@@ -26,7 +26,7 @@ namespace Implementation.UseCases.Commands.Lookup.Cities
 
             _validator.ValidateAndThrow(data);
 
-           
+
             var city = new City { Name = data.Name };
             Context.Cities.Add(city);
             Context.SaveChanges();

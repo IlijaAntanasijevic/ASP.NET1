@@ -17,11 +17,11 @@ namespace Implementation.Validators
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
             RuleFor(x => x.Name).NotNull()
-                                .WithMessage("Category name is required.")
+                                .WithMessage("Apartment type is required.")
                                 .MinimumLength(3)
                                 .WithMessage("Min number of characters is 3.")
                                 .Must(name => !context.ApartmentTypes.Any(x => x.Name == name))
-                                .WithMessage("Apartmen name is in use.");
+                                .WithMessage("Apartment type is in use.");
         }
     }
 }
