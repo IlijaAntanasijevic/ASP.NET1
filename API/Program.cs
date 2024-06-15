@@ -33,7 +33,6 @@ builder.Services.AddSingleton(settings.Jwt);
 
  */
 
-// => Last use case: 4
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -81,48 +80,7 @@ builder.Services.AddTransient<IApplicationActor>(x =>
 });
 #endregion
 
-#region JwtToken
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(cfg =>
-{
-    cfg.RequireHttpsMetadata = false;
-    cfg.SaveToken = true;
-    cfg.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidIssuer = settings.Jwt.Issuer,
-        ValidateIssuer = true,
-        ValidAudience = "Any",
-        ValidateAudience = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Jwt.SecretKey)),
-        ValidateIssuerSigningKey = true,
-        ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero
-    };
-    cfg.Events = new JwtBearerEvents
-    {
-        OnTokenValidated = context =>
-        {
-
-            Guid tokenId = context.HttpContext.Request.GetTokenId().Value;
-
-            ITokenStorage storage = builder.Services.BuildServiceProvider().GetService<ITokenStorage>();
-
-            if (!storage.Exists(tokenId))
-            {
-                context.Fail("Invalid token");
-            }
-
-            return Task.CompletedTask;
-
-        }
-    };
-});
-
-#endregion
+builder.Services.AddJwt(settings);
 
 var app = builder.Build();
 

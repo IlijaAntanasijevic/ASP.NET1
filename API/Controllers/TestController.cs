@@ -1,6 +1,7 @@
 ﻿using API.DTO;
 using Application.DTO;
 using Application.UseCases.Commands.Users;
+using Implementation;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,10 @@ namespace API.Controllers
             _handler.HandleCommand(command, data);
             return Ok();
         }
+
+
+        [HttpGet("/usecases/info")]
+        public IActionResult Get() => Ok(UseCaseInfo.AllUseCases);
 
     }
 }

@@ -6,6 +6,7 @@ using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,23 +23,22 @@ namespace API.Controllers
             _handler = handler;
         }
 
-        // GET: api/<UsersController>
-        
+
+          
         [HttpGet("{id}")]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<UsersController>/5
+
         [HttpGet]
         [Authorize]
         public IActionResult Get([FromQuery] UserSearch search, [FromServices] IGetUsersQuery query)
-        {
-            return Ok(_handler.HandleQuery(query, search));
-        }
+         => Ok(_handler.HandleQuery(query, search));
 
-        // POST api/<UsersController>
+
+
         [HttpPost]
         public IActionResult Post([FromBody] RegisterUserDto data, [FromServices] IRegisterUserCommand command)
         {
@@ -46,10 +46,16 @@ namespace API.Controllers
             return Created();
         }
 
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+   
+        [HttpPut("{id}/access")]
+        [Authorize]
+        
+        public IActionResult ModifyAccess(int id, [FromBody] UpdateUserAccessDto data,
+                                                  [FromServices] IUpdateUseAccessCommand command)
         {
+            data.UserId = id;
+            _handler.HandleCommand(command, data);
+            return NoContent();
         }
 
         // DELETE api/<UsersController>/5
