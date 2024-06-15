@@ -26,16 +26,13 @@ namespace API.Controllers
 
           
         [HttpGet("{id}")]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
+        public IActionResult Get(int id, [FromServices] IFindUserQuery query) 
+            => Ok(_handler.HandleQuery(query,id));
+     
 
         [HttpGet]
-        [Authorize]
         public IActionResult Get([FromQuery] UserSearch search, [FromServices] IGetUsersQuery query)
-         => Ok(_handler.HandleQuery(query, search));
+            => Ok(_handler.HandleQuery(query, search));
 
 
 

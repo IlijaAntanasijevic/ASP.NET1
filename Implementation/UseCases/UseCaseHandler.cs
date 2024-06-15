@@ -13,7 +13,7 @@ namespace Implementation.UseCases
     {
         private readonly IApplicationActor _actor;
         private readonly IUseCaseLogger _logger;
-        private List<int> globbalyAllowedUseCases = new List<int> { 2,3 };
+        private List<int> globbalyAllowedUseCases = new List<int> { 2,3,6 };
 
         public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
         {

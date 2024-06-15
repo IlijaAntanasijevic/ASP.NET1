@@ -31,6 +31,7 @@ namespace API.Core
             services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
             services.AddTransient<RegisterUserValidator>();
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
+            services.AddTransient<IFindUserQuery, EfFindUserQuery>();
 
         }
 
