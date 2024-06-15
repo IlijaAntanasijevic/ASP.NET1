@@ -8,7 +8,7 @@ namespace API.Core.Exceptions
     public class GlobalExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        private IExceptionLogger _logger;
+        private readonly IExceptionLogger _logger;
 
         public GlobalExceptionHandlingMiddleware(RequestDelegate next, IExceptionLogger logger)
         {
@@ -24,7 +24,8 @@ namespace API.Core.Exceptions
             }
             catch (Exception exception)
             {
-                if(exception is ValidationException ex)
+
+                if (exception is ValidationException ex)
                 {
                     httpContext.Response.StatusCode = 422;
                     var body = ex.Errors.Select(x => new { Property = x.PropertyName, Error = x.ErrorMessage });
@@ -45,7 +46,9 @@ namespace API.Core.Exceptions
                     return;
                 }
 
-                var errorId = _logger.Log(exception);
+                var actor = httpContext.RequestServices.GetService<IApplicationActor>();
+
+                var errorId = _logger.Log(exception, actor);
                 httpContext.Response.StatusCode = 500;
                 await httpContext.Response.WriteAsJsonAsync(new { Message = $"An unexpected error has occured. Please contact our support with this ID - {errorId}." });
 

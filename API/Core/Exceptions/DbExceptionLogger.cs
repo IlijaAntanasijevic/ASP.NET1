@@ -13,7 +13,7 @@ namespace API.Core.Exceptions
             _context = context;
         }
 
-        public Guid Log(Exception ex)
+        public Guid Log(Exception ex, IApplicationActor actor)
         {
             Guid id = Guid.NewGuid();
 
@@ -23,6 +23,7 @@ namespace API.Core.Exceptions
                 Message = ex.Message,
                 StrackTrace = ex.StackTrace,
                 Time = DateTime.Now,
+                Email = actor.Email
             };
             _context.ErrorLogs.Add(log);
             _context.SaveChanges();

@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.Commands.ApartmentType;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.ApartmentType;
+using Implementation.UseCases;
 using Implementation.UseCases.Commands.ApartmentType;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries.ApartmentType;
@@ -13,6 +14,8 @@ namespace API.Core
     {
         public static void AddUseCases(this IServiceCollection services)
         {
+            services.AddTransient<UseCaseHandler>();
+
             //Apartment Type
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
             services.AddTransient<CreateApartmentTypeValidator>();

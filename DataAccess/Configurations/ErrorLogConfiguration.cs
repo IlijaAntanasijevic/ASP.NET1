@@ -16,7 +16,9 @@ namespace DataAccess.Configurations
         {
             builder.Property(x => x.Message).IsRequired();
             builder.Property(x => x.StrackTrace).IsRequired();
+            builder.Property(x => x.Email).HasMaxLength(150);
 
+            builder.HasIndex(x => x.Email);
             builder.HasKey(x => x.ErrorId);
         }
     }

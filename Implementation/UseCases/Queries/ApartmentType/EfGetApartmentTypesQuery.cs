@@ -24,9 +24,10 @@ namespace Implementation.UseCases.Queries.ApartmentType
 
         public List<BasicDto> Execute(BasicSearch search)
         {
-            var apartmentTypes = Context.ApartmentTypes.Select(x => new BasicDto { Id = x.Id, Name = x.Name }).ToList();
 
-            return apartmentTypes;
+           var apartmentTypes = Context.ApartmentTypes.Select(x => new BasicDto { Id = x.Id, Name = x.Name }).ToList();
+
+           return apartmentTypes;
         }
     }
 }

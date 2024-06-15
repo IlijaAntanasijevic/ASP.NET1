@@ -10,5 +10,6 @@ namespace Domain
         public string Message { get; set; }
         public string StrackTrace { get; set; }
         public DateTime Time { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Implementation.UseCases.Commands.ApartmentType
 
         public int Id => 1;
 
-        public string Name => "Insert apartment type";
+        public string Name => nameof(EfCreateApartmentTypeCommand);
 
         public void Execute(NamedDto data)
         {

@@ -19,7 +19,7 @@ namespace Implementation.UseCases.Commands.Users
 
         public int Id => 2;
 
-        public string Name => "Register user";
+        public string Name => nameof(EfRegisterUserCommand);
 
         public void Execute(RegisterUserDto data)
         {

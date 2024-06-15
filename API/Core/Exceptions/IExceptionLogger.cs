@@ -4,6 +4,6 @@ namespace API.Core.Exceptions
 {
     public interface IExceptionLogger
     {
-        Guid Log(Exception ex);
+        Guid Log(Exception ex, IApplicationActor actor);
     }
 }

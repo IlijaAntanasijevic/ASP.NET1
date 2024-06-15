@@ -27,6 +27,14 @@ builder.Services.AddSingleton(settings.Jwt);
 
 // Add services to the container.
 
+/* TODO: Subota
+ 
+    - Fix DbExLogger - Actor (unauth actor)
+    - Files
+    - Business Logic
+
+ */
+
 // => Last use case: 3
 
 builder.Services.AddControllers();
@@ -36,7 +44,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddTransient<UseCaseHandler>();
+
 
 builder.Services.AddTransient(x => new BookingContext(settings.ConnectionString));
 builder.Services.AddTransient<IUseCaseLogger, DbUseCaseLogger>();
