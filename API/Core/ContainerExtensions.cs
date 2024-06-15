@@ -33,6 +33,8 @@ namespace API.Core
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
             services.AddTransient<IFindUserQuery, EfFindUserQuery>();
             services.AddTransient<IDeleteUserCommand,EfDeleteUserCommand>();
+            services.AddTransient<UpdateUserValidator>();
+            services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
 
         }
 

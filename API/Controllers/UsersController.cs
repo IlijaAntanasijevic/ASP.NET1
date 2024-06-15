@@ -55,10 +55,13 @@ namespace API.Controllers
             return NoContent();
         }
         [HttpPut("{id}")]
-        [Authorize]
-        public IActionResult Put(int id)
+        //[Authorize]
+        public IActionResult Put(int id, [FromBody] UpdateUserDto data, 
+                                         [FromServices] IUpdateUserCommand command)
         {
-            return null;
+            data.Id = id;
+            _handler.HandleCommand(command, data);
+            return NoContent();
         }
 
         //api/5 => Delete 
