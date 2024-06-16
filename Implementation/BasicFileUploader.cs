@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Implementation
 
             if (!_allowedExtensions.Contains(extension))
             {
-                throw new InvalidOperationException("Unsupported file extension.");
+                throw new UnsupportedFileException("Unsupported file extension.");
             }
 
             var basePathSegments = _uploadPaths[type];
@@ -52,7 +53,7 @@ namespace Implementation
 
             var savePath = Path.Combine(basePath, uniqueFileName);
 
-            File.Copy(file, savePath, true);
+            File.Move(file, savePath, true);
             return savePath;
 
         }

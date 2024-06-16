@@ -55,6 +55,24 @@ namespace API.Core.Exceptions
                     await httpContext.Response.WriteAsJsonAsync(body);
                     return;
                 }
+                if(exception is UnsupportedFileException u)
+                {
+                    httpContext.Response.StatusCode = 415;
+                    var body = new { error = u.Message };
+
+                    await httpContext.Response.WriteAsJsonAsync(body);
+                    return;
+                }  
+                if (exception is FileNotFoundException f)
+                {
+                    httpContext.Response.StatusCode = 404;
+
+                    var body = new { error = f.Message };
+
+                    await httpContext.Response.WriteAsJsonAsync(body);
+                    return;
+                }
+
 
                 var actor = httpContext.RequestServices.GetService<IApplicationActor>();
 

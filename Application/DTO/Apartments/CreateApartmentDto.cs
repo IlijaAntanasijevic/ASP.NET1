@@ -15,11 +15,10 @@ namespace Application.DTO.Apartments
         public int MaxGuests { get; set; }
         public decimal Price { get; set; }
         public string MainImage { get; set; }
-        //public int UserId { get; set; }
         public int ApartmentTypeId { get; set; }
         public IEnumerable<int> FeatureIds { get; set; }
         public IEnumerable<int> PaymentMethodIds { get; set; }
-        //public IEnumerable<string> Images { get; set; }
+        public IEnumerable<string> Images { get; set; }
 
 
     }

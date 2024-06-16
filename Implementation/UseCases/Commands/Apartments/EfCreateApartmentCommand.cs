@@ -35,7 +35,8 @@ namespace Implementation.UseCases.Commands.Apartments
         {
             _validator.ValidateAndThrow(data);
 
-            var filePath = _fileUploader.Upload(data.MainImage, UploadType.MainImage);
+            var mainImagePath = _fileUploader.Upload(data.MainImage, UploadType.MainImage);
+            var otherImages = _fileUploader.Upload(data.Images, UploadType.Apartment);
 
             var apartmentToAdd = new Apartment
             {
@@ -47,7 +48,7 @@ namespace Implementation.UseCases.Commands.Apartments
                 MaxGuests = data.MaxGuests,
                 Price = data.Price,
                 ApartmentTypeId = data.ApartmentTypeId,
-                MainImage = filePath,
+                MainImage = mainImagePath,
                 FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
                 {
                     FeatureId = x
@@ -55,6 +56,10 @@ namespace Implementation.UseCases.Commands.Apartments
                 PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
                 {
                      PaymentId = x
+                }).ToList(),
+                Images = data.Images.Select(x => new Image
+                {
+                     Path = x
                 }).ToList()
        
             };
