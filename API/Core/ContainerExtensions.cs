@@ -42,6 +42,10 @@ namespace API.Core
             services.AddTransient<CreateCityValidator>();
             services.AddTransient<ICreateCountryCommand, EfCreateCountryCommand>();
             services.AddTransient<CreateCountryValidator>();
+            services.AddTransient<ICreateFeaturesCommand, EfCreateFeaturesCommand>();
+            services.AddTransient<CreateFeaturesValidator>();
+            services.AddTransient<ICreatePaymentCommand, EfCreatePaymentCommand>();
+            services.AddTransient<CreatePaymentValidator>();
 
         }
 

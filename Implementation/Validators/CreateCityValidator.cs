@@ -37,4 +37,47 @@ namespace Implementation.Validators
                               .WithMessage("Country name must be unique");
         }
     }
+
+    public class CreateFeaturesValidator : AbstractValidator<NamedDto>
+    {
+        public CreateFeaturesValidator(BookingContext context)
+        {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+            RuleFor(x => x.Name).NotEmpty()
+                              .WithMessage($"Feature name is required")
+                              .MinimumLength(2)
+                              .WithMessage("Min number of characters is 2.")
+                              .Must(name => !context.Features.Any(c => c.Name == name))
+                              .WithMessage("Feature name must be unique");
+        }
+    }
+
+    public class CreatePaymentValidator : AbstractValidator<NamedDto>
+    {
+        public CreatePaymentValidator(BookingContext context)
+        {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+            RuleFor(x => x.Name).NotEmpty()
+                              .WithMessage($"Payment name is required")
+                              .MinimumLength(2)
+                              .WithMessage("Min number of characters is 2.")
+                              .Must(name => !context.Payments.Any(c => c.Name == name))
+                              .WithMessage("Payment name must be unique");
+        }
+    }
+
+    public class CreateApartmentTypeValidator : AbstractValidator<NamedDto>
+    {
+
+        public CreateApartmentTypeValidator(BookingContext context)
+        {
+            CascadeMode = CascadeMode.StopOnFirstFailure;
+            RuleFor(x => x.Name).NotNull()
+                                .WithMessage("Apartment type is required.")
+                                .MinimumLength(3)
+                                .WithMessage("Min number of characters is 3.")
+                                .Must(name => !context.ApartmentTypes.Any(x => x.Name == name))
+                                .WithMessage("Apartment type is in use.");
+        }
+    }
 }
