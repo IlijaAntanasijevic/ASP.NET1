@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\apartments\" />
+    <Folder Include="wwwroot\apartments\mainImages\" />
+    <Folder Include="wwwroot\apartments\images\" />
     <Folder Include="wwwroot\temp\" />
   </ItemGroup>
 

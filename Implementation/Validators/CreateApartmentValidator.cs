@@ -72,6 +72,8 @@ namespace Implementation.Validators
  
                                             });
 
+           // RuleFor(x => x.MainImage).NotEmpty();
+
 
 
         }

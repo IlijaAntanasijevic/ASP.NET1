@@ -14,7 +14,7 @@ namespace Application.DTO.Apartments
         public int CityCountryId { get; set; }
         public int MaxGuests { get; set; }
         public decimal Price { get; set; }
-        //public string MainImage { get; set; }
+        public string MainImage { get; set; }
         //public int UserId { get; set; }
         public int ApartmentTypeId { get; set; }
         public IEnumerable<int> FeatureIds { get; set; }

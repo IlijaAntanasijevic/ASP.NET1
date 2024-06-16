@@ -25,6 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        
         public IActionResult Post([FromForm] FileUploadDto dto)
         {
             var extension = Path.GetExtension(dto.File.FileName);

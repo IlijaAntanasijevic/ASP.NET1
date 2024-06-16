@@ -18,11 +18,13 @@ namespace Implementation.UseCases.Commands.Apartments
     {
         private readonly CreateApartmentValidator _validator;
         private readonly IApplicationActor _actor;
-        public EfCreateApartmentCommand(BookingContext context, CreateApartmentValidator validator, IApplicationActor actor) 
+        private readonly IFileUploader _fileUploader;
+        public EfCreateApartmentCommand(BookingContext context, CreateApartmentValidator validator, IApplicationActor actor, IFileUploader uploader)
             : base(context)
         {
             _validator = validator;
             _actor = actor;
+            _fileUploader = uploader;
         }
 
         public int Id => 9;
@@ -32,6 +34,8 @@ namespace Implementation.UseCases.Commands.Apartments
         public void Execute(CreateApartmentDto data)
         {
             _validator.ValidateAndThrow(data);
+
+            var filePath = _fileUploader.Upload(data.MainImage, UploadType.MainImage);
 
             var apartmentToAdd = new Apartment
             {
@@ -43,6 +47,7 @@ namespace Implementation.UseCases.Commands.Apartments
                 MaxGuests = data.MaxGuests,
                 Price = data.Price,
                 ApartmentTypeId = data.ApartmentTypeId,
+                MainImage = filePath,
                 FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
                 {
                     FeatureId = x
@@ -50,9 +55,8 @@ namespace Implementation.UseCases.Commands.Apartments
                 PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
                 {
                      PaymentId = x
-                }).ToList(),
-                 MainImage = "test"
-
+                }).ToList()
+       
             };
 
             Context.Apartments.Add(apartmentToAdd);

@@ -51,6 +51,8 @@ builder.Services.AddUseCases();
 builder.Services.AddTransient<JwtTokenCreator>();
 builder.Services.AddTransient<ITokenStorage, InMemoryTokenStorage>();
 
+builder.Services.AddTransient<IFileUploader, BasicFileUploader>();
+
 
 
 #region Actors
