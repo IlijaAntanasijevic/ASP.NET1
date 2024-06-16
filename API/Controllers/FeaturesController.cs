@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using Application.UseCases.Commands.Lookup;
 using Implementation.UseCases;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -34,6 +35,7 @@ namespace API.Controllers
 
         // POST api/<FeaturesController>
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] NamedDto data, [FromServices] ICreateFeaturesCommand command)
         {
             _handler.HandleCommand(command, data);

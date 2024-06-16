@@ -1,4 +1,6 @@
 ﻿using App.Domain;
+using Application;
+using Application.Exceptions;
 using Application.UseCases.Commands.Users;
 using DataAccess;
 using Implementation.Exceptions;
@@ -12,8 +14,10 @@ namespace Implementation.UseCases.Commands.Users
 {
     public class EfDeleteUserCommand : EfUseCase, IDeleteUserCommand
     {
-        public EfDeleteUserCommand(BookingContext context) : base(context)
+        private readonly IApplicationActor _actor;
+        public EfDeleteUserCommand(BookingContext context, IApplicationActor actor) : base(context)
         {
+            _actor = actor;
         }
 
         public int Id => 7;
@@ -27,6 +31,10 @@ namespace Implementation.UseCases.Commands.Users
             if(user == null)
             {
                 throw new EntityNotFoundException(nameof(User), userId);
+            }
+            if(userId != _actor.Id)
+            {
+                throw new ConflictException("User can not be deleted");
             }
 
             user.IsActive = false;

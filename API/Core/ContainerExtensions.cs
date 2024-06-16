@@ -1,9 +1,11 @@
 ﻿using API.Core.JWT;
+using Application.UseCases.Commands.Apartments;
 using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.ApartmentType;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
+using Implementation.UseCases.Commands.Apartments;
 using Implementation.UseCases.Commands.Lookup;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries.ApartmentType;
@@ -48,6 +50,10 @@ namespace API.Core
             services.AddTransient<CreatePaymentValidator>();
             services.AddTransient<ICreateCityCountryCommand, EfCreateCityCountryCommand>();
             services.AddTransient<CreateCityCountryValidator>();
+
+            //Apartment
+            services.AddTransient<ICreateApartmentCommand, EfCreateApartmentCommand>();
+            services.AddTransient<CreateApartmentValidator>();
 
         }
 

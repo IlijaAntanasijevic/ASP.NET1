@@ -1,5 +1,5 @@
-﻿using Application.DTO;
-using Application.UseCases.Commands.Lookup;
+﻿using Application.DTO.Apartments;
+using Application.UseCases.Commands.Apartments;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,45 +10,45 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : ControllerBase
+    public class ApartmentController : ControllerBase
     {
-        private UseCaseHandler _handler;
+        private readonly UseCaseHandler _handler;
 
-        public CountryController(UseCaseHandler handler)
+        public ApartmentController(UseCaseHandler handler)
         {
             _handler = handler;
         }
 
+        // GET: api/<ApartmentController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<CountryController>/5
+        // GET api/<ApartmentController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<CountryController>
+        // POST api/<ApartmentController>
         [HttpPost]
         [Authorize]
-        public IActionResult Post([FromBody] NamedDto data, ICreateCountryCommand command)
+        public IActionResult Post([FromBody] CreateApartmentDto data, ICreateApartmentCommand command)
         {
             _handler.HandleCommand(command, data);
-
-            return NoContent();
+            return Created();
         }
 
-        // PUT api/<CountryController>/5
+        // PUT api/<ApartmentController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<CountryController>/5
+        // DELETE api/<ApartmentController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

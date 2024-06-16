@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Apartments
 {
-    //CHANGE DTO
-    public interface ICreateApartmentCommand : ICommand<ApartmentDto>
+    public interface ICreateApartmentCommand : ICommand<CreateApartmentDto>
     {
     }
 }

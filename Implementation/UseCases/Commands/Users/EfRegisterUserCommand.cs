@@ -35,6 +35,9 @@ namespace Implementation.UseCases.Commands.Users
             {
                 data.Avatar = "default.jpg";
             }
+            //7 - Delete user
+            //8 - Update user
+            //9 - Create Apartment
 
             User user = new User
             {
@@ -43,7 +46,13 @@ namespace Implementation.UseCases.Commands.Users
                 FirstName = data.FirstName,
                 LastName = data.LastName,
                 Phone = data.Phone,
-                Avatar = data.Avatar
+                Avatar = data.Avatar,
+                UseCases = new List<UserUseCase>()
+                {
+                    new UserUseCase { UseCaseId = 7},
+                    new UserUseCase { UseCaseId = 8},
+                    new UserUseCase { UseCaseId = 9},
+                }
             };
 
             Context.Add(user);
