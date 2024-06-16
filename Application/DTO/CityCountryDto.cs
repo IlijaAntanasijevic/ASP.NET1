@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.DTO
 {
-    public abstract class PagedSearch
+    public class CityCountryDto
     {
-        public int? PerPage { get; set; } = 10;
-        public int? Page { get; set; } = 1;
+        public int CityId { get; set; }
+        public int CountryId { get; set; }
     }
 }

@@ -46,6 +46,8 @@ namespace API.Core
             services.AddTransient<CreateFeaturesValidator>();
             services.AddTransient<ICreatePaymentCommand, EfCreatePaymentCommand>();
             services.AddTransient<CreatePaymentValidator>();
+            services.AddTransient<ICreateCityCountryCommand, EfCreateCityCountryCommand>();
+            services.AddTransient<CreateCityCountryValidator>();
 
         }
 

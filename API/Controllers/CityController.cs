@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using Application.UseCases.Commands.Lookup;
 using Implementation.UseCases;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -34,10 +35,19 @@ namespace API.Controllers
 
         // POST api/<CityController>
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] NamedDto dto, [FromServices] ICreateCityCommand command)
         {
             _handler.HandleCommand(command, dto);
 
+            return Created();
+        }
+
+        [HttpPost("/api/citycountry")]
+        [Authorize]
+        public IActionResult CityCoutry([FromBody] CityCountryDto data, [FromServices] ICreateCityCountryCommand commad)
+        {
+            _handler.HandleCommand(commad,data);
             return Created();
         }
      

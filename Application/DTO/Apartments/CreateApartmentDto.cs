@@ -13,6 +13,8 @@ namespace Application.DTO.Apartments
         public string Description { get; set; }
         public string Address { get; set; }
         public int CityCountryId { get; set; }
+        public int MaxGuests { get; set; }
+        public decimal PricePerNight { get; set; }
         public string Phone { get; set; }
         public string MainImage { get; set; }
         //public int UserId { get; set; }
