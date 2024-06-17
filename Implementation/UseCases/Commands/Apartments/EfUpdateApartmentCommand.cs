@@ -8,17 +8,20 @@ using Application;
 using DataAccess.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Application.Exceptions;
+using Implementation.Validators;
+using FluentValidation;
 namespace Implementation.UseCases.Commands.Apartments
 {
     public class EfUpdateApartmentCommand : EfUseCase, IUpdateApartmentCommand
     {
         private readonly IApplicationActor _actor;
-     
-        public EfUpdateApartmentCommand(BookingContext context, IApplicationActor actor) 
+        private readonly UpdateApartmentValidator _validator;
+
+        public EfUpdateApartmentCommand(BookingContext context, IApplicationActor actor, UpdateApartmentValidator validator)
             : base(context)
         {
             _actor = actor;
-
+            _validator = validator;
         }
 
         public int Id => 18;
@@ -27,6 +30,8 @@ namespace Implementation.UseCases.Commands.Apartments
 
         public void Execute(UpdateApartmentDto data)
         {
+
+            _validator.ValidateAndThrow(data);
             var apartment = Context.Apartments.Include(x => x.User)
                                               .Include(x => x.FeatureApartments)
                                               .Include(x => x.PaymentApartments)

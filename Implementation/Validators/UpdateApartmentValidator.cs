@@ -1,7 +1,7 @@
-﻿using App.Domain;
-using Application.DTO.Apartments;
+﻿using Application.DTO.Apartments;
 using DataAccess;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Implementation.Validators
 {
-  
-    public class CreateApartmentValidator : AbstractValidator<CreateApartmentDto>
+    public class UpdateApartmentValidator : AbstractValidator<UpdateApartmentDto>
     {
-        public CreateApartmentValidator(BookingContext context)
+        public UpdateApartmentValidator(BookingContext context)
         {
+
             CascadeMode = CascadeMode.StopOnFirstFailure;
             RuleFor(x => x.Name).NotEmpty()
                                 .WithMessage("Apartment name is required")
@@ -25,16 +25,6 @@ namespace Implementation.Validators
                                        .WithMessage("Apartment description is required.")
                                        .MinimumLength(10)
                                        .WithMessage("Description must be at least 10 characters long.");
-
-            RuleFor(x => x.Address).NotEmpty()
-                                   .WithMessage("Address is required.")
-                                   .MinimumLength(5)
-                                   .WithMessage("Address must be at least 5 characters long.");
-
-            RuleFor(x => x.CityCountryId).NotEmpty()
-                                         .WithMessage("CityCountry id is required.")
-                                         .Must(id => context.CitiesCountry.Any(c => c.Id == id))
-                                         .WithMessage("City-Country id doesn't exist.");
 
             RuleFor(x => x.MaxGuests).NotEmpty()
                                      .WithMessage("Number of max guests is required.")
@@ -50,11 +40,6 @@ namespace Implementation.Validators
                                  .LessThan(10000)
                                  .WithMessage("Maximum price per night must be less than 10.000.");
 
-            RuleFor(x => x.ApartmentTypeId).NotEmpty()
-                                           .WithMessage("Apartment type id is required.")
-                                           .Must(id => context.ApartmentTypes.Any(x => x.Id == id))
-                                           .WithMessage("Apartment type id doesn't exist.");
-
             RuleFor(x => x.FeatureIds).NotEmpty()
                                       .WithMessage("At least one feature is required.")
                                       .DependentRules(() =>
@@ -69,11 +54,8 @@ namespace Implementation.Validators
                                             {
                                                 RuleForEach(x => x.PaymentMethodIds).Must(id => context.Payments.Any(p => p.Id == id))
                                                                                     .WithMessage("Payment method doesn't exist.");
- 
+
                                             });
-
-    
-
         }
     }
 }
