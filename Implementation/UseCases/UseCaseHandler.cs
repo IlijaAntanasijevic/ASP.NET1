@@ -13,8 +13,9 @@ namespace Implementation.UseCases
     {
         private readonly IApplicationActor _actor;
         private readonly IUseCaseLogger _logger;
-        //2 - Register | 6 - Find User | 4 - Get All Users | 4 - Get All Apartment Types
-        private List<int> globbalyAllowedUseCases = new List<int> { 2, 3, 6, 4 };
+        //2 - Register | 6 - Find User | 4 - Get All Users | 4 - Get All Apartment Types | 15 - Get All Apartments
+        //16 - Find Apartment 
+        private List<int> globbalyAllowedUseCases = new List<int> { 2, 3, 6, 4, 15, 16 };
 
         public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
         {

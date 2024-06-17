@@ -2,12 +2,14 @@
 using Application.UseCases.Commands.Apartments;
 using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Commands.Users;
+using Application.UseCases.Queries.Apartment;
 using Application.UseCases.Queries.ApartmentType;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands.Apartments;
 using Implementation.UseCases.Commands.Lookup;
 using Implementation.UseCases.Commands.Users;
+using Implementation.UseCases.Queries.Apartments;
 using Implementation.UseCases.Queries.ApartmentType;
 using Implementation.UseCases.Queries.Users;
 using Implementation.Validators;
@@ -54,6 +56,10 @@ namespace API.Core
             //Apartment
             services.AddTransient<ICreateApartmentCommand, EfCreateApartmentCommand>();
             services.AddTransient<CreateApartmentValidator>();
+            services.AddTransient<IFindApartmentQuery, EfFindApartmentQuery>();
+            services.AddTransient<IGetApartmentsQuery, EfGetApartmentsQuery>();
+            services.AddTransient<IDeleteApartmentCommand, EfDeleteApartmentCommand>();
+
 
         }
 

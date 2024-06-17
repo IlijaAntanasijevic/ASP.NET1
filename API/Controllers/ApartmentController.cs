@@ -1,5 +1,7 @@
 ﻿using Application.DTO.Apartments;
+using Application.DTO.Search;
 using Application.UseCases.Commands.Apartments;
+using Application.UseCases.Queries.Apartment;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,21 +21,19 @@ namespace API.Controllers
             _handler = handler;
         }
 
-        // GET: api/<ApartmentController>
+
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        public IActionResult Get([FromQuery] ApartmentSearch search, [FromServices] IGetApartmentsQuery query)
+            => Ok(_handler.HandleQuery(query, search));
 
-        // GET api/<ApartmentController>/5
+
+
+
         [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        public IActionResult Get(int id, [FromServices] IFindApartmentQuery query) => Ok(_handler.HandleQuery(query,id));
+        
 
-        // POST api/<ApartmentController>
+
         [HttpPost]
         [Authorize]
         public IActionResult Post([FromBody] CreateApartmentDto data, ICreateApartmentCommand command)
@@ -42,16 +42,20 @@ namespace API.Controllers
             return Created();
         }
 
-        // PUT api/<ApartmentController>/5
+
+
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<ApartmentController>/5
+
+   
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id, [FromServices] IDeleteApartmentCommand command)
         {
+            _handler.HandleCommand(command, id);
+            return NoContent();
         }
     }
 }

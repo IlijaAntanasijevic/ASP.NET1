@@ -35,10 +35,11 @@ namespace Implementation.UseCases.Commands.Users
             {
                 data.Avatar = "default.jpg";
             }
+
             //7 - Delete user
             //8 - Update user
             //9 - Create Apartment
-
+            //17 - Delete Apartment
             User user = new User
             {
                 Email = data.Email,
@@ -52,6 +53,7 @@ namespace Implementation.UseCases.Commands.Users
                     new UserUseCase { UseCaseId = 7},
                     new UserUseCase { UseCaseId = 8},
                     new UserUseCase { UseCaseId = 9},
+                    new UserUseCase { UseCaseId = 17},
                 }
             };
 
