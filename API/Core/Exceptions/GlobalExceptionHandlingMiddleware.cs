@@ -72,6 +72,13 @@ namespace API.Core.Exceptions
                     await httpContext.Response.WriteAsJsonAsync(body);
                     return;
                 }
+                if(exception is PermissionDeniedException p)
+                {
+                    httpContext.Response.StatusCode = 403;
+                    var body = new { error = p.Message };
+                    await httpContext.Response.WriteAsJsonAsync(body);
+                    return;
+                }
 
 
                 var actor = httpContext.RequestServices.GetService<IApplicationActor>();

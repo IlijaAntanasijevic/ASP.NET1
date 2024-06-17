@@ -1,4 +1,5 @@
-﻿using Application.DTO.Apartments;
+﻿using App.Domain;
+using Application.DTO.Apartments;
 using Application.DTO.Users;
 using Application.UseCases.Queries.Apartment;
 using DataAccess;
@@ -40,7 +41,7 @@ namespace Implementation.UseCases.Queries.Apartments
 
             if (apartment == null)
             {
-                throw new EntityNotFoundException(nameof(EfFindApartmentQuery),search);
+                throw new EntityNotFoundException(nameof(Apartment),search);
             }
 
             var apartmentDto = new ApartmentDto

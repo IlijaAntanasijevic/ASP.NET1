@@ -13,14 +13,14 @@ namespace Implementation
         {
             get
             {
-                var type = typeof(IUseCase);
+                Type type = typeof(IUseCase);
                 var types = typeof(UseCaseInfo).Assembly.GetTypes()
-                    .Where(p => type.IsAssignableFrom(p)).Select(x => Activator.CreateInstance(x));
+                    .Where(type.IsAssignableFrom).Select(Activator.CreateInstance);
 
                 return null;
             }
         }
 
-        public static int MaxUseCaseId => 17;
+        public static int MaxUseCaseId => 19;
     }
 }

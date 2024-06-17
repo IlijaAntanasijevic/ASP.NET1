@@ -15,7 +15,7 @@ namespace Implementation.UseCases
         private readonly IUseCaseLogger _logger;
         //2 - Register | 6 - Find User | 4 - Get All Users | 4 - Get All Apartment Types | 15 - Get All Apartments
         //16 - Find Apartment 
-        private List<int> globbalyAllowedUseCases = new List<int> { 2, 3, 6, 4, 15, 16 };
+        private List<int> GloballyAllowed = new List<int> { 2, 3, 6, 4, 15, 16 };
 
         public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
         {
@@ -41,7 +41,7 @@ namespace Implementation.UseCases
 
         private void Handle(IUseCase useCase, object data)
         {
-            if (!globbalyAllowedUseCases.Contains(useCase.Id) && !_actor.AllowedUseCases.Contains(useCase.Id))
+            if (!GloballyAllowed.Contains(useCase.Id) && !_actor.AllowedUseCases.Contains(useCase.Id))
             {
                 throw new UnauthorizedAccessException();
             }

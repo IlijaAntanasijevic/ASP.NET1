@@ -30,7 +30,7 @@ namespace Implementation.UseCases.Commands.Users
  
             if(id != _actor.Id)
             {
-                throw new ConflictException("User can not be deleted");
+                throw new PermissionDeniedException("You do not have permission to delete this user.");
             }
 
            base.Execute(id);

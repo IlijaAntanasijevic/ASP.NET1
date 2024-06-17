@@ -32,7 +32,7 @@ namespace Implementation.UseCases.Commands.Apartments
 
             if(apartment.UserId != _actor.Id)
             {
-                throw new ConflictException("Apartment can not be deleted");
+                throw new PermissionDeniedException("You do not have permission to delete this apartment.");
             }
 
             base.Execute(id);

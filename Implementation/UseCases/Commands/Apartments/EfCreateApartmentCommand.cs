@@ -57,7 +57,7 @@ namespace Implementation.UseCases.Commands.Apartments
                 {
                      PaymentId = x
                 }).ToList(),
-                Images = data.Images.Select(x => new Image
+                Images = otherImages.Select(x => new Image
                 {
                      Path = x
                 }).ToList()

@@ -59,6 +59,8 @@ namespace API.Core
             services.AddTransient<IFindApartmentQuery, EfFindApartmentQuery>();
             services.AddTransient<IGetApartmentsQuery, EfGetApartmentsQuery>();
             services.AddTransient<IDeleteApartmentCommand, EfDeleteApartmentCommand>();
+            services.AddTransient<IUpdateApartmentCommand, EfUpdateApartmentCommand>();
+            services.AddTransient<IUpdateApartmentImagesCommand, EfUpdateApartmentImagesCommand>();
 
 
         }

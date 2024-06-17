@@ -54,6 +54,7 @@ namespace API.Controllers
             _handler.HandleCommand(command, data);
             return NoContent();
         }
+        //api/1 => Update user
         [HttpPut("{id}")]
         [Authorize]
         public IActionResult Put(int id, [FromBody] UpdateUserDto data, 
