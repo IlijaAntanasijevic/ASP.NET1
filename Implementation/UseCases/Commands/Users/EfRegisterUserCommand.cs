@@ -42,6 +42,7 @@ namespace Implementation.UseCases.Commands.Users
             //17 - Delete Apartment
             //18 - Update Apartment
             //19 - Update Apartment Images
+            //20 - Create Booking
             User user = new User
             {
                 Email = data.Email,
@@ -58,6 +59,7 @@ namespace Implementation.UseCases.Commands.Users
                     new UserUseCase { UseCaseId = 17},
                     new UserUseCase { UseCaseId = 18},
                     new UserUseCase { UseCaseId = 19},
+                    new UserUseCase { UseCaseId = 20},
                 }
             };
 

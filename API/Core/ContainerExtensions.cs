@@ -1,5 +1,6 @@
 ﻿using API.Core.JWT;
 using Application.UseCases.Commands.Apartments;
+using Application.UseCases.Commands.Bookings;
 using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.Apartment;
@@ -7,6 +8,7 @@ using Application.UseCases.Queries.ApartmentType;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands.Apartments;
+using Implementation.UseCases.Commands.Bookings;
 using Implementation.UseCases.Commands.Lookup;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries.Apartments;
@@ -27,11 +29,6 @@ namespace API.Core
             services.AddTransient<UseCaseHandler>();
           
 
-            //Apartment Type
-            services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
-            services.AddTransient<CreateApartmentTypeValidator>();
-            services.AddTransient<IGetApartmentTypesQuery, EfGetApartmentTypesQuery>();
-
             //User
             services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
             services.AddTransient<RegisterUserValidator>();
@@ -42,6 +39,9 @@ namespace API.Core
             services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
 
             //Lookup
+            services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
+            services.AddTransient<CreateApartmentTypeValidator>();
+            services.AddTransient<IGetApartmentTypesQuery, EfGetApartmentTypesQuery>();
             services.AddTransient<ICreateCityCommand, EfCreateCityCommand>();
             services.AddTransient<CreateCityValidator>();
             services.AddTransient<ICreateCountryCommand, EfCreateCountryCommand>();
@@ -62,6 +62,10 @@ namespace API.Core
             services.AddTransient<IUpdateApartmentCommand, EfUpdateApartmentCommand>();
             services.AddTransient<IUpdateApartmentImagesCommand, EfUpdateApartmentImagesCommand>();
             services.AddTransient<UpdateApartmentValidator>();
+
+            //Booking
+            services.AddTransient<ICreateBookingCommand, EfCreateBookingCommand>();
+            services.AddTransient<CreateBookingValidator>();
 
 
         }

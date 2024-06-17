@@ -35,6 +35,8 @@ namespace DataAccess.Configurations
                    .WithMany(x => x.Bookings)
                    .HasForeignKey(x => x.ApartmentId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.ToTable("Bookings", x => x.HasTrigger("trg_CalculateTotalPrice"));
         }
     }
 }
