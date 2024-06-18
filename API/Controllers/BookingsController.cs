@@ -23,6 +23,7 @@ namespace API.Controllers
 
         // GET: api/<BookingsController>
         [HttpGet]
+        [Authorize]
         public IActionResult Get([FromQuery] BookingSearch search, [FromServices] IGetBookingsQuery query)
         {
             return Ok(_handler.HandleQuery(query,search));
@@ -31,9 +32,11 @@ namespace API.Controllers
 
         // GET api/<BookingsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        [Authorize]
+        public IActionResult Get(int id, [FromServices] IFindBookingQuery query)
         {
-            return "value";
+            
+            return Ok(_handler.HandleQuery(query, id));
         }
 
         // POST api/<BookingsController>

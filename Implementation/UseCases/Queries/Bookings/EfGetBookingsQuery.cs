@@ -14,7 +14,6 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Implementation.UseCases.Queries.Bookings
 {
-    //CHANGE DTO!!!!!!!!!!!!!!!!!! IGetBookingsQuery
     public class EfGetBookingsQuery : EfUseCase, IGetBookingsQuery
     {
         private readonly IApplicationActor _actor;
@@ -44,6 +43,8 @@ namespace Implementation.UseCases.Queries.Bookings
                 CheckOut = x.CheckOut,
                 PaymentMethod = x.BookingPayments.Select(b => b.PaymentApartment.Payment.Name).FirstOrDefault().ToString(),
                 TotalGuests = x.TotalGuests,
+                ApartmentId = x.ApartmentId,
+                BookingId = x.Id,
                 User = new UserDto
                 {
                     FirstName = x.User.FirstName,

@@ -16,6 +16,8 @@ namespace Application.DTO.Search
 
     public class SearchedBookingDto : BasicBookingDto
     {
+        public int BookingId { get; set; }
+        public int ApartmentId { get; set; }
         public UserDto User { get; set; }
         public string PaymentMethod { get; set; }
 

@@ -1,4 +1,6 @@
 ﻿using Application.DTO;
+using Application.DTO.Bookings;
+using Application.DTO.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Bookings
 {
-    //CHANGE DTO!!!!!!!!!!!!!!!!!! IFindBookingQuery
-
-    public interface IFindBookingQuery : IQuery<BasicDto, NamedDto>
+    public interface IFindBookingQuery : IQuery<FindBookingDto, int>
     {
     }
 }

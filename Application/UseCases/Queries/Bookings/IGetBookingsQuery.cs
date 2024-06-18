@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Bookings
 {
-    //CHANGE DTO!!!!!!!!!!!!!!!!!! IGetBookingsQuery
     public interface IGetBookingsQuery : IQuery<PagedResponse<SearchedBookingDto>, BookingSearch>
     {
     }
