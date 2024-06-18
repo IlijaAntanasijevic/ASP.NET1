@@ -1,6 +1,9 @@
 ﻿using App.Domain;
+using Application.DTO.Search;
+using Application.DTO;
 using Application.Exceptions;
 using DataAccess;
+using Domain.Lookup;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +35,23 @@ namespace Implementation
                 throw new ConflictException($"This {tmp} already exists");
             }
         }
-       
+
+
+        public static IQueryable<BasicDto> ApplySearch<TQuery>(this IQueryable<TQuery> query, Func<TQuery, string> nameSelector, BasicSearch search) 
+            where TQuery : class
+        {
+            if (!string.IsNullOrEmpty(search.Keyword))
+            {
+                query = query.Where(x => nameSelector(x).ToLower().Contains(search.Keyword.ToLower()));
+            }
+
+            return query.Select(x => new BasicDto
+            {
+                Id = (int)x.GetType().GetProperty("Id").GetValue(x),
+                Name = nameSelector(x)
+            });
+        }
     }
+
+
 }

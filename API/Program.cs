@@ -3,20 +3,10 @@ using API.Core;
 using API.Core.Exceptions;
 using API.Core.JWT;
 using Application;
-using Application.UseCases.Commands.Lookup;
-using Application.UseCases.Commands.Users;
-using Application.UseCases.Queries.ApartmentType;
 using DataAccess;
 using Implementation;
 using Implementation.Logging.UseCases;
-using Implementation.UseCases;
-using Implementation.UseCases.Commands.Lookup;
-using Implementation.UseCases.Commands.Users;
-using Implementation.UseCases.Queries.ApartmentType;
-using Implementation.Validators;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

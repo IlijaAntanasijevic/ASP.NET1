@@ -6,6 +6,7 @@ using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.Apartment;
 using Application.UseCases.Queries.ApartmentType;
 using Application.UseCases.Queries.Bookings;
+using Application.UseCases.Queries.Lookup;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands.Apartments;
@@ -13,8 +14,8 @@ using Implementation.UseCases.Commands.Bookings;
 using Implementation.UseCases.Commands.Lookup;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries.Apartments;
-using Implementation.UseCases.Queries.ApartmentType;
 using Implementation.UseCases.Queries.Bookings;
+using Implementation.UseCases.Queries.Lookup;
 using Implementation.UseCases.Queries.Users;
 using Implementation.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,7 +44,6 @@ namespace API.Core
             //Lookup
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
             services.AddTransient<CreateApartmentTypeValidator>();
-            services.AddTransient<IGetApartmentTypesQuery, EfGetApartmentTypesQuery>();
             services.AddTransient<ICreateCityCommand, EfCreateCityCommand>();
             services.AddTransient<CreateCityValidator>();
             services.AddTransient<ICreateCountryCommand, EfCreateCountryCommand>();
@@ -54,6 +54,14 @@ namespace API.Core
             services.AddTransient<CreatePaymentValidator>();
             services.AddTransient<ICreateCityCountryCommand, EfCreateCityCountryCommand>();
             services.AddTransient<CreateCityCountryValidator>();
+
+
+            services.AddTransient<IGetApartmentTypesQuery, EfGetApartmentTypesQuery>();
+            services.AddTransient<IGetCitiesQuery, EfGetCitiesQuery>();
+            services.AddTransient<IGetCountriesQuery, EfGetCountriesQuery>();
+            services.AddTransient<IGetFeaturesQuery, EfGetFeaturesQuery>();
+            services.AddTransient<IGetPaymentsQuery, EfGetPaymentsQuery>();
+
 
             //Apartment
             services.AddTransient<ICreateApartmentCommand, EfCreateApartmentCommand>();

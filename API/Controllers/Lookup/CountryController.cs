@@ -1,12 +1,14 @@
 ﻿using Application.DTO;
+using Application.DTO.Search;
 using Application.UseCases.Commands.Lookup;
+using Application.UseCases.Queries.Lookup;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace API.Controllers
+namespace API.Controllers.Lookup
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,17 +22,11 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get([FromQuery] BasicSearch search, [FromServices] IGetCountriesQuery query)
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_handler.HandleQuery(query,search));
         }
 
-        // GET api/<CountryController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<CountryController>
         [HttpPost]
@@ -42,16 +38,6 @@ namespace API.Controllers
             return NoContent();
         }
 
-        // PUT api/<CountryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CountryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    
     }
 }

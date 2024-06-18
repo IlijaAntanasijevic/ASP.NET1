@@ -1,12 +1,14 @@
 ﻿using Application.DTO;
+using Application.DTO.Search;
 using Application.UseCases.Commands.Lookup;
+using Application.UseCases.Queries.Lookup;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace API.Controllers
+namespace API.Controllers.Lookup
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,16 +23,9 @@ namespace API.Controllers
 
         // GET: api/<CityController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get([FromQuery] BasicSearch search, [FromServices] IGetCitiesQuery query)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<CityController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+            return Ok(_handler.HandleQuery(query, search));
         }
 
         // POST api/<CityController>
@@ -47,21 +42,9 @@ namespace API.Controllers
         [Authorize]
         public IActionResult CityCoutry([FromBody] CityCountryDto data, [FromServices] ICreateCityCountryCommand commad)
         {
-            _handler.HandleCommand(commad,data);
+            _handler.HandleCommand(commad, data);
             return Created();
         }
-     
 
-        // PUT api/<CityController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CityController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

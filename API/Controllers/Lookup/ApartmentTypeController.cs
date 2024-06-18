@@ -9,7 +9,7 @@ using System.Reflection.Metadata;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace API.Controllers
+namespace API.Controllers.Lookup
 {
     [Route("api/[controller]")]
     [ApiController]
