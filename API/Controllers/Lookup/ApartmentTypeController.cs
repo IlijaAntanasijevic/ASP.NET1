@@ -1,7 +1,7 @@
 ﻿using Application.DTO;
 using Application.DTO.Search;
 using Application.UseCases.Commands.Lookup;
-using Application.UseCases.Queries.ApartmentType;
+using Application.UseCases.Queries.Lookup;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

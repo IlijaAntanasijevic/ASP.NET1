@@ -1,6 +1,6 @@
 ﻿using Application.DTO;
 using Application.DTO.Search;
-using Application.UseCases.Queries.ApartmentType;
+using Application.UseCases.Queries.Lookup;
 using DataAccess;
 using System;
 using System.Collections.Generic;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.UseCases.Queries.ApartmentType
+namespace Application.UseCases.Queries.Lookup
 {
     public interface IGetApartmentTypesQuery : IQuery<IEnumerable<BasicDto>, BasicSearch>
     {

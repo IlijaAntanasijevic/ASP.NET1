@@ -5,7 +5,6 @@ using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Apartment;
-using Application.UseCases.Queries.ApartmentType;
 using Application.UseCases.Queries.Bookings;
 using Application.UseCases.Queries.Lookup;
 using Application.UseCases.Queries.Users;
