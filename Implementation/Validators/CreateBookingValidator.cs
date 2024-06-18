@@ -66,7 +66,7 @@ namespace Implementation.Validators
         private bool IsApartmentAvailable(BookingDto data)
         {
 
-            bool isAvailable = !_context.Bookings.Any(x => x.ApartmentId == data.ApartmentId &&
+            bool isAvailable = !_context.Bookings.Any(x => x.ApartmentId == data.ApartmentId && x.IsActive &&
                                                      ((data.CheckIn >= x.CheckIn && data.CheckIn < x.CheckOut) ||
                                                      (data.CheckOut > x.CheckIn && data.CheckOut <= x.CheckOut) ||
                                                      (data.CheckIn < x.CheckIn && data.CheckOut > x.CheckOut)));

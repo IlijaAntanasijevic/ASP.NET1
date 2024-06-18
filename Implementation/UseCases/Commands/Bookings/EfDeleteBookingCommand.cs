@@ -1,15 +1,13 @@
-﻿using Application;
+﻿using App.Domain;
+using Application;
+using Application.Exceptions;
 using Application.UseCases.Commands.Bookings;
 using DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Implementation.UseCases.Commands.Bookings
 {
-    public class EfDeleteBookingCommand : EfUseCase, IDeleteBookingCommand
+    public class EfDeleteBookingCommand : EfDeleteCommand<Booking>, IDeleteBookingCommand
     {
         private readonly IApplicationActor _actor;
         public EfDeleteBookingCommand(BookingContext context, IApplicationActor actor) 
@@ -18,13 +16,31 @@ namespace Implementation.UseCases.Commands.Bookings
             _actor = actor;
         }
 
-        public int Id => 22;
+        public override int Id => 22;
 
-        public string Name => nameof(EfDeleteBookingCommand);
+        public override string Name => nameof(EfDeleteBookingCommand);
 
-        public void Execute(int bookingId)
+        public override void Execute(int bookingId)
         {
-            throw new NotImplementedException();
+            var booking = Context.Bookings.FirstOrDefault(x => x.Id == bookingId && x.IsActive);
+
+            if (booking == null)
+            {
+                throw new EntityNotFoundException(nameof(booking), bookingId);
+            }
+
+            if(_actor.Id != booking.UserId)
+            {
+                throw new PermissionDeniedException("You do not have permission to cancel this booking.");
+            }
+
+            //2024-06-20 // 2024-06-21  TODAY = 2024-06-20 
+            if(booking.CheckIn <= DateTime.Now.AddDays(1))
+            {
+                throw new PermissionDeniedException("Booking cannot be caceled within one day of check-in.");
+            }
+
+            base.Execute(bookingId);
         }
     }
 }

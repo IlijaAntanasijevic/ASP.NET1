@@ -1,11 +1,8 @@
 ﻿using Application.DTO.Apartments;
 using Application.UseCases.Commands.Apartments;
 using DataAccess;
-using Implementation.Exceptions;
-using Domain;
 using App.Domain;
 using Application;
-using DataAccess.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Application.Exceptions;
 using Implementation.Validators;

@@ -1,14 +1,10 @@
 ﻿using App.Domain;
 using Application.DTO.Users;
+using Application.Exceptions;
 using Application.UseCases.Queries.Users;
 using DataAccess;
-using Implementation.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Implementation.UseCases.Queries.Users
 {

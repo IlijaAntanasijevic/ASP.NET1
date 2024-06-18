@@ -5,7 +5,7 @@ using Application.Exceptions;
 using Application.UseCases.Commands.Bookings;
 using DataAccess;
 using FluentValidation;
-using Implementation.Exceptions;
+
 using Implementation.Validators;
 using Microsoft.EntityFrameworkCore;
 

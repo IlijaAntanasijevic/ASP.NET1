@@ -1,7 +1,6 @@
 ﻿using Application;
 using Application.Exceptions;
 using FluentValidation;
-using Implementation.Exceptions;
 
 
 namespace API.Core.Exceptions

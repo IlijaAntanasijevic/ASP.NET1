@@ -1,16 +1,12 @@
 ﻿using App.Domain;
 using Application;
 using Application.DTO.Users;
+using Application.Exceptions;
 using Application.UseCases.Commands.Users;
 using DataAccess;
 using FluentValidation;
-using Implementation.Exceptions;
 using Implementation.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Implementation.UseCases.Commands.Users
 {

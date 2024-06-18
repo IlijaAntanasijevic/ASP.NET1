@@ -1,14 +1,8 @@
-﻿using Application.DTO;
-using Application.DTO.Search;
+﻿using Application.Exceptions;
 using Application.UseCases;
 using DataAccess;
 using Domain.Core;
-using Implementation.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Implementation.UseCases
 {
