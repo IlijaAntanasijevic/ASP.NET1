@@ -12,11 +12,15 @@ namespace Implementation.UseCases
     /*
     To-do:
 
-    - Booking (update, delete, find, get all)
+    Booking :
+    - update
+    - delete = cancel
+    - find
+    - get all
 
     - Lookup tables (select *)
     */
-     
+
     public class UseCaseHandler
     {
         private readonly IApplicationActor _actor;

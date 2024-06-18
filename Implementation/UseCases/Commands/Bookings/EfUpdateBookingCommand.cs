@@ -1,13 +1,14 @@
-﻿using Application;
+﻿using App.Domain;
+using Application;
 using Application.DTO.Bookings;
+using Application.Exceptions;
 using Application.UseCases.Commands.Bookings;
 using DataAccess;
+using FluentValidation;
+using Implementation.Exceptions;
 using Implementation.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Implementation.UseCases.Commands.Bookings
 {
@@ -28,7 +29,44 @@ namespace Implementation.UseCases.Commands.Bookings
 
         public void Execute(EditBookingDto data)
         {
-            throw new NotImplementedException();
+            _validator.ValidateAndThrow(data);
+
+            var booking = Context.Bookings.Include(x => x.BookingPayments).FirstOrDefault(x => x.Id == data.BookingId);
+
+            if (booking == null)
+            {
+                throw new EntityNotFoundException(nameof(Booking),data.BookingId);
+            }
+
+            if(booking.UserId != _actor.Id)
+            {
+                throw new PermissionDeniedException("The apartment doesn't belongs to the current user and cannot be booked.");
+            }
+
+            //exception is handled in the validator??
+            var paymentApartment = Context.PaymentApartments.FirstOrDefault(x => x.IsActive && x.PaymentId == data.PaymentId &&
+                                                                           x.ApartmentId == booking.ApartmentId);
+
+            
+            var bookingPaymets = Context.BookingPayments.Where(x => x.BookingId == data.BookingId && 
+                                                               x.PaymentApartmentId == paymentApartment.PaymentId).ToList();
+
+            Context.BookingPayments.RemoveRange(bookingPaymets);
+
+            
+
+            booking.CheckOut = data.CheckOut;
+            booking.CheckIn = data.CheckIn;
+            booking.TotalGuests = data.TotalGuests;
+
+            booking.BookingPayments = Context.PaymentApartments.Select(x => new BookingPayment
+            {
+                PaymentApartmentId = paymentApartment.Id,
+            }).ToList();
+
+            Context.SaveChanges();
+           
+
         }
     }
 }

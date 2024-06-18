@@ -17,7 +17,7 @@ namespace Application.DTO.Bookings
 
     public class EditBookingDto
     {
-        public int ApartmentId { get; set; }
+        public int BookingId { get; set; }
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public int TotalGuests { get; set; }

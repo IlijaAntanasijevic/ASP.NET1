@@ -41,12 +41,9 @@ namespace Implementation.UseCases.Commands.Bookings
                 throw new PermissionDeniedException("The apartment belongs to the current user and cannot be booked.");
             }
 
-            var paymentApartment = Context.PaymentApartments.FirstOrDefault(x => x.IsActive && x.PaymentId == data.PaymentId && x.ApartmentId == data.ApartmentId);
+            var paymentApartment = Context.PaymentApartments.FirstOrDefault(x => x.IsActive && x.PaymentId == data.PaymentId && 
+                                                                            x.ApartmentId == data.ApartmentId);
 
-            if (paymentApartment == null)
-            {
-                throw new ValidationException("The specified payment method for this apartment does not exist or is not active.");
-            }
 
             var booking = new Booking
             {

@@ -44,8 +44,12 @@ namespace API.Controllers
 
         // PUT api/<BookingsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Authorize]
+        public IActionResult Put(int id, [FromBody] EditBookingDto data, [FromServices] IUpdateBookingCommand command)
         {
+            data.BookingId = id;
+            _handler.HandleCommand(command,data);
+            return NoContent();
         }
 
         // DELETE api/<BookingsController>/5
