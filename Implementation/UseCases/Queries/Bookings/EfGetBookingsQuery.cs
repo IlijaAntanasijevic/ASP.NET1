@@ -1,5 +1,8 @@
 ﻿using Application;
 using Application.DTO;
+using Application.DTO.Apartments;
+using Application.DTO.Search;
+using Application.DTO.Users;
 using Application.UseCases.Queries.Bookings;
 using DataAccess;
 using System;
@@ -7,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Implementation.UseCases.Queries.Bookings
 {
@@ -24,9 +28,32 @@ namespace Implementation.UseCases.Queries.Bookings
 
         public string Name => nameof(EfGetBookingsQuery);
 
-        public BasicDto Execute(NamedDto search)
+        public PagedResponse<SearchedBookingDto> Execute(BookingSearch search)
         {
-            throw new NotImplementedException();
+            var query = Context.Bookings.Where(x => x.UserId == _actor.Id)
+                                        .AsQueryable();
+
+            if (!string.IsNullOrEmpty(search.Keyword))
+            {
+                query = query.Where(x => x.Apartment.Name.ToLower().Contains(search.Keyword.ToLower()));
+            }
+
+            return query.AsPagedReponse(search, x => new SearchedBookingDto
+            {
+                CheckIn = x.CheckIn,
+                CheckOut = x.CheckOut,
+                PaymentMethod = x.BookingPayments.Select(b => b.PaymentApartment.Payment.Name).FirstOrDefault().ToString(),
+                TotalGuests = x.TotalGuests,
+                User = new UserDto
+                {
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    Email = x.User.Email,
+                    Phone = x.User.Phone,
+                    Avatar = x.User.Avatar,
+                    Id = x.Id,
+                }
+            });
         }
     }
 }

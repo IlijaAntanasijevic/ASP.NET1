@@ -44,7 +44,6 @@ namespace Implementation.UseCases.Commands.Users
             //19 - Update Apartment Images
             //20 - Create Booking
             //21 - Update Booking
-
             //22 - Delete Booking
             //23 - Get Bookings
             //24 - Find Booking

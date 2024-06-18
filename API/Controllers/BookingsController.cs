@@ -1,5 +1,7 @@
 ﻿using Application.DTO.Bookings;
+using Application.DTO.Search;
 using Application.UseCases.Commands.Bookings;
+using Application.UseCases.Queries.Bookings;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +23,11 @@ namespace API.Controllers
 
         // GET: api/<BookingsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get([FromQuery] BookingSearch search, [FromServices] IGetBookingsQuery query)
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_handler.HandleQuery(query,search));
         }
+          
 
         // GET api/<BookingsController>/5
         [HttpGet("{id}")]
