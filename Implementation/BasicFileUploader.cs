@@ -14,7 +14,7 @@ namespace Implementation
         {
             ".jpg", ".png", ".jpeg"
         };
-        //Map from UploadType to List of string
+
         private Dictionary<UploadType, List<string>> _uploadPaths =
            new Dictionary<UploadType, List<string>>
            {

@@ -4,6 +4,7 @@ using Application.Exceptions;
 using Application.UseCases.Queries.Users;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 
 namespace Implementation.UseCases.Queries.Users
@@ -20,6 +21,7 @@ namespace Implementation.UseCases.Queries.Users
 
         public UserDto Execute(int userId)
         {
+            string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
             User user = Context.Users.Include(x => x.Apartments)
                                      .ThenInclude(x => x.Bookings)
                                      .FirstOrDefault(x => x.Id == userId && x.IsActive);
@@ -30,7 +32,7 @@ namespace Implementation.UseCases.Queries.Users
 
             return new UserDto
             {
-                Avatar = user.Avatar,
+                Avatar = url + "users/default.jpg",
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,

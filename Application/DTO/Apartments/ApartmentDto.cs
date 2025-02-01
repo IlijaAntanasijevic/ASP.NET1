@@ -22,12 +22,12 @@ namespace Application.DTO.Apartments
     public class ApartmentDto : SearchApartmentsDto
     {
         public string Description { get; set; }
-         public UserDto User { get; set; }
+        public int TotalBookings { get; set; }
         public IEnumerable<string> PaymentMethods { get; set; }
         public IEnumerable<string> Features { get; set; }
-        public IEnumerable<string> Images { get; set; } 
+        public IEnumerable<string> Images { get; set; }
 
     }
 
-   
+
 }

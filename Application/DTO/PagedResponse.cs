@@ -15,4 +15,11 @@ namespace Application.DTO
         public int Pages => (int)Math.Ceiling((double)TotalCount / PerPage);
         public int CurrentPage { get; set; }
     }
+
+    public class PagedResponseApartment<TDto> : PagedResponse<TDto>
+        where TDto : class
+    {
+        public decimal? MaxPrice { get; set; }
+        public decimal? MinPrice { get; set; }
+    }
 }

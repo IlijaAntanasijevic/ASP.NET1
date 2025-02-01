@@ -16,14 +16,6 @@ builder.Configuration.Bind(settings);
 builder.Services.AddSingleton(settings.Jwt);
 
 
-
-/* TODO: Subota
- 
-    - Business Logic
-
- */
-
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -76,6 +68,13 @@ builder.Services.AddJwt(settings);
 
 var app = builder.Build();
 
+app.UseCors(x =>
+{
+    x.AllowAnyOrigin();
+    x.AllowAnyMethod();
+    x.AllowAnyHeader();
+});
+
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
@@ -84,6 +83,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 

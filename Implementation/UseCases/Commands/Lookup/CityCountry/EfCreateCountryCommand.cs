@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Implementation.UseCases.Commands.Lookup
+namespace Implementation.UseCases.Commands.Lookup.CityCountry
 {
     public class EfCreateCountryCommand : EfUseCase, ICreateCountryCommand
     {

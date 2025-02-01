@@ -1,0 +1,382 @@
+﻿[
+  {
+    "id": 1,
+    "name": "Tirana"
+  },
+  {
+    "id": 2,
+    "name": "Durrës"
+  },
+  {
+    "id": 3,
+    "name": "Shkodër"
+  },
+  {
+    "id": 4,
+    "name": "Vlorë"
+  },
+  {
+    "id": 5,
+    "name": "Fier"
+  },
+  {
+    "id": 6,
+    "name": "Andorra la Vella"
+  },
+  {
+    "id": 7,
+    "name": "Escaldes-Engordany"
+  },
+  {
+    "id": 8,
+    "name": "Les Escaldes"
+  },
+  {
+    "id": 9,
+    "name": "Innsbruck"
+  },
+  {
+    "id": 10,
+    "name": "Vienna"
+  },
+  {
+    "id": 11,
+    "name": "Salzburg"
+  },
+  {
+    "id": 12,
+    "name": "Graz"
+  },
+  {
+    "id": 13,
+    "name": "Minsk"
+  },
+  {
+    "id": 14,
+    "name": "Brest"
+  },
+  {
+    "id": 15,
+    "name": "Gomel"
+  },
+  {
+    "id": 16,
+    "name": "Liège"
+  },
+  {
+    "id": 17,
+    "name": "Brussels"
+  },
+  {
+    "id": 18,
+    "name": "Antwerp"
+  },
+  {
+    "id": 19,
+    "name": "Ghent"
+  },
+  {
+    "id": 20,
+    "name": "Sarajevo"
+  },
+  {
+    "id": 21,
+    "name": "Banja Luka"
+  },
+  {
+    "id": 22,
+    "name": "Tuzla"
+  },
+  {
+    "id": 23,
+    "name": "Sofia"
+  },
+  {
+    "id": 24,
+    "name": "Plovdiv"
+  },
+  {
+    "id": 25,
+    "name": "Varna"
+  },
+  {
+    "id": 26,
+    "name": "Zagreb"
+  },
+  {
+    "id": 27,
+    "name": "Split"
+  },
+  {
+    "id": 28,
+    "name": "Rijeka"
+  },
+  {
+    "id": 29,
+    "name": "Dubrovnik"
+  },
+  {
+    "id": 30,
+    "name": "Nicosia"
+  },
+  {
+    "id": 31,
+    "name": "Limassol"
+  },
+  {
+    "id": 32,
+    "name": "Famagusta"
+  },
+  {
+    "id": 33,
+    "name": "Prague"
+  },
+  {
+    "id": 34,
+    "name": "Brno"
+  },
+  {
+    "id": 35,
+    "name": "Plzeň"
+  },
+  {
+    "id": 36,
+    "name": "Copenhagen"
+  },
+  {
+    "id": 37,
+    "name": "Aarhus"
+  },
+  {
+    "id": 38,
+    "name": "Odense"
+  },
+  {
+    "id": 39,
+    "name": "Tallinn"
+  },
+  {
+    "id": 40,
+    "name": "Tartu"
+  },
+  {
+    "id": 41,
+    "name": "Pärnu"
+  },
+  {
+    "id": 42,
+    "name": "Helsinki"
+  },
+  {
+    "id": 43,
+    "name": "Espoo"
+  },
+  {
+    "id": 44,
+    "name": "Tampere"
+  },
+  {
+    "id": 45,
+    "name": "Stockholm"
+  },
+  {
+    "id": 46,
+    "name": "Gothenburg"
+  },
+  {
+    "id": 47,
+    "name": "Malmo"
+  },
+  {
+    "id": 48,
+    "name": "Paris"
+  },
+  {
+    "id": 49,
+    "name": "Marseille"
+  },
+  {
+    "id": 50,
+    "name": "Lyon"
+  },
+  {
+    "id": 51,
+    "name": "Berlin"
+  },
+  {
+    "id": 52,
+    "name": "Munich"
+  },
+  {
+    "id": 53,
+    "name": "Frankfurt"
+  },
+  {
+    "id": 54,
+    "name": "Hamburg"
+  },
+  {
+    "id": 55,
+    "name": "Rome"
+  },
+  {
+    "id": 56,
+    "name": "Milan"
+  },
+  {
+    "id": 57,
+    "name": "Florence"
+  },
+  {
+    "id": 58,
+    "name": "Naples"
+  },
+  {
+    "id": 59,
+    "name": "Lisbon"
+  },
+  {
+    "id": 60,
+    "name": "Porto"
+  },
+  {
+    "id": 61,
+    "name": "Brussels"
+  },
+  {
+    "id": 62,
+    "name": "Antwerp"
+  },
+  {
+    "id": 63,
+    "name": "Ghent"
+  },
+  {
+    "id": 64,
+    "name": "Madrid"
+  },
+  {
+    "id": 65,
+    "name": "Barcelona"
+  },
+  {
+    "id": 66,
+    "name": "Valencia"
+  },
+  {
+    "id": 67,
+    "name": "Seville"
+  },
+  {
+    "id": 68,
+    "name": "Amsterdam"
+  },
+  {
+    "id": 69,
+    "name": "Rotterdam"
+  },
+  {
+    "id": 70,
+    "name": "The Hague"
+  },
+  {
+    "id": 71,
+    "name": "Oslo"
+  },
+  {
+    "id": 72,
+    "name": "Bergen"
+  },
+  {
+    "id": 73,
+    "name": "Stavanger"
+  },
+  {
+    "id": 74,
+    "name": "London"
+  },
+  {
+    "id": 75,
+    "name": "Manchester"
+  },
+  {
+    "id": 76,
+    "name": "Birmingham"
+  },
+  {
+    "id": 77,
+    "name": "Dublin"
+  },
+  {
+    "id": 78,
+    "name": "Toronto"
+  },
+  {
+    "id": 79,
+    "name": "Vancouver"
+  },
+  {
+    "id": 80,
+    "name": "Montreal"
+  },
+  {
+    "id": 81,
+    "name": "Sydney"
+  },
+  {
+    "id": 82,
+    "name": "Melbourne"
+  },
+  {
+    "id": 83,
+    "name": "Brisbane"
+  },
+  {
+    "id": 84,
+    "name": "Tokyo"
+  },
+  {
+    "id": 85,
+    "name": "Osaka"
+  },
+  {
+    "id": 86,
+    "name": "Kyoto"
+  },
+  {
+    "id": 87,
+    "name": "Bangkok"
+  },
+  {
+    "id": 88,
+    "name": "Chiang Mai"
+  },
+  {
+    "id": 89,
+    "name": "Phuket"
+  },
+  {
+    "id": 90,
+    "name": "Mumbai"
+  },
+  {
+    "id": 91,
+    "name": "Delhi"
+  },
+  {
+    "id": 92,
+    "name": "Bangalore"
+  },
+  {
+    "id": 93,
+    "name": "Mexico City"
+  },
+  {
+    "id": 94,
+    "name": "Guadalajara"
+  },
+  {
+    "id": 95,
+    "name": "Monterrey"
+  }
+]

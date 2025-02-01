@@ -1,0 +1,367 @@
+﻿[
+  {
+    "id": 1,
+    "cityId": 1,
+    "countryId": 1
+  },
+  {
+    "id": 2,
+    "cityId": 2,
+    "countryId": 2
+  },
+  {
+    "id": 3,
+    "cityId": 10,
+    "countryId": 3
+  },
+  {
+    "id": 4,
+    "cityId": 12,
+    "countryId": 4
+  },
+  {
+    "id": 5,
+    "cityId": 13,
+    "countryId": 5
+  },
+  {
+    "id": 6,
+    "cityId": 14,
+    "countryId": 6
+  },
+  {
+    "id": 7,
+    "cityId": 16,
+    "countryId": 7
+  },
+  {
+    "id": 8,
+    "cityId": 17,
+    "countryId": 8
+  },
+  {
+    "id": 9,
+    "cityId": 20,
+    "countryId": 9
+  },
+  {
+    "id": 10,
+    "cityId": 22,
+    "countryId": 10
+  },
+  {
+    "id": 11,
+    "cityId": 23,
+    "countryId": 11
+  },
+  {
+    "id": 12,
+    "cityId": 24,
+    "countryId": 12
+  },
+  {
+    "id": 13,
+    "cityId": 26,
+    "countryId": 13
+  },
+  {
+    "id": 14,
+    "cityId": 27,
+    "countryId": 14
+  },
+  {
+    "id": 15,
+    "cityId": 28,
+    "countryId": 15
+  },
+  {
+    "id": 16,
+    "cityId": 29,
+    "countryId": 16
+  },
+  {
+    "id": 17,
+    "cityId": 30,
+    "countryId": 17
+  },
+  {
+    "id": 18,
+    "cityId": 31,
+    "countryId": 18
+  },
+  {
+    "id": 19,
+    "cityId": 33,
+    "countryId": 19
+  },
+  {
+    "id": 20,
+    "cityId": 35,
+    "countryId": 20
+  },
+  {
+    "id": 21,
+    "cityId": 36,
+    "countryId": 21
+  },
+  {
+    "id": 22,
+    "cityId": 39,
+    "countryId": 22
+  },
+  {
+    "id": 23,
+    "cityId": 41,
+    "countryId": 23
+  },
+  {
+    "id": 24,
+    "cityId": 43,
+    "countryId": 24
+  },
+  {
+    "id": 25,
+    "cityId": 45,
+    "countryId": 25
+  },
+  {
+    "id": 26,
+    "cityId": 47,
+    "countryId": 26
+  },
+  {
+    "id": 27,
+    "cityId": 48,
+    "countryId": 27
+  },
+  {
+    "id": 28,
+    "cityId": 49,
+    "countryId": 28
+  },
+  {
+    "id": 29,
+    "cityId": 50,
+    "countryId": 29
+  },
+  {
+    "id": 30,
+    "cityId": 51,
+    "countryId": 30
+  },
+  {
+    "id": 31,
+    "cityId": 52,
+    "countryId": 31
+  },
+  {
+    "id": 32,
+    "cityId": 53,
+    "countryId": 32
+  },
+  {
+    "id": 33,
+    "cityId": 54,
+    "countryId": 33
+  },
+  {
+    "id": 34,
+    "cityId": 55,
+    "countryId": 34
+  },
+  {
+    "id": 35,
+    "cityId": 56,
+    "countryId": 35
+  },
+  {
+    "id": 36,
+    "cityId": 57,
+    "countryId": 36
+  },
+  {
+    "id": 37,
+    "cityId": 58,
+    "countryId": 37
+  },
+  {
+    "id": 38,
+    "cityId": 59,
+    "countryId": 38
+  },
+  {
+    "id": 39,
+    "cityId": 60,
+    "countryId": 39
+  },
+  {
+    "id": 40,
+    "cityId": 61,
+    "countryId": 40
+  },
+  {
+    "id": 41,
+    "cityId": 62,
+    "countryId": 41
+  },
+  {
+    "id": 42,
+    "cityId": 63,
+    "countryId": 42
+  },
+  {
+    "id": 43,
+    "cityId": 64,
+    "countryId": 43
+  },
+  {
+    "id": 44,
+    "cityId": 65,
+    "countryId": 44
+  },
+  {
+    "id": 45,
+    "cityId": 66,
+    "countryId": 45
+  },
+  {
+    "id": 46,
+    "cityId": 67,
+    "countryId": 46
+  },
+  {
+    "id": 47,
+    "cityId": 68,
+    "countryId": 47
+  },
+  {
+    "id": 48,
+    "cityId": 69,
+    "countryId": 48
+  },
+  {
+    "id": 49,
+    "cityId": 70,
+    "countryId": 49
+  },
+  {
+    "id": 50,
+    "cityId": 71,
+    "countryId": 50
+  },
+  {
+    "id": 51,
+    "cityId": 72,
+    "countryId": 51
+  },
+  {
+    "id": 52,
+    "cityId": 73,
+    "countryId": 52
+  },
+  {
+    "id": 53,
+    "cityId": 74,
+    "countryId": 53
+  },
+  {
+    "id": 54,
+    "cityId": 75,
+    "countryId": 54
+  },
+  {
+    "id": 55,
+    "cityId": 76,
+    "countryId": 55
+  },
+  {
+    "id": 56,
+    "cityId": 77,
+    "countryId": 56
+  },
+  {
+    "id": 57,
+    "cityId": 78,
+    "countryId": 57
+  },
+  {
+    "id": 58,
+    "cityId": 79,
+    "countryId": 58
+  },
+  {
+    "id": 59,
+    "cityId": 80,
+    "countryId": 59
+  },
+  {
+    "id": 60,
+    "cityId": 81,
+    "countryId": 60
+  },
+  {
+    "id": 61,
+    "cityId": 82,
+    "countryId": 61
+  },
+  {
+    "id": 62,
+    "cityId": 83,
+    "countryId": 62
+  },
+  {
+    "id": 63,
+    "cityId": 84,
+    "countryId": 63
+  },
+  {
+    "id": 64,
+    "cityId": 85,
+    "countryId": 64
+  },
+  {
+    "id": 65,
+    "cityId": 86,
+    "countryId": 65
+  },
+  {
+    "id": 66,
+    "cityId": 87,
+    "countryId": 66
+  },
+  {
+    "id": 67,
+    "cityId": 88,
+    "countryId": 67
+  },
+  {
+    "id": 68,
+    "cityId": 89,
+    "countryId": 68
+  },
+  {
+    "id": 69,
+    "cityId": 90,
+    "countryId": 69
+  },
+  {
+    "id": 70,
+    "cityId": 91,
+    "countryId": 70
+  },
+  {
+    "id": 71,
+    "cityId": 92,
+    "countryId": 71
+  },
+  {
+    "id": 72,
+    "cityId": 93,
+    "countryId": 72
+  },
+  {
+    "id": 73,
+    "cityId": 94,
+    "countryId": 73
+  }
+]

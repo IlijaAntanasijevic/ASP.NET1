@@ -12,6 +12,7 @@ using Implementation.UseCases;
 using Implementation.UseCases.Commands.Apartments;
 using Implementation.UseCases.Commands.Bookings;
 using Implementation.UseCases.Commands.Lookup;
+using Implementation.UseCases.Commands.Lookup.CityCountry;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries;
 using Implementation.UseCases.Queries.Apartments;
@@ -23,6 +24,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Text.Json;
 
 namespace API.Core
 {
@@ -64,6 +66,7 @@ namespace API.Core
             services.AddTransient<IGetCountriesQuery, EfGetCountriesQuery>();
             services.AddTransient<IGetFeaturesQuery, EfGetFeaturesQuery>();
             services.AddTransient<IGetPaymentsQuery, EfGetPaymentsQuery>();
+            services.AddTransient<IGetCitiesByCountryQuery, EFGetCitiesByCountryQuery>();
 
 
             //Apartment
@@ -160,6 +163,29 @@ namespace API.Core
                 };
             });
 
+        }
+    }
+
+    public static class UrlHelper
+    {
+        public static string GetApplicationUrl()
+        {
+            var launchSettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "Properties", "launchSettings.json");
+
+            if (!File.Exists(launchSettingsPath))
+                throw new FileNotFoundException("launchSettings.json not found");
+
+            var json = File.ReadAllText(launchSettingsPath);
+
+            using var document = JsonDocument.Parse(json);
+
+            var applicationUrl = document.RootElement
+                .GetProperty("profiles")
+                .GetProperty("http") 
+                .GetProperty("applicationUrl")
+                .GetString();
+
+            return applicationUrl;
         }
     }
 }

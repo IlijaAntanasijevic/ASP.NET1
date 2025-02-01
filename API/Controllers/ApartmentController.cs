@@ -31,9 +31,7 @@
 
             [HttpGet("{id}")]
             public IActionResult Get(int id, [FromServices] IFindApartmentQuery query)
-                => Ok(_handler.HandleQuery(query,id));
-        
-
+                => Ok(_handler.HandleQuery(query,id));  
 
             [HttpPost]
             [Authorize]
@@ -67,8 +65,6 @@
             }
        
 
-
-   
             [HttpDelete("{id}")]
             [Authorize]
             public IActionResult Delete(int id, [FromServices] IDeleteApartmentCommand command)

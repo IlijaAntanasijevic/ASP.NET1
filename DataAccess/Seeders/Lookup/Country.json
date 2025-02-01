@@ -1,0 +1,287 @@
+﻿[
+  {
+    "id": 1,
+    "name": "Albania",
+    "currency": "ALL"
+  },
+  {
+    "id": 2,
+    "name": "Andorra",
+    "currency": "EUR"
+  },
+  {
+    "id": 3,
+    "name": "Austria",
+    "currency": "EUR"
+  },
+  {
+    "id": 4,
+    "name": "Belarus",
+    "currency": "BYN"
+  },
+  {
+    "id": 5,
+    "name": "Belgium",
+    "currency": "EUR"
+  },
+  {
+    "id": 6,
+    "name": "Bosnia and Herzegovina",
+    "currency": "BAM"
+  },
+  {
+    "id": 7,
+    "name": "Bulgaria",
+    "currency": "BGN"
+  },
+  {
+    "id": 8,
+    "name": "Croatia",
+    "currency": "HRK"
+  },
+  {
+    "id": 9,
+    "name": "Cyprus",
+    "currency": "EUR"
+  },
+  {
+    "id": 10,
+    "name": "Czech Republic",
+    "currency": "CZK"
+  },
+  {
+    "id": 11,
+    "name": "Denmark",
+    "currency": "DKK"
+  },
+  {
+    "id": 12,
+    "name": "Estonia",
+    "currency": "EUR"
+  },
+  {
+    "id": 13,
+    "name": "Finland",
+    "currency": "EUR"
+  },
+  {
+    "id": 14,
+    "name": "France",
+    "currency": "EUR"
+  },
+  {
+    "id": 15,
+    "name": "Germany",
+    "currency": "EUR"
+  },
+  {
+    "id": 16,
+    "name": "Greece",
+    "currency": "EUR"
+  },
+  {
+    "id": 17,
+    "name": "Hungary",
+    "currency": "HUF"
+  },
+  {
+    "id": 18,
+    "name": "Iceland",
+    "currency": "ISK"
+  },
+  {
+    "id": 19,
+    "name": "Ireland",
+    "currency": "EUR"
+  },
+  {
+    "id": 20,
+    "name": "Italy",
+    "currency": "EUR"
+  },
+  {
+    "id": 21,
+    "name": "Latvia",
+    "currency": "EUR"
+  },
+  {
+    "id": 22,
+    "name": "Lithuania",
+    "currency": "EUR"
+  },
+  {
+    "id": 23,
+    "name": "Luxembourg",
+    "currency": "EUR"
+  },
+  {
+    "id": 24,
+    "name": "Malta",
+    "currency": "EUR"
+  },
+  {
+    "id": 25,
+    "name": "Moldova",
+    "currency": "MDL"
+  },
+  {
+    "id": 26,
+    "name": "Monaco",
+    "currency": "EUR"
+  },
+  {
+    "id": 27,
+    "name": "Montenegro",
+    "currency": "EUR"
+  },
+  {
+    "id": 28,
+    "name": "Netherlands",
+    "currency": "EUR"
+  },
+  {
+    "id": 29,
+    "name": "North Macedonia",
+    "currency": "MKD"
+  },
+  {
+    "id": 30,
+    "name": "Norway",
+    "currency": "NOK"
+  },
+  {
+    "id": 31,
+    "name": "Poland",
+    "currency": "PLN"
+  },
+  {
+    "id": 32,
+    "name": "Portugal",
+    "currency": "EUR"
+  },
+  {
+    "id": 33,
+    "name": "Romania",
+    "currency": "RON"
+  },
+  {
+    "id": 34,
+    "name": "Russia",
+    "currency": "RUB"
+  },
+  {
+    "id": 35,
+    "name": "San Marino",
+    "currency": "EUR"
+  },
+  {
+    "id": 36,
+    "name": "Serbia",
+    "currency": "RSD"
+  },
+  {
+    "id": 37,
+    "name": "Slovakia",
+    "currency": "EUR"
+  },
+  {
+    "id": 38,
+    "name": "Slovenia",
+    "currency": "EUR"
+  },
+  {
+    "id": 39,
+    "name": "Spain",
+    "currency": "EUR"
+  },
+  {
+    "id": 40,
+    "name": "Sweden",
+    "currency": "SEK"
+  },
+  {
+    "id": 41,
+    "name": "Switzerland",
+    "currency": "CHF"
+  },
+  {
+    "id": 42,
+    "name": "Turkey",
+    "currency": "TRY"
+  },
+  {
+    "id": 43,
+    "name": "Ukraine",
+    "currency": "UAH"
+  },
+  {
+    "id": 44,
+    "name": "United Kingdom",
+    "currency": "GBP"
+  },
+  {
+    "id": 45,
+    "name": "United States",
+    "currency": "USD"
+  },
+  {
+    "id": 46,
+    "name": "Canada",
+    "currency": "CAD"
+  },
+  {
+    "id": 47,
+    "name": "Australia",
+    "currency": "AUD"
+  },
+  {
+    "id": 48,
+    "name": "Japan",
+    "currency": "JPY"
+  },
+  {
+    "id": 49,
+    "name": "Brazil",
+    "currency": "BRL"
+  },
+  {
+    "id": 50,
+    "name": "India",
+    "currency": "INR"
+  },
+  {
+    "id": 51,
+    "name": "South Africa",
+    "currency": "ZAR"
+  },
+  {
+    "id": 52,
+    "name": "Mexico",
+    "currency": "MXN"
+  },
+  {
+    "id": 53,
+    "name": "Argentina",
+    "currency": "ARS"
+  },
+  {
+    "id": 54,
+    "name": "Saudi Arabia",
+    "currency": "SAR"
+  },
+  {
+    "id": 55,
+    "name": "Singapore",
+    "currency": "SGD"
+  },
+  {
+    "id": 56,
+    "name": "South Korea",
+    "currency": "KRW"
+  },
+  {
+    "id": 57,
+    "name": "Thailand",
+    "currency": "THB"
+  }
+]
