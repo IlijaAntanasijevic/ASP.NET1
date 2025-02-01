@@ -21,14 +21,12 @@ namespace API.Controllers.Lookup
             _handler = handler;
         }
 
-        // GET: api/<CityController>
         [HttpGet]
         public IActionResult Get([FromQuery] BasicSearch search, [FromServices] IGetCitiesQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
         }
 
-        // POST api/<CityController>
         [HttpPost]
         [Authorize]
         public IActionResult Post([FromBody] NamedDto dto, [FromServices] ICreateCityCommand command)
@@ -44,6 +42,12 @@ namespace API.Controllers.Lookup
         {
             _handler.HandleCommand(commad, data);
             return Created();
+        }
+
+        [HttpGet("/api/city/country/{id}")]
+        public IActionResult GetCityByCountryId(int id, [FromServices] IGetCitiesByCountryQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, id));
         }
 
     }

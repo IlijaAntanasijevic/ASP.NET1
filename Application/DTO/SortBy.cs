@@ -12,9 +12,16 @@ namespace Application.DTO
         Desc
     }
 
+    public enum SortProperty
+    {
+        Price,
+        TopRated,
+        MostPopular
+    }
+
     public class SortBy
     {
-        public string SortProperty { get; set; }
+        public SortProperty SortProperty { get; set; }
         public SortDirection Direction { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace API.Controllers
 
         // POST api/<AuthController>
         [HttpPost]
+        [Route("/api/login")]
         public IActionResult Post([FromBody] AuthRequest data, [FromServices] JwtTokenCreator tokenCreator)
         {
             var token = tokenCreator.Create(data.Email, data.Password);

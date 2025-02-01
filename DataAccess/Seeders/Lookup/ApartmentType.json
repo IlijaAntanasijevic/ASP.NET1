@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Hotel"
+  },
+  {
+    "Id": 2,
+    "Name": "House"
+  },
+  {
+    "Id": 3,
+    "Name": "Apartment"
+  },
+  {
+    "Id": 4,
+    "Name": "Villas"
+  }
+]

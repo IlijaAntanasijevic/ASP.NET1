@@ -38,6 +38,7 @@ namespace API.Controllers
 
         //api/register => Register
         [HttpPost]
+        [Route("/api/register")]
         public IActionResult Post([FromBody] RegisterUserDto data, [FromServices] IRegisterUserCommand command)
         {
             _handler.HandleCommand(command, data);

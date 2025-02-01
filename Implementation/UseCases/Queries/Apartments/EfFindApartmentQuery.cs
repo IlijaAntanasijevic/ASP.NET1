@@ -5,6 +5,7 @@ using Application.Exceptions;
 using Application.UseCases.Queries.Apartment;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Implementation.UseCases.Queries.Apartments
@@ -21,6 +22,7 @@ namespace Implementation.UseCases.Queries.Apartments
 
         public ApartmentDto Execute(int search)
         {
+            string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
             var apartment = Context.Apartments.Include(x => x.CityCountry)
                                                   .ThenInclude(cc => cc.City)
                                                   .Include(x => x.CityCountry)
@@ -32,6 +34,7 @@ namespace Implementation.UseCases.Queries.Apartments
                                                   .Include(x => x.Images)
                                                   .Include(x => x.PaymentApartments)
                                                   .ThenInclude(p => p.Payment)
+                                                  .Include(x => x.Bookings)
                                                   .FirstOrDefault(x => x.Id == search); 
 
 
@@ -47,21 +50,13 @@ namespace Implementation.UseCases.Queries.Apartments
                 Name = apartment.Name,
                 Description = apartment.Description,
                 Country = apartment.CityCountry.Country.Name,
-                MainImage = apartment.MainImage,
+                MainImage = url + apartment.MainImage.Replace("wwwroot\\", ""),
                 MaxGuests = apartment.MaxGuests,
                 PricePerNight = apartment.Price,
-                User = new UserDto
-                {
-                    Email = apartment.User.Email,
-                    FirstName = apartment.User.FirstName,
-                    LastName = apartment.User.LastName,
-                    Phone = apartment.User.Phone,
-                    Avatar = apartment.User.Avatar,
-                    Id = apartment.Id,
-                },
+                TotalBookings = apartment.Bookings.Where(x => x.ApartmentId == apartment.Id && x.IsActive).Sum(x => x.ApartmentId),
                 ApartmentType = apartment.ApartmentType.Name,
                 Features = apartment.FeatureApartments.Select(x => x.Feature.Name).ToList(),
-                Images = apartment.Images.Select(x => x.Path).ToList(),
+                Images = apartment.Images.Select(x => url + x.Path.Replace("wwwroot\\", "")).ToList(),
                 PaymentMethods = apartment.PaymentApartments.Select(x => x.Payment.Name).ToList(),
             };
 

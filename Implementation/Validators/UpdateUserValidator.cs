@@ -21,7 +21,7 @@ namespace Implementation.Validators
                 .Must((dto, email) => !context.Users.Any(u => u.Email == email && u.Id != dto.Id))
                 .WithMessage("Email is already in use.");
 
-            RuleFor(x => x.Password)
+            RuleFor(x => x.NewPassword)
                 .Matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
                 .WithMessage("Minimum eight characters, at least one letter, one number, and one special character");
 

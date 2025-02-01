@@ -1,0 +1,202 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Spa"
+  },
+  {
+    "Id": 2,
+    "Name": "Swimming pool"
+  },
+  {
+    "Id": 3,
+    "Name": "Free Wi-Fi"
+  },
+  {
+    "Id": 4,
+    "Name": "Gym"
+  },
+  {
+    "Id": 5,
+    "Name": "Air conditioning"
+  },
+  {
+    "Id": 6,
+    "Name": "Breakfast included"
+  },
+  {
+    "Id": 7,
+    "Name": "Pet-friendly"
+  },
+  {
+    "Id": 8,
+    "Name": "Parking"
+  },
+  {
+    "Id": 9,
+    "Name": "Bar"
+  },
+  {
+    "Id": 10,
+    "Name": "Restaurant"
+  },
+  {
+    "Id": 11,
+    "Name": "Room service"
+  },
+  {
+    "Id": 12,
+    "Name": "Laundry service"
+  },
+  {
+    "Id": 13,
+    "Name": "Concierge service"
+  },
+  {
+    "Id": 14,
+    "Name": "Business center"
+  },
+  {
+    "Id": 15,
+    "Name": "Family rooms"
+  },
+  {
+    "Id": 16,
+    "Name": "Jacuzzi"
+  },
+  {
+    "Id": 17,
+    "Name": "Garden"
+  },
+  {
+    "Id": 18,
+    "Name": "Balcony"
+  },
+  {
+    "Id": 19,
+    "Name": "Kitchenette"
+  },
+  {
+    "Id": 20,
+    "Name": "Outdoor terrace"
+  },
+  {
+    "Id": 21,
+    "Name": "Game room"
+  },
+  {
+    "Id": 22,
+    "Name": "Beach access"
+  },
+  {
+    "Id": 23,
+    "Name": "Golf course"
+  },
+  {
+    "Id": 24,
+    "Name": "Tennis court"
+  },
+  {
+    "Id": 25,
+    "Name": "Bicycle rental"
+  },
+  {
+    "Id": 26,
+    "Name": "Airport shuttle"
+  },
+  {
+    "Id": 27,
+    "Name": "Fireplace"
+  },
+  {
+    "Id": 28,
+    "Name": "Smart TV"
+  },
+  {
+    "Id": 29,
+    "Name": "Safety deposit box"
+  },
+  {
+    "Id": 30,
+    "Name": "Electric vehicle charging station"
+  },
+  {
+    "Id": 31,
+    "Name": "Double bedroom"
+  },
+  {
+    "Id": 32,
+    "Name": "Suite"
+  },
+  {
+    "Id": 33,
+    "Name": "Studio apartment"
+  },
+  {
+    "Id": 34,
+    "Name": "Penthouse"
+  },
+  {
+    "Id": 35,
+    "Name": "Family suite"
+  },
+  {
+    "Id": 36,
+    "Name": "Accessible room"
+  },
+  {
+    "Id": 37,
+    "Name": "Non-smoking rooms"
+  },
+  {
+    "Id": 38,
+    "Name": "Private bathroom"
+  },
+  {
+    "Id": 39,
+    "Name": "Mini bar"
+  },
+  {
+    "Id": 40,
+    "Name": "Outdoor shower"
+  },
+  {
+    "Id": 41,
+    "Name": "BBQ facilities"
+  },
+  {
+    "Id": 42,
+    "Name": "Luggage storage"
+  },
+  {
+    "Id": 43,
+    "Name": "Hiking trails nearby"
+  },
+  {
+    "Id": 44,
+    "Name": "Cultural activities"
+  },
+  {
+    "Id": 45,
+    "Name": "Wine tasting"
+  },
+  {
+    "Id": 46,
+    "Name": "Outdoor fireplace"
+  },
+  {
+    "Id": 47,
+    "Name": "Children's playground"
+  },
+  {
+    "Id": 48,
+    "Name": "Yoga classes"
+  },
+  {
+    "Id": 49,
+    "Name": "Theme nights"
+  },
+  {
+    "Id": 50,
+    "Name": "Local tours"
+  }
+]

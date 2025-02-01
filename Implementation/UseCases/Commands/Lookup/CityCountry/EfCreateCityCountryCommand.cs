@@ -1,21 +1,16 @@
-﻿using App.Domain;
-using Application.DTO;
+﻿using Application.DTO;
 using Application.UseCases.Commands.Lookup;
 using DataAccess;
 using FluentValidation;
 using Implementation.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Implementation.UseCases.Commands.Lookup
+
+namespace Implementation.UseCases.Commands.Lookup.CityCountry
 {
     public class EfCreateCityCountryCommand : EfUseCase, ICreateCityCountryCommand
     {
         private readonly CreateCityCountryValidator _validator;
-        public EfCreateCityCountryCommand(BookingContext context, CreateCityCountryValidator validator) 
+        public EfCreateCityCountryCommand(BookingContext context, CreateCityCountryValidator validator)
             : base(context)
         {
             _validator = validator;
@@ -29,11 +24,11 @@ namespace Implementation.UseCases.Commands.Lookup
         {
             _validator.ValidateAndThrow(data);
 
-            var cityCountry = new CityCountry
+            var cityCountry = new App.Domain.CityCountry
             {
                 CityId = data.CityId,
                 CountryId = data.CountryId
-                 
+
             };
 
             Context.CitiesCountry.Add(cityCountry);

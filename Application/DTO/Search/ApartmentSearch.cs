@@ -12,6 +12,7 @@ namespace Application.DTO.Search
         public List<SortBy> Sorts { get; set; } = new List<SortBy>();
         public int? CityId { get; set; }
         public int? CountryId { get; set; }
-        public int? ApartmentTypeId { get; set; }
+        public List<int> ApartmentTypeIds { get; set; } = new List<int>();
+        public int? MaxPrice { get; set; }
     }
 }

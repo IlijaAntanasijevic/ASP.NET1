@@ -6,7 +6,7 @@ using FluentValidation;
 using Implementation.Validators;
 
 
-namespace Implementation.UseCases.Commands.Lookup
+namespace Implementation.UseCases.Commands.Lookup.CityCountry
 {
     public class EfCreateCityCommand : EfUseCase, ICreateCityCommand
     {
