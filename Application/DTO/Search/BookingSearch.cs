@@ -17,9 +17,13 @@ namespace Application.DTO.Search
     public class SearchedBookingDto : BasicBookingDto
     {
         public int BookingId { get; set; }
+        public string ApartmentName { get; set; }
+        public string ApartmentImage { get; set; }
+        public decimal TotalPrice { get; set; }
         public int ApartmentId { get; set; }
-        public UserDto User { get; set; }
         public string PaymentMethod { get; set; }
+        public UserDto Owner { get; set; }
+        public UserDto User { get; set; }
 
     }
 }

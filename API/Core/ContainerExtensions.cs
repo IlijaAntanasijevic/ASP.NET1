@@ -45,6 +45,7 @@ namespace API.Core
             services.AddTransient<IDeleteUserCommand,EfDeleteUserCommand>();
             services.AddTransient<UpdateUserValidator>();
             services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
+            services.AddTransient<IChangeProfilePhotoCommand, EfChangeProfilePhotoCommand>();
 
             //Lookup
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();

@@ -47,6 +47,7 @@ namespace Implementation.UseCases.Commands.Users
             //22 - Delete Booking
             //23 - Get Bookings
             //24 - Find Booking
+            //33 - Change profile photo
 
             User user = new User
             {
@@ -69,6 +70,7 @@ namespace Implementation.UseCases.Commands.Users
                     new UserUseCase { UseCaseId = 22},
                     new UserUseCase { UseCaseId = 23},
                     new UserUseCase { UseCaseId = 24},
+                    new UserUseCase { UseCaseId = 33},
                 }
             };
 
