@@ -1,8 +1,10 @@
-﻿using Application.DTO.Search;
+﻿using API.DTO;
+using Application.DTO.Search;
 using Application.DTO.Users;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
+using Implementation.UseCases.Commands.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
@@ -26,9 +28,9 @@ namespace API.Controllers
 
         //api/users/1 => Find user  
         [HttpGet("{id}")]
-        public IActionResult Get(int id, [FromServices] IFindUserQuery query) 
-            => Ok(_handler.HandleQuery(query,id));
-     
+        public IActionResult Get(int id, [FromServices] IFindUserQuery query)
+            => Ok(_handler.HandleQuery(query, id));
+
 
         //api/users => Get All
         [HttpGet]
@@ -58,7 +60,7 @@ namespace API.Controllers
         //api/1 => Update user
         [HttpPut("{id}")]
         [Authorize]
-        public IActionResult Put(int id, [FromBody] UpdateUserDto data, 
+        public IActionResult Put(int id, [FromBody] UpdateUserDto data,
                                          [FromServices] IUpdateUserCommand command)
         {
             data.Id = id;
@@ -72,6 +74,31 @@ namespace API.Controllers
         public IActionResult Delete(int id, [FromServices] IDeleteUserCommand command)
         {
             _handler.HandleCommand(command, id);
+            return NoContent();
+        }
+
+        [HttpPut("avatar")]
+        public IActionResult ChangeProfilePhoto([FromForm] FileUploadDto request, [FromServices] IChangeProfilePhotoCommand command)
+        {
+            IEnumerable<string> allowedExtensions = new List<string>
+            {
+                ".jpg", ".jpeg", ".png"
+            };
+
+            var extension = Path.GetExtension(request.File.FileName);
+
+            if (!allowedExtensions.Contains(extension))
+            {
+                return new UnsupportedMediaTypeResult();
+            }
+
+            var fileName = Guid.NewGuid().ToString() + extension;
+            var savePath = Path.Combine("wwwroot", "users", fileName);
+            using var fs = new FileStream(savePath, FileMode.Create);
+            request.File.CopyTo(fs);
+
+            _handler.HandleCommand(command, fileName);
+
             return NoContent();
         }
     }

@@ -29,6 +29,8 @@ namespace Implementation.UseCases.Queries.Bookings
 
         public PagedResponse<SearchedBookingDto> Execute(BookingSearch search)
         {
+            string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
+
             var query = Context.Bookings.Where(x => x.UserId == _actor.Id)
                                         .AsQueryable();
 
@@ -44,16 +46,28 @@ namespace Implementation.UseCases.Queries.Bookings
                 PaymentMethod = x.BookingPayments.Select(b => b.PaymentApartment.Payment.Name).FirstOrDefault().ToString(),
                 TotalGuests = x.TotalGuests,
                 ApartmentId = x.ApartmentId,
-                BookingId = x.Id,
-                User = new UserDto
+                ApartmentName = x.Apartment.Name,
+                TotalPrice = (decimal)x.TotalPrice,
+                ApartmentImage = url + x.Apartment.MainImage.Replace("wwwroot\\", ""),
+                Owner = new UserDto
                 {
-                    FirstName = x.User.FirstName,
-                    LastName = x.User.LastName,
-                    Email = x.User.Email,
-                    Phone = x.User.Phone,
-                    Avatar = x.User.Avatar,
+                    FirstName = x.Apartment.User.FirstName,
+                    LastName = x.Apartment.User.LastName,
+                    Email = x.Apartment.User.Email,
+                    Phone = x.Apartment.User.Phone,
+                    Avatar = url + "/users/" + x.Apartment.User.Avatar,
                     Id = x.Id,
-                }
+                },
+                BookingId = x.Id,
+                //User = new UserDto
+                //{
+                //    FirstName = x.User.FirstName,
+                //    LastName = x.User.LastName,
+                //    Email = x.User.Email,
+                //    Phone = x.User.Phone,
+                //    Avatar = x.User.Avatar,
+                //    Id = x.Id,
+                //}
             });
         }
     }
