@@ -77,8 +77,8 @@ namespace Implementation.UseCases.Queries.Apartments
                     Id = x.Payment.Id,
                     Name = x.Payment.Name
                 }),
-                Longitude = 20.4505088m,
-                Lattitude = 44.8069632m
+                Longitude = 16.363449m,
+                Lattitude = 48.210033m
             };
 
             return apartmentDto;
