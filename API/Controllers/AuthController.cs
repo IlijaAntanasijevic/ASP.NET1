@@ -16,7 +16,6 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
     
-
         // POST api/<AuthController>
         [HttpPost]
         [Route("/api/login")]

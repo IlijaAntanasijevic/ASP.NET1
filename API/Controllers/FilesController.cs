@@ -16,34 +16,61 @@ namespace API.Controllers
         };
 
         // GET api/<FilesController>/81557e56.png
-        [HttpGet("{fileName}")]
-        public IActionResult GetFile(string fileName)
-        {
-            var path = Path.Combine("wwwroot", "temp", fileName);
+        //[HttpGet("{fileName}")]
+        //public IActionResult GetFile(string fileName)
+        //{
+        //    var path = Path.Combine("wwwroot", "temp", fileName);
 
-            return Ok(new { exists = Path.Exists(path) });
-        }
+        //    return Ok(new { exists = Path.Exists(path) });
+        //}
+
+        //[HttpPost]
+        //public IActionResult Post([FromForm] FileUploadDto dto)
+        //{
+        //    var extension = Path.GetExtension(dto.File.FileName);
+
+        //    if (!allowedExtensions.Contains(extension))
+        //    {
+        //        return new UnsupportedMediaTypeResult();
+        //    }
+
+        //    var fileName = Guid.NewGuid().ToString() + extension;
+        //    var savePath = Path.Combine("wwwroot", "temp", fileName);
+
+        //    using var fs = new FileStream(savePath, FileMode.Create);
+        //    dto.File.CopyTo(fs);
+        //    return StatusCode(201, new { file = fileName });
+
+        //}
+
 
         [HttpPost]
-        
-        public IActionResult Post([FromForm] FileUploadDto dto)
+        public IActionResult Post([FromForm] FilesUploadDto request)
         {
-            var extension = Path.GetExtension(dto.File.FileName);
-
-            if (!allowedExtensions.Contains(extension))
+            var files = request.Files;
+            var fileNames = new List<string>();
+            foreach (var file in files)
             {
-                return new UnsupportedMediaTypeResult();
+                var extension = Path.GetExtension(file.FileName);
+
+                if (!allowedExtensions.Contains(extension))
+                {
+                    return new UnsupportedMediaTypeResult();
+                }
+
+                var fileName = Guid.NewGuid().ToString() + extension;
+                var savePath = Path.Combine("wwwroot", "temp", fileName);
+
+                using var fs = new FileStream(savePath, FileMode.Create);
+                file.CopyTo(fs);
+                fileNames.Add(fileName);
+
             }
-
-            var fileName = Guid.NewGuid().ToString() + extension;
-            var savePath = Path.Combine("wwwroot", "temp", fileName);
-
-            using var fs = new FileStream(savePath, FileMode.Create);
-            dto.File.CopyTo(fs);
-            return StatusCode(201, new { file = fileName });
+    
+            return StatusCode(201, fileNames );
 
         }
 
-      
+
     }
 }
