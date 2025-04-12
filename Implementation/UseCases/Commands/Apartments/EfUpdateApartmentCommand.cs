@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.Exceptions;
 using Implementation.Validators;
 using FluentValidation;
+using Mapster;
 namespace Implementation.UseCases.Commands.Apartments
 {
     public class EfUpdateApartmentCommand : EfUseCase, IUpdateApartmentCommand
@@ -44,26 +45,36 @@ namespace Implementation.UseCases.Commands.Apartments
                 throw new PermissionDeniedException("You do not have permission to update this apartment.");
             }
 
-            apartment.Name = data.Name;
-            apartment.Description = data.Description;
-            apartment.MaxGuests = data.MaxGuests;
-            apartment.Price = data.Price;
+            TypeAdapterConfig<UpdateApartmentDto, Apartment>.NewConfig()
+                .Ignore(x => x.FeatureApartments)
+                .Ignore(x => x.PaymentApartments)
+                .Ignore(x => x.CityCountry)
+                .Ignore(x => x.Images);
 
-            Context.RemoveRange(apartment.FeatureApartments);
-            Context.RemoveRange(apartment.PaymentApartments);
+            Apartment editedApartment = data.Adapt<Apartment>();
+            //apartment.Name = data.Name;
+            //apartment.Description = data.Description;
+            //apartment.Price = data.Price;
+            ////apartment.MaxGuests = data.MaxGuests;
+            //apartment.Price = data.Price;
 
-       
-            apartment.FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
-            {
-                FeatureId = x,
-                ApartmentId = apartment.Id 
-            }).ToList();
+            //Context.RemoveRange(apartment.FeatureApartments);
+            //Context.RemoveRange(apartment.PaymentApartments);
 
-            apartment.PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
-            {
-                PaymentId = x,
-                ApartmentId = apartment.Id 
-            }).ToList();
+
+            //apartment.FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
+            //{
+            //    FeatureId = x,
+            //    ApartmentId = apartment.Id 
+            //}).ToList();
+
+            //apartment.PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
+            //{
+            //    PaymentId = x,
+            //    ApartmentId = apartment.Id 
+            //}).ToList();
+
+            apartment = editedApartment;
 
 
             Context.SaveChanges();

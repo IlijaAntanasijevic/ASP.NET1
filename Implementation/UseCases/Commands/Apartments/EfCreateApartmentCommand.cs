@@ -35,8 +35,15 @@ namespace Implementation.UseCases.Commands.Apartments
         {
             _validator.ValidateAndThrow(data);
 
-            var mainImagePath = _fileUploader.Upload(data.MainImage, UploadType.MainImage);
-            var otherImages = _fileUploader.Upload(data.Images, UploadType.Apartment);
+            //var mainImagePath = _fileUploader.Upload(data.MainImage, UploadType.MainImage);
+            //var otherImages = _fileUploader.Upload(data.Images, UploadType.Apartment);
+
+            var cityCountry = Context.CitiesCountry.FirstOrDefault(x => x.CityId == data.CityId && x.CountryId == data.CountryId);
+
+            if(cityCountry == null)
+            {
+                throw new ArgumentException();
+            }
 
             var apartmentToAdd = new Apartment
             {
@@ -44,11 +51,11 @@ namespace Implementation.UseCases.Commands.Apartments
                 Name = data.Name,
                 Description = data.Description,
                 Address = data.Address,
-                CityCountryId = data.CityCountryId,
-                MaxGuests = data.MaxGuests,
+                CityCountryId = cityCountry.Id,
+                //MaxGuests = data.MaxGuests,
                 Price = data.Price,
                 ApartmentTypeId = data.ApartmentTypeId,
-                MainImage = mainImagePath,
+                MainImage = data.MainImage,
                 FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
                 {
                     FeatureId = x
@@ -57,7 +64,7 @@ namespace Implementation.UseCases.Commands.Apartments
                 {
                      PaymentId = x
                 }).ToList(),
-                Images = otherImages.Select(x => new Image
+                Images = data.Images.Select(x => new Image
                 {
                      Path = x
                 }).ToList()

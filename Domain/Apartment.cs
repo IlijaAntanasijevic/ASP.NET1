@@ -17,6 +17,9 @@ namespace App.Domain
         public int CityCountryId { get; set; }
         public int UserId { get; set; }
         public int ApartmentTypeId { get; set; }
+        public decimal? Longitude { get; set; }
+        public decimal? Lattitude { get; set; }
+
 
 
         public virtual CityCountry CityCountry { get; set; }

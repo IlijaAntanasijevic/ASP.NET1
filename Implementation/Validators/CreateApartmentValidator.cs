@@ -31,17 +31,22 @@ namespace Implementation.Validators
                                    .MinimumLength(5)
                                    .WithMessage("Address must be at least 5 characters long.");
 
-            RuleFor(x => x.CityCountryId).NotEmpty()
-                                         .WithMessage("CityCountry id is required.")
-                                         .Must(id => context.CitiesCountry.Any(c => c.Id == id))
-                                         .WithMessage("City-Country id doesn't exist.");
+            RuleFor(x => x.CityId).NotEmpty()
+                                         .WithMessage("City is required.")
+                                         .Must((dto, id) => context.CitiesCountry.Any(c => c.CityId == id && dto.CountryId == c.CountryId))
+                                         .WithMessage("City doesn't exist.");
 
-            RuleFor(x => x.MaxGuests).NotEmpty()
-                                     .WithMessage("Number of max guests is required.")
-                                     .LessThan(16)
-                                     .WithMessage("Maximun number of guests is 15.")
-                                     .GreaterThan(0)
-                                     .WithMessage("Minimun number of guests is 1.");
+            RuleFor(x => x.CountryId).NotEmpty()
+                                       .WithMessage("Country is required.")
+                                       .Must((dto, id) => context.CitiesCountry.Any(c => c.CountryId == id && dto.CityId == c.CityId))
+                                       .WithMessage("Country doesn't exist.");
+
+            //RuleFor(x => x.MaxGuests).NotEmpty()
+            //                         .WithMessage("Number of max guests is required.")
+            //                         .LessThan(16)
+            //                         .WithMessage("Maximun number of guests is 15.")
+            //                         .GreaterThan(0)
+            //                         .WithMessage("Minimun number of guests is 1.");
 
             RuleFor(x => x.Price).NotEmpty()
                                  .WithMessage("Price is required.")

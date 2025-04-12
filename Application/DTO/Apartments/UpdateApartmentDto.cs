@@ -11,12 +11,19 @@ namespace Application.DTO.Apartments
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int MaxGuests { get; set; }
-        //public string MainImage { get; set; }
+        public string Address { get; set; }
+        //public int MaxGuests { get; set; }
+        public string MainImage { get; set; }
         public decimal Price { get; set; }
-        //public IEnumerable<string> Images { get; set; }
+        public IEnumerable<string> Images { get; set; }
         public IEnumerable<int> FeatureIds { get; set; }
         public IEnumerable<int> PaymentMethodIds { get; set; }
+        public int CityId { get; set; }
+        public int CountryId { get; set; }
+        public ApartmentGuestsDto Guests { get; set; }
+        public int ApartmentTypeId { get; set; }
+        public decimal Longitude { get; set; }
+        public decimal Lattitude { get; set; }
     }
 
     public class UpdateApartmentImagesDto

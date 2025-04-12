@@ -18,7 +18,7 @@ namespace DataAccess
 
         public BookingContext()
         {
-            _connectionString = "Data Source=DESKTOP-VONR1CS\\SQLEXPRESS;Initial Catalog=Booking2;Integrated Security=True;Trust Server Certificate=True";
+            _connectionString = "Data Source=DESKTOP-VOSA27V\\SQLEXPRESS;Initial Catalog=Booking2;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
         }
 

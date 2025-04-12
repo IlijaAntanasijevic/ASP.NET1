@@ -24,7 +24,7 @@ namespace Implementation.UseCases.Queries.Apartments
         public PagedResponseApartment<SearchApartmentsDto> Execute(ApartmentSearch search)
         {
             var query = Context.Apartments.AsQueryable();
-            string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
+            //string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
 
             if (!string.IsNullOrEmpty(search.Keyword))
             {
@@ -36,12 +36,12 @@ namespace Implementation.UseCases.Queries.Apartments
                 query = query.Where(x => search.ApartmentTypeIds.Contains(x.ApartmentTypeId));
             }
 
-            if(search.MaxPrice.HasValue)
+            if (search.MaxPrice.HasValue)
             {
                 query = query.Where(x => x.Price <= search.MaxPrice.Value);
             }
 
-            if(search.CountryId.HasValue)
+            if (search.CountryId.HasValue)
             {
                 query = query.Where(x => x.CityCountry.CountryId == search.CountryId.Value);
             }
@@ -62,7 +62,7 @@ namespace Implementation.UseCases.Queries.Apartments
                 switch (sortProp)
                 {
                     case SortProperty.Price:
-                        if(sortDirc == SortDirection.Desc)
+                        if (sortDirc == SortDirection.Desc)
                         {
                             query = query.OrderByDescending(x => x.Price);
                             break;
@@ -84,11 +84,11 @@ namespace Implementation.UseCases.Queries.Apartments
                 //        query = query.OrderByDescending(x => x.Price);
                 //    }
                 //}
-                if(search.Sorts.Any(x => x.Direction == SortDirection.Desc) && search.Sorts.Any(x => x.SortProperty == null))
+                if (search.Sorts.Any(x => x.Direction == SortDirection.Desc) && search.Sorts.Any(x => x.SortProperty == null))
                 {
                     query = query.OrderByDescending(x => x.CreatedAt);
                 }
-                if(search.Sorts.Any(x => x.Direction == SortDirection.Asc) && search.Sorts.Any(x => x.SortProperty == null))
+                if (search.Sorts.Any(x => x.Direction == SortDirection.Asc) && search.Sorts.Any(x => x.SortProperty == null))
                 {
                     query = query.OrderBy(x => x.CreatedAt);
                 }
@@ -114,7 +114,12 @@ namespace Implementation.UseCases.Queries.Apartments
                 Country = x.CityCountry.Country.Name,
                 Id = x.Id,
                 ApartmentType = x.ApartmentType.Name,
-                MainImage = url + x.MainImage.Replace("wwwroot\\", ""),
+                MainImage = new ApartmentImageDto
+                {
+                    FileName = x.MainImage,
+                    ImageType = Application.UploadType.MainImage,
+                    OriginalFileName = null
+                },
                 MaxGuests = x.MaxGuests,
                 PricePerNight = x.Price
             });

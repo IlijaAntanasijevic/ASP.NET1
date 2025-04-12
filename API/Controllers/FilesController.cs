@@ -1,5 +1,6 @@
 ﻿using API.DTO;
 using App.Domain;
+using Application;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -45,13 +46,13 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public IActionResult Post([FromForm] FilesUploadDto request)
+        public IActionResult Post([FromForm] List<FilesUploadDto> request)
         {
-            var files = request.Files;
-            var fileNames = new List<string>();
-            foreach (var file in files)
+  
+            List<FileUploadResponseDto> response = new List<FileUploadResponseDto>();
+            foreach (var fileDto in request)
             {
-                var extension = Path.GetExtension(file.FileName);
+                var extension = Path.GetExtension(fileDto.File.FileName);
 
                 if (!allowedExtensions.Contains(extension))
                 {
@@ -62,12 +63,18 @@ namespace API.Controllers
                 var savePath = Path.Combine("wwwroot", "temp", fileName);
 
                 using var fs = new FileStream(savePath, FileMode.Create);
-                file.CopyTo(fs);
-                fileNames.Add(fileName);
+                fileDto.File.CopyTo(fs);
 
+                response.Add(new FileUploadResponseDto
+                {
+                    FileName = fileName,
+                    ImageType = fileDto.ImageType == UploadType.MainImage ? UploadType.MainImage : UploadType.Apartment,
+                    OriginalFileName = fileDto.File.FileName
+                });
             }
+
     
-            return StatusCode(201, fileNames );
+            return StatusCode(201, response);
 
         }
 
