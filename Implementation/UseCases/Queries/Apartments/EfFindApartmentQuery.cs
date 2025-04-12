@@ -1,4 +1,5 @@
 ﻿using App.Domain;
+using Application;
 using Application.DTO;
 using Application.DTO.Apartments;
 using Application.DTO.Users;
@@ -24,7 +25,7 @@ namespace Implementation.UseCases.Queries.Apartments
 
         public ApartmentDto Execute(int search)
         {
-            string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
+            //string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
             var apartment = Context.Apartments.Include(x => x.CityCountry)
                                                   .ThenInclude(cc => cc.City)
                                                   .Include(x => x.CityCountry)
@@ -61,7 +62,12 @@ namespace Implementation.UseCases.Queries.Apartments
                     Id = apartment.CityCountry.Country.Id,
                     Name = apartment.CityCountry.Country.Name
                 },
-                MainImage = url + apartment.MainImage.Replace("wwwroot\\", ""),
+                MainImage = new ApartmentImageDto
+                {
+                    FileName = apartment.MainImage,
+                    ImageType = UploadType.MainImage,
+                    OriginalFileName = null
+                },
                 MaxGuests = apartment.MaxGuests,
                 PricePerNight = apartment.Price,
                 TotalBookings = apartment.Bookings.Where(x => x.ApartmentId == apartment.Id && x.IsActive).Sum(x => x.ApartmentId),
@@ -71,7 +77,12 @@ namespace Implementation.UseCases.Queries.Apartments
                     Id = x.Feature.Id,
                     Name = x.Feature.Name
                 }),
-                Images = apartment.Images.Select(x => url + x.Path.Replace("wwwroot\\", "")).ToList(),
+                Images = apartment.Images.Select(x => new ApartmentImageDto
+                {
+                    FileName = x.Path,
+                    ImageType = UploadType.Apartment,
+                    OriginalFileName = null
+                }).ToList(),
                 PaymentMethods = apartment.PaymentApartments.Select(x => new BasicDto
                 {
                     Id = x.Payment.Id,

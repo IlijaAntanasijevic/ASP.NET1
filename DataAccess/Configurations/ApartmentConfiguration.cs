@@ -44,6 +44,8 @@ namespace DataAccess.Configurations
                    .WithMany(x => x.Apartments)
                    .HasForeignKey(x => x.ApartmentTypeId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(x => x.Description).HasColumnType("nvarchar(MAX)");
         }
     }
 }

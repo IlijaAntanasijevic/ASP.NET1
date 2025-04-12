@@ -13,7 +13,7 @@ namespace Application.DTO.Apartments
         public string Name { get; set; }
         public int MaxGuests { get; set; }
         public decimal PricePerNight { get; set; }
-        public string MainImage { get; set; }
+        public ApartmentImageDto MainImage { get; set; }
         public string ApartmentType { get; set; }
     }
     public class SearchApartmentsDto : BaseApartmentDto
@@ -33,10 +33,17 @@ namespace Application.DTO.Apartments
         //public IEnumerable<int> PaymentMethodIds { get; set; }
         public IEnumerable<BasicDto> Features { get; set; }
         //public IEnumerable<int> FeatureIds { get; set; }
-        public IEnumerable<string> Images { get; set; }
+        public IEnumerable<ApartmentImageDto> Images { get; set; }
         public decimal Lattitude { get; set; }
         public decimal Longitude { get; set; }
 
+    }
+
+    public class ApartmentImageDto
+    {
+        public UploadType ImageType { get; set; }
+        public string FileName { get; set; }
+        public string? OriginalFileName { get; set; }
     }
 
 
