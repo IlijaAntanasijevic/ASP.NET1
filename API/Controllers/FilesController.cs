@@ -59,15 +59,29 @@ namespace API.Controllers
                     return new UnsupportedMediaTypeResult();
                 }
 
-                var fileName = Guid.NewGuid().ToString() + extension;
-                var savePath = Path.Combine("wwwroot", "temp", fileName);
+                var uniqueFileName = Guid.NewGuid().ToString() + extension;
+                var savePath = Path.Combine("wwwroot", "temp", uniqueFileName);
+                var tempPath = Path.Combine("wwwroot", "temp", fileDto.File.FileName);
+                var mainImagesPath = Path.Combine("wwwroot", "apartments", "mainImages", fileDto.File.FileName);
+                var apartmentImagesPath = Path.Combine("wwwroot", "apartments", "images", fileDto.File.FileName);
 
-                using var fs = new FileStream(savePath, FileMode.Create);
-                fileDto.File.CopyTo(fs);
+                bool fileExists = System.IO.File.Exists(tempPath)
+                                 || System.IO.File.Exists(mainImagesPath)
+                                 || System.IO.File.Exists(apartmentImagesPath);
+
+                if (!fileExists)
+                {
+                    using var fs = new FileStream(savePath, FileMode.Create);
+                    fileDto.File.CopyTo(fs);
+                }
+                else
+                {
+                    uniqueFileName = fileDto.File.FileName;
+                }
 
                 response.Add(new FileUploadResponseDto
                 {
-                    FileName = fileName,
+                    FileName = uniqueFileName,
                     ImageType = fileDto.ImageType == UploadType.MainImage ? UploadType.MainImage : UploadType.Apartment,
                     OriginalFileName = fileDto.File.FileName
                 });

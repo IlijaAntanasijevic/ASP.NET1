@@ -89,8 +89,8 @@ namespace Implementation.Validators
                                         RuleForEach(x => x.Images).Must(x => x.EndsWith(".jpg") || x.EndsWith(".png") || x.EndsWith(".jpeg"))
                                                                 .WithMessage("Image must be in jpg, png or jpeg format.");
                                     })
-                                    .Must(x => x.Count() > 5)
-                                    .WithMessage("Minimum number of images is 5.");
+                                    .Must(x => x.Count() >= 2)
+                                    .WithMessage("Minimum number of images is 2.");
 
 
 
