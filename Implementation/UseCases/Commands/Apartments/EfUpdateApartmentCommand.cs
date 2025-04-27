@@ -14,12 +14,14 @@ namespace Implementation.UseCases.Commands.Apartments
     {
         private readonly IApplicationActor _actor;
         private readonly UpdateApartmentValidator _validator;
+        private readonly IFileUploader _fileUploader;
 
-        public EfUpdateApartmentCommand(BookingContext context, IApplicationActor actor, UpdateApartmentValidator validator)
+        public EfUpdateApartmentCommand(BookingContext context, IApplicationActor actor, UpdateApartmentValidator validator, IFileUploader fileUploader)
             : base(context)
         {
             _actor = actor;
             _validator = validator;
+            _fileUploader = fileUploader;
         }
 
         public int Id => 18;
@@ -51,30 +53,53 @@ namespace Implementation.UseCases.Commands.Apartments
                 .Ignore(x => x.CityCountry)
                 .Ignore(x => x.Images);
 
-            Apartment editedApartment = data.Adapt<Apartment>();
+            data.Adapt(apartment);
             //apartment.Name = data.Name;
             //apartment.Description = data.Description;
             //apartment.Price = data.Price;
             ////apartment.MaxGuests = data.MaxGuests;
             //apartment.Price = data.Price;
 
-            //Context.RemoveRange(apartment.FeatureApartments);
-            //Context.RemoveRange(apartment.PaymentApartments);
+            Context.RemoveRange(apartment.FeatureApartments);
+            Context.RemoveRange(apartment.PaymentApartments);
 
+            var cityCountry = Context.CitiesCountry.FirstOrDefault(x => x.CityId == data.CityId && x.CountryId == data.CountryId);
 
-            //apartment.FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
-            //{
-            //    FeatureId = x,
-            //    ApartmentId = apartment.Id 
-            //}).ToList();
+            //slike koje nisu stigle sa fronta treba obrisati 
+            //Promeni u bazi PATH u NAME/ImageName..
+            var apartmentImages = Context.Images.Where(x => x.ApartmentId == data.Id).ToList();
+            var imagesNotExists = apartmentImages.Where(x => data.Images.Contains(x.Path));
 
-            //apartment.PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
-            //{
-            //    PaymentId = x,
-            //    ApartmentId = apartment.Id 
-            //}).ToList();
+            if (imagesNotExists.Any())
+            {
+                var imagesToAdd = data.Images.Where(x => !apartmentImages.Any(y => y.Path == x)).ToList();
+                _fileUploader.MoveImages(imagesToAdd, UploadType.Apartment);
+                //foreach(var image in imagesNotExists)
+                //{
+                //    _fileUploader.MoveImages(data.Images, UploadType.Apartment);
+                //    //Context.Remove(image);
+                //}
+            }
 
-            apartment = editedApartment;
+            if(cityCountry == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            apartment.CityCountry = cityCountry;
+
+            apartment.FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
+            {
+                FeatureId = x,
+                ApartmentId = apartment.Id
+            }).ToList();
+
+            apartment.PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
+            {
+                PaymentId = x,
+                ApartmentId = apartment.Id
+            }).ToList();
+
 
 
             Context.SaveChanges();

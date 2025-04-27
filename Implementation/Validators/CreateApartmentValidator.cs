@@ -77,7 +77,22 @@ namespace Implementation.Validators
  
                                             });
 
-    
+            RuleFor(x => x.MainImage).NotEmpty()
+                                        .WithMessage("Main image is required.")
+                                        .Must(x => x.EndsWith(".jpg") || x.EndsWith(".png") || x.EndsWith(".jpeg"))
+                                        .WithMessage("Main image must be in jpg, png or jpeg format.");
+
+            RuleFor(x => x.Images).NotEmpty()
+                                    .WithMessage("At least one image is required.")
+                                    .DependentRules(() =>
+                                    {
+                                        RuleForEach(x => x.Images).Must(x => x.EndsWith(".jpg") || x.EndsWith(".png") || x.EndsWith(".jpeg"))
+                                                                .WithMessage("Image must be in jpg, png or jpeg format.");
+                                    })
+                                    .Must(x => x.Count() > 5)
+                                    .WithMessage("Minimum number of images is 5.");
+
+
 
         }
     }

@@ -2,6 +2,7 @@
 using Application.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,49 @@ namespace Implementation
             }
             return uploadedFiles;
         }
+
+        public string MoveImage(string fileName, UploadType type)
+        {
+            var tmpDirectory = Path.Combine("wwwroot", "temp");
+            var file = Directory.GetFiles(tmpDirectory, fileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
+
+            if (file == null)
+            {
+                throw new FileNotFoundException("Source file not found in temporary directory.", fileName);
+            }
+
+            var extension = Path.GetExtension(fileName).ToLower();
+
+            if (!_allowedExtensions.Contains(extension))
+            {
+                throw new UnsupportedFileException("Unsupported file extension.");
+            }
+
+            var basePathSegments = _uploadPaths[type];
+            var basePath = Path.Combine(basePathSegments.ToArray());
+
+            if (!Directory.Exists(basePath))
+            {
+                Directory.CreateDirectory(basePath);
+            }
+
+            var savePath = Path.Combine(basePath, fileName);
+
+            File.Move(file, savePath, true);
+            return savePath;
+        }
+
+        public IEnumerable<string> MoveImages(IEnumerable<string> fileNames, UploadType type)
+        {
+            var movedFileNames = new List<string>();
+            foreach (var fileName in fileNames)
+            {
+                movedFileNames.Add(MoveImage(fileName, type));
+            }
+
+            return movedFileNames;
+        }
+
 
     }
 }

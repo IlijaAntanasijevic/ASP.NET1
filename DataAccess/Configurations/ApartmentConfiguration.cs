@@ -45,6 +45,9 @@ namespace DataAccess.Configurations
                    .HasForeignKey(x => x.ApartmentTypeId)
                    .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Property(x => x.Longitude).HasColumnType("decimal(9,6)");
+            builder.Property(x => x.Lattitude).HasColumnType("decimal(9,6)");  
+
             builder.Property(x => x.Description).HasColumnType("nvarchar(MAX)");
         }
     }
