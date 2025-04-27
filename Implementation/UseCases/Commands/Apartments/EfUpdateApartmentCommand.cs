@@ -51,14 +51,10 @@ namespace Implementation.UseCases.Commands.Apartments
                 .Ignore(x => x.FeatureApartments)
                 .Ignore(x => x.PaymentApartments)
                 .Ignore(x => x.CityCountry)
-                .Ignore(x => x.Images);
+                .Ignore(x => x.Images)
+                .Ignore(x => x.MainImage);
 
             data.Adapt(apartment);
-            //apartment.Name = data.Name;
-            //apartment.Description = data.Description;
-            //apartment.Price = data.Price;
-            ////apartment.MaxGuests = data.MaxGuests;
-            //apartment.Price = data.Price;
 
             Context.RemoveRange(apartment.FeatureApartments);
             Context.RemoveRange(apartment.PaymentApartments);
@@ -67,18 +63,33 @@ namespace Implementation.UseCases.Commands.Apartments
 
             //slike koje nisu stigle sa fronta treba obrisati 
             //Promeni u bazi PATH u NAME/ImageName..
-            var apartmentImages = Context.Images.Where(x => x.ApartmentId == data.Id).ToList();
-            var imagesNotExists = apartmentImages.Where(x => data.Images.Contains(x.Path));
-
-            if (imagesNotExists.Any())
+            if(apartment.MainImage != data.MainImage)
             {
-                var imagesToAdd = data.Images.Where(x => !apartmentImages.Any(y => y.Path == x)).ToList();
-                _fileUploader.MoveImages(imagesToAdd, UploadType.Apartment);
-                //foreach(var image in imagesNotExists)
-                //{
-                //    _fileUploader.MoveImages(data.Images, UploadType.Apartment);
-                //    //Context.Remove(image);
-                //}
+                //Obrisati staru iz foldera
+                //Premestiti iz images folder u mainImages
+                _fileUploader.MoveImage(data.MainImage, UploadType.MainImage);
+                _fileUploader.DeleteImage(apartment.MainImage);
+                apartment.MainImage = data.MainImage;
+            }
+
+            var apartmentImages = Context.Images.Where(x => x.ApartmentId == data.Id).ToList();
+            var imagesToDelete = apartmentImages.Where(x => !data.Images.Any(image => x.Path.Contains(image)) && apartment.MainImage != x.Path).ToList();
+            var imagesToAdd = data.Images.Where(x => !apartmentImages.Any(image => image.Path.Contains(x)) && apartment.MainImage != x).ToList();
+
+            foreach(var image in imagesToDelete)
+            {
+                _fileUploader.DeleteImage(image.Path);
+                Context.Images.Remove(image);
+            }
+
+            foreach(var image in imagesToAdd)
+            {
+                _fileUploader.MoveImage(image, UploadType.Apartment);
+                Context.Images.Add(new Image
+                {
+                    ApartmentId = apartment.Id,
+                    Path = image
+                });
             }
 
             if(cityCountry == null)
@@ -100,10 +111,7 @@ namespace Implementation.UseCases.Commands.Apartments
                 ApartmentId = apartment.Id
             }).ToList();
 
-
-
             Context.SaveChanges();
-
 
         }
     }

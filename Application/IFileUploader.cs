@@ -23,6 +23,7 @@ namespace Application
         IEnumerable<string> Upload(IEnumerable<string> files, UploadType type);
         public string MoveImage(string fileName, UploadType type);
         public IEnumerable<string> MoveImages(IEnumerable<string> fileNames, UploadType type);
+        public void DeleteImage(string fileName);
         //IEnumerable<string> GetFiles();
     }
 }

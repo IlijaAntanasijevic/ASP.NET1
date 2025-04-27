@@ -72,11 +72,16 @@ namespace Implementation
         public string MoveImage(string fileName, UploadType type)
         {
             var tmpDirectory = Path.Combine("wwwroot", "temp");
+            var apartmentDirectory = Path.Combine("wwwroot", "apartments", "images");
             var file = Directory.GetFiles(tmpDirectory, fileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
 
             if (file == null)
             {
-                throw new FileNotFoundException("Source file not found in temporary directory.", fileName);
+                file = Directory.GetFiles(apartmentDirectory, fileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
+                if (file == null)
+                {
+                    throw new FileNotFoundException("Source file not found in temporary directory.", fileName);
+                }
             }
 
             var extension = Path.GetExtension(fileName).ToLower();
@@ -111,6 +116,51 @@ namespace Implementation
             return movedFileNames;
         }
 
+        public void DeleteImage(string fileName)
+        {
+            var folderPath = string.Empty;
 
+            var searchFolders = new List<string>
+            {
+                Path.Combine("wwwroot", "apartments", "images"),
+                Path.Combine("wwwroot", "apartments", "mainImages"),
+                Path.Combine("wwwroot", "temp")
+            };
+
+            string filePath = string.Empty;
+
+            foreach(var folder in searchFolders)
+            {
+                if (Directory.Exists(folder))
+                {
+                    filePath = Directory.GetFiles(folder, fileName, SearchOption.AllDirectories).FirstOrDefault();
+                    if (filePath != null) break;
+                }
+            }
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new FileNotFoundException("Source file not found in temporary directory.", fileName);
+            }
+
+            //if (UploadType.Apartment == type)
+            //{
+            //    folderPath = Path.Combine("wwwroot", "apartments", "images");
+            //}
+            //else if (UploadType.MainImage == type)
+            //{
+            //    folderPath = Path.Combine("wwwroot", "apartments", "mainImages");
+            //}
+            //else
+            //{
+            //    folderPath = Path.Combine("wwwroot", "temp");
+            //}
+
+            //var fullPath = Path.Combine(folderPath, fileName);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
     }
 }

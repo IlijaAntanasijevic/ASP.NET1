@@ -23,7 +23,7 @@ namespace Implementation.UseCases.Queries.Apartments
 
         public PagedResponseApartment<SearchApartmentsDto> Execute(ApartmentSearch search)
         {
-            var query = Context.Apartments.AsQueryable();
+            var query = Context.Apartments.Where(x => x.IsActive == true).AsQueryable();
             //string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
 
             if (!string.IsNullOrEmpty(search.Keyword))
