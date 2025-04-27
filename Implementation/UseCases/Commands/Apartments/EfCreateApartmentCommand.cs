@@ -38,6 +38,9 @@ namespace Implementation.UseCases.Commands.Apartments
             //var mainImagePath = _fileUploader.Upload(data.MainImage, UploadType.MainImage);
             //var otherImages = _fileUploader.Upload(data.Images, UploadType.Apartment);
 
+            _fileUploader.MoveImage(data.MainImage, UploadType.MainImage);
+            _fileUploader.MoveImages(data.Images, UploadType.Apartment);
+
             var cityCountry = Context.CitiesCountry.FirstOrDefault(x => x.CityId == data.CityId && x.CountryId == data.CountryId);
 
             if(cityCountry == null)

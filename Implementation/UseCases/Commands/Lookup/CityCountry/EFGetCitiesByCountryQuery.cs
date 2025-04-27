@@ -26,7 +26,7 @@ namespace Implementation.UseCases.Commands.Lookup.CityCountry
 
             IEnumerable<BasicDto> cities = cityCountries.Where(x => x.CountryId == countryId).Select(x => new BasicDto
             {
-                Id = x.Id,
+                Id = x.CityId,
                 Name = x.City.Name
             }).ToList();
 

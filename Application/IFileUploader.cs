@@ -21,6 +21,8 @@ namespace Application
         string Upload(string path, UploadType type);
 
         IEnumerable<string> Upload(IEnumerable<string> files, UploadType type);
+        public string MoveImage(string fileName, UploadType type);
+        public IEnumerable<string> MoveImages(IEnumerable<string> fileNames, UploadType type);
         //IEnumerable<string> GetFiles();
     }
 }
