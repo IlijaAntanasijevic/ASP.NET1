@@ -61,18 +61,24 @@ namespace Implementation.UseCases.Commands.Apartments
 
             var cityCountry = Context.CitiesCountry.FirstOrDefault(x => x.CityId == data.CityId && x.CountryId == data.CountryId);
 
-            //slike koje nisu stigle sa fronta treba obrisati 
-            //Promeni u bazi PATH u NAME/ImageName..
-            if(apartment.MainImage != data.MainImage)
+            if (cityCountry == null)
             {
-                //Obrisati staru iz foldera
-                //Premestiti iz images folder u mainImages
-                _fileUploader.MoveImage(data.MainImage, UploadType.MainImage);
-                _fileUploader.DeleteImage(apartment.MainImage);
-                apartment.MainImage = data.MainImage;
+                throw new ArgumentNullException();
             }
 
             var apartmentImages = Context.Images.Where(x => x.ApartmentId == data.Id).ToList();
+
+            //slike koje nisu stigle sa fronta treba obrisati 
+            //Promeni u bazi PATH u NAME/ImageName..
+            if (apartment.MainImage != data.MainImage)
+            {
+                _fileUploader.MoveImage(data.MainImage, UploadType.MainImage);
+                _fileUploader.DeleteImage(apartment.MainImage);
+                apartment.MainImage = data.MainImage;
+                Context.Remove(apartmentImages.FirstOrDefault(x => x.Path == apartment.MainImage));
+            }
+
+
             var imagesToDelete = apartmentImages.Where(x => !data.Images.Any(image => x.Path.Contains(image)) && apartment.MainImage != x.Path).ToList();
             var imagesToAdd = data.Images.Where(x => !apartmentImages.Any(image => image.Path.Contains(x)) && apartment.MainImage != x).ToList();
 
@@ -90,11 +96,6 @@ namespace Implementation.UseCases.Commands.Apartments
                     ApartmentId = apartment.Id,
                     Path = image
                 });
-            }
-
-            if(cityCountry == null)
-            {
-                throw new ArgumentNullException();
             }
 
             apartment.CityCountry = cityCountry;
