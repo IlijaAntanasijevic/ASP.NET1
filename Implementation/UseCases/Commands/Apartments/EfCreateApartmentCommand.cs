@@ -58,6 +58,8 @@ namespace Implementation.UseCases.Commands.Apartments
                 //MaxGuests = data.MaxGuests,
                 Price = data.Price,
                 ApartmentTypeId = data.ApartmentTypeId,
+                Lattitude = data.Lattitude,
+                Longitude = data.Longitude,
                 MainImage = data.MainImage,
                 FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
                 {

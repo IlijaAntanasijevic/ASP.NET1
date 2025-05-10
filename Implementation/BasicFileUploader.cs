@@ -138,10 +138,10 @@ namespace Implementation
                 }
             }
 
-            if (string.IsNullOrEmpty(filePath))
-            {
-                throw new FileNotFoundException("Source file not found in temporary directory.", fileName);
-            }
+            //if (string.IsNullOrEmpty(filePath))
+            //{
+            //    throw new FileNotFoundException("Source file not found in temporary directory.", fileName);
+            //}
 
             //if (UploadType.Apartment == type)
             //{
