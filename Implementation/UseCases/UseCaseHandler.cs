@@ -47,7 +47,8 @@ namespace Implementation.UseCases
 
         private void Handle(IUseCase useCase, object data)
         {
-            if (!GloballyAllowed.Contains(useCase.Id) && !_actor.AllowedUseCases.Contains(useCase.Id))
+            //PRIVREMENO ZA CHAT
+            if (!GloballyAllowed.Contains(useCase.Id) && !_actor.AllowedUseCases.Contains(useCase.Id) && useCase.Id != 34)
             {
                 throw new UnauthorizedAccessException();
             }

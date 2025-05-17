@@ -1,4 +1,5 @@
-﻿using Domain.Core;
+﻿using Domain;
+using Domain.Core;
 using Domain.Lookup;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace App.Domain
         public int ApartmentTypeId { get; set; }
         public decimal? Longitude { get; set; }
         public decimal? Lattitude { get; set; }
+        public int? IsArchived { get; set; }
 
 
 
@@ -30,6 +32,7 @@ namespace App.Domain
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
         public virtual ICollection<PaymentApartment> PaymentApartments { get; set;} = new HashSet<PaymentApartment>();
         public virtual ICollection<Booking> Bookings { get; set;} = new HashSet<Booking>();
+        public virtual ICollection<FavoriteApartments> Favorites { get; set;} = new HashSet<FavoriteApartments>();
 
     }
 }
