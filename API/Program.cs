@@ -1,11 +1,14 @@
 using API;
+using API.Chat;
 using API.Core;
 using API.Core.Exceptions;
 using API.Core.JWT;
 using Application;
+using Application.UseCases.Commands;
 using DataAccess;
 using Implementation;
 using Implementation.Logging.UseCases;
+using Implementation.UseCases.Commands;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,7 @@ var settings = new AppSettings();
 
 builder.Configuration.Bind(settings);
 builder.Services.AddSingleton(settings.Jwt);
+builder.Services.AddSignalR();
 
 
 builder.Services.AddControllers();
@@ -35,6 +39,7 @@ builder.Services.AddTransient<ITokenStorage, InMemoryTokenStorage>();
 
 builder.Services.AddTransient<IFileUploader, BasicFileUploader>();
 
+builder.Services.AddScoped<ISaveChatCommand, EfSaveChatCommand>();
 
 
 #region Actors
@@ -83,6 +88,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapHub<ChatHub>("chat-hub");
 
 app.UseSwagger();
 app.UseSwaggerUI();
