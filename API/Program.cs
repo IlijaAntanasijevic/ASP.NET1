@@ -9,6 +9,7 @@ using DataAccess;
 using Implementation;
 using Implementation.Logging.UseCases;
 using Implementation.UseCases.Commands;
+using Microsoft.AspNetCore.SignalR;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +18,9 @@ var settings = new AppSettings();
 
 builder.Configuration.Bind(settings);
 builder.Services.AddSingleton(settings.Jwt);
-builder.Services.AddSignalR();
 
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -38,8 +40,6 @@ builder.Services.AddTransient<JwtTokenCreator>();
 builder.Services.AddTransient<ITokenStorage, InMemoryTokenStorage>();
 
 builder.Services.AddTransient<IFileUploader, BasicFileUploader>();
-
-builder.Services.AddScoped<ISaveChatCommand, EfSaveChatCommand>();
 
 
 #region Actors
@@ -73,11 +73,18 @@ builder.Services.AddJwt(settings);
 
 var app = builder.Build();
 
+var allowedOrigin = "http://localhost:4200";
+
 app.UseCors(x =>
 {
-    x.AllowAnyOrigin();
-    x.AllowAnyMethod();
-    x.AllowAnyHeader();
+    //x.AllowAnyOrigin();
+    //x.AllowAnyMethod();
+    //x.AllowAnyHeader();
+    x.WithOrigins(allowedOrigin)
+    //.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials();
 });
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
@@ -89,12 +96,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthorization();
+app.UseAuthentication();
+
 app.MapHub<ChatHub>("chat-hub");
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseAuthorization();
 
 app.MapControllers();
 

@@ -1,12 +1,13 @@
 ﻿using Application.DTO;
+using Application.DTO.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.Queries.Chat;
 
-public interface ISaveChatCommand : ICommand<ChatDto>
+public interface IGetChatMessages : IQuery<List<ChatMessagesDto>, int>
 {
 }

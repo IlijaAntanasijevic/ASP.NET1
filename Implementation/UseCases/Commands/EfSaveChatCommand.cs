@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Implementation.UseCases.Commands;
 
-public class EfSaveChatCommand : EfUseCase, ISaveChatCommand
+public class EfSaveChatCommand : EfUseCase, ISendMessageCommand
 {
     public EfSaveChatCommand(BookingContext context) : base(context)
     {
