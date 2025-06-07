@@ -7,6 +7,7 @@ using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Apartment;
 using Application.UseCases.Queries.Bookings;
+using Application.UseCases.Queries.Chat;
 using Application.UseCases.Queries.Lookup;
 using Application.UseCases.Queries.Users;
 using Implementation.UseCases;
@@ -19,10 +20,12 @@ using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries;
 using Implementation.UseCases.Queries.Apartments;
 using Implementation.UseCases.Queries.Bookings;
+using Implementation.UseCases.Queries.Chat;
 using Implementation.UseCases.Queries.Lookup;
 using Implementation.UseCases.Queries.Users;
 using Implementation.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -44,7 +47,7 @@ namespace API.Core
             services.AddTransient<RegisterUserValidator>();
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
             services.AddTransient<IFindUserQuery, EfFindUserQuery>();
-            services.AddTransient<IDeleteUserCommand,EfDeleteUserCommand>();
+            services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
             services.AddTransient<UpdateUserValidator>();
             services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
             services.AddTransient<IChangeProfilePhotoCommand, EfChangeProfilePhotoCommand>();
@@ -90,6 +93,12 @@ namespace API.Core
             services.AddTransient<IDeleteBookingCommand, EfDeleteBookingCommand>();
             services.AddTransient<IGetBookingsQuery, EfGetBookingsQuery>();
             services.AddTransient<IFindBookingQuery, EfFindBookingQuery>();
+
+            //Chat
+            services.AddScoped<ISendMessageCommand, EfSaveChatCommand>();
+            services.AddTransient<IGetChatListQuery, EfGetChatListQuery>();
+            services.AddTransient<IGetChatMessages, EfGetChatMessages>();
+
 
 
         }
@@ -148,20 +157,32 @@ namespace API.Core
                 };
                 cfg.Events = new JwtBearerEvents
                 {
-                    OnTokenValidated = context =>
+                    //OnTokenValidated = context =>
+                    //{
+
+                    //    Guid tokenId = context.HttpContext.Request.GetTokenId().Value;
+
+                    //    ITokenStorage storage = services.BuildServiceProvider().GetService<ITokenStorage>();
+
+                    //    if (!storage.Exists(tokenId))
+                    //    {
+                    //        context.Fail("Invalid token");
+                    //    }
+
+                    //    return Task.CompletedTask;
+
+                    //},
+                    OnMessageReceived = context =>
                     {
+                        var accessToken = context.Request.Query["access_token"];
 
-                        Guid tokenId = context.HttpContext.Request.GetTokenId().Value;
-
-                        ITokenStorage storage = services.BuildServiceProvider().GetService<ITokenStorage>();
-
-                        if (!storage.Exists(tokenId))
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chat-hub"))
                         {
-                            context.Fail("Invalid token");
+                            context.Token = accessToken;
                         }
 
                         return Task.CompletedTask;
-
                     }
                 };
             });
@@ -169,26 +190,13 @@ namespace API.Core
         }
     }
 
-    public static class UrlHelper
+    public class CustomUserIdProvider : IUserIdProvider
     {
-        public static string GetApplicationUrl()
+        public string? GetUserId(HubConnectionContext connection)
         {
-            var launchSettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "Properties", "launchSettings.json");
-
-            if (!File.Exists(launchSettingsPath))
-                throw new FileNotFoundException("launchSettings.json not found");
-
-            var json = File.ReadAllText(launchSettingsPath);
-
-            using var document = JsonDocument.Parse(json);
-
-            var applicationUrl = document.RootElement
-                .GetProperty("profiles")
-                .GetProperty("http") 
-                .GetProperty("applicationUrl")
-                .GetString();
-
-            return applicationUrl;
+            var tmp = connection.User;
+            var userId = connection.User?.Claims.FirstOrDefault(x => x.Type == "Id")?.Value;
+            return userId;
         }
     }
 }

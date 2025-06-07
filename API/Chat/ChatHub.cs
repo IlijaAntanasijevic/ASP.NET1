@@ -1,4 +1,5 @@
-﻿using Application.DTO;
+﻿using Application;
+using Application.DTO;
 using Application.UseCases.Commands;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Mvc;
@@ -9,17 +10,29 @@ namespace API.Chat;
 public sealed class ChatHub : Hub, IChatHub
 {
     private readonly UseCaseHandler _handler;
-    private readonly ISaveChatCommand _command;
+    private readonly ISendMessageCommand _command;
 
-    public ChatHub(UseCaseHandler handler, ISaveChatCommand command)
+    public ChatHub(UseCaseHandler handler, ISendMessageCommand command)
     {
         _handler = handler;
         _command = command;
     }
 
-    public async Task SendMessage(int senderId, int receiverId, string message)
+    public override Task OnConnectedAsync()
     {
-        var data = new ChatDto
+        var connectionId = Context.ConnectionId;
+        var userId = Context.UserIdentifier;
+        return base.OnConnectedAsync();
+    }
+
+    public async Task SendMessage(int receiverId, string message)
+    {
+        var tmp = Context.ConnectionId;
+        var tmp2 = Clients.User;
+        var tmp3 = Context.UserIdentifier;
+        if (!int.TryParse(Context.UserIdentifier, out var senderId)) throw new HubException("sender id is invalid");
+
+        var dataForDb = new ChatDto
         {
             Message = message,
             SenderId = senderId,
@@ -27,9 +40,23 @@ public sealed class ChatHub : Hub, IChatHub
             ReceivedDate = DateTime.Now,
         };
 
-        _handler.HandleCommand(_command, data);
 
-        await Clients.User(receiverId.ToString()).SendAsync("ReciveMessage", senderId, message);
+        _handler.HandleCommand(_command, dataForDb);
+
+        var dataForFront = new ChatMessagesDto
+        {
+            Message = message,
+            SenderId = senderId,
+            ReceiverId = receiverId,
+            SentAt = DateTime.Now,
+            IsRead = false,
+            isMineMessage = false
+        };
+
+        await Clients.User(receiverId.ToString()).SendAsync("ReceiveMessage", dataForFront);
+
+        dataForFront.isMineMessage = true;
+        await Clients.User(senderId.ToString()).SendAsync("SendMessage", dataForFront);
     }
 
 }

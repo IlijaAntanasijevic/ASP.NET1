@@ -2,5 +2,5 @@
 
 public interface IChatHub
 {
-    Task SendMessage(int senderId, int receiverId, string message);
+    Task SendMessage(int receiverId, string message);
 }
