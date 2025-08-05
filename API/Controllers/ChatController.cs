@@ -2,6 +2,7 @@
 using Application.UseCases.Queries.Apartment;
 using Application.UseCases.Queries.Chat;
 using Implementation.UseCases;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

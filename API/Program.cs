@@ -70,7 +70,7 @@ builder.Services.AddTransient<IApplicationActor>(x =>
 #endregion
 
 builder.Services.AddJwt(settings);
-
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 var allowedOrigin = "http://localhost:4200";
