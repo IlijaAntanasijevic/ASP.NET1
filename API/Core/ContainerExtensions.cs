@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 
@@ -91,7 +92,7 @@ namespace API.Core
             services.AddTransient<IUpdateBookingCommand, EfUpdateBookingCommand>();
             services.AddTransient<UpdateBookingValidator>();
             services.AddTransient<IDeleteBookingCommand, EfDeleteBookingCommand>();
-            services.AddTransient<IGetBookingsQuery, EfGetBookingsQuery>();
+            services.AddTransient<IGetMyBookingsQuery, EfGetMyBookingsQuery>();
             services.AddTransient<IFindBookingQuery, EfFindBookingQuery>();
 
             //Chat
@@ -171,6 +172,20 @@ namespace API.Core
 
                     //    return Task.CompletedTask;
 
+                    //},
+                    //OnChallenge = context =>
+                    //{
+                    //    context.HandleResponse();
+                    //    if (!context.Response.HasStarted)
+                    //    {
+                    //        throw new UnauthorizedAccessException("Authentication Failed.");
+                    //    }
+
+                    //    return Task.CompletedTask;
+                    //},
+                    //OnForbidden = _ =>
+                    //{
+                    //    throw new UnauthorizedAccessException("You are not authorized to access this resource.");
                     //},
                     OnMessageReceived = context =>
                     {

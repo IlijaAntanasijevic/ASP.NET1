@@ -14,10 +14,10 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Implementation.UseCases.Queries.Bookings
 {
-    public class EfGetBookingsQuery : EfUseCase, IGetBookingsQuery
+    public class EfGetMyBookingsQuery : EfUseCase, IGetMyBookingsQuery
     {
         private readonly IApplicationActor _actor;
-        public EfGetBookingsQuery(BookingContext context, IApplicationActor actor) 
+        public EfGetMyBookingsQuery(BookingContext context, IApplicationActor actor) 
             : base(context)
         {
             _actor = actor;
@@ -25,7 +25,7 @@ namespace Implementation.UseCases.Queries.Bookings
 
         public int Id => 23;
 
-        public string Name => nameof(EfGetBookingsQuery);
+        public string Name => nameof(EfGetMyBookingsQuery);
 
         public PagedResponse<SearchedBookingDto> Execute(BookingSearch search)
         {
@@ -48,14 +48,15 @@ namespace Implementation.UseCases.Queries.Bookings
                 ApartmentId = x.ApartmentId,
                 ApartmentName = x.Apartment.Name,
                 TotalPrice = (decimal)x.TotalPrice,
-                ApartmentImage = url + x.Apartment.MainImage.Replace("wwwroot\\", ""),
+                //ApartmentImage = url + x.Apartment.MainImage.Replace("wwwroot\\", ""),
+                ApartmentImage = x.Apartment.MainImage,
                 Owner = new UserDto
                 {
                     FirstName = x.Apartment.User.FirstName,
                     LastName = x.Apartment.User.LastName,
                     Email = x.Apartment.User.Email,
                     Phone = x.Apartment.User.Phone,
-                    Avatar = url + "/users/" + x.Apartment.User.Avatar,
+                    Avatar = x.Apartment.User.Avatar,
                     Id = x.Id,
                 },
                 BookingId = x.Id,
