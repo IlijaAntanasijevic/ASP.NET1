@@ -93,6 +93,7 @@ namespace API.Core
             services.AddTransient<UpdateBookingValidator>();
             services.AddTransient<IDeleteBookingCommand, EfDeleteBookingCommand>();
             services.AddTransient<IGetMyBookingsQuery, EfGetMyBookingsQuery>();
+            services.AddTransient<IGetMyGuestBookingsQuery, EfGetMyGuestBookingsQuery>();
             services.AddTransient<IFindBookingQuery, EfFindBookingQuery>();
 
             //Chat

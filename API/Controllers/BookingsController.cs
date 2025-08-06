@@ -69,7 +69,7 @@ namespace API.Controllers
 
         [HttpGet("guests")]
         //[Authorize]
-        public IActionResult GetMyGuestsBookings([FromQuery] BookingSearch search, [FromServices] /*IGetMyGuestBookingsQuery*/ IGetMyBookingsQuery query)
+        public IActionResult GetMyGuestsBookings([FromQuery] BookingSearch search, [FromServices] IGetMyGuestBookingsQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
         }

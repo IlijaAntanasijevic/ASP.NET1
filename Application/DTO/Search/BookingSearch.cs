@@ -22,7 +22,7 @@ namespace Application.DTO.Search
         public decimal TotalPrice { get; set; }
         public int ApartmentId { get; set; }
         public string PaymentMethod { get; set; }
-        public UserDto Owner { get; set; }
+        public UserDto? Owner { get; set; }
         public UserDto User { get; set; }
 
     }

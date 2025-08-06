@@ -51,6 +51,7 @@ namespace Implementation.UseCases.Commands.Users
             //34 - Send message
             //35 - User Chat List
             //36 - Chat Messages
+            //37 - My Guest Bookings
 
             User user = new User
             {
@@ -77,6 +78,7 @@ namespace Implementation.UseCases.Commands.Users
                     new UserUseCase { UseCaseId = 34},
                     new UserUseCase { UseCaseId = 35},
                     new UserUseCase { UseCaseId = 36},
+                    new UserUseCase { UseCaseId = 37},
                 }
             };
 
