@@ -15,8 +15,11 @@ namespace Implementation.UseCases.Queries.Apartments
 {
     public class EfFindApartmentQuery : EfUseCase, IFindApartmentQuery
     {
-        public EfFindApartmentQuery(BookingContext context) : base(context)
+        private readonly IApplicationActor _actor;
+        public EfFindApartmentQuery(BookingContext context, IApplicationActor actor) 
+            : base(context)
         {
+            _actor = actor;
         }
 
         public int Id => 16;
@@ -49,6 +52,7 @@ namespace Implementation.UseCases.Queries.Apartments
             var apartmentDto = new ApartmentDto
             {
                 Id = apartment.Id,
+                UserCanBook = apartment.UserId != _actor.Id && _actor.Id != 0,
                 City = new BasicDto 
                 { 
                     Id = apartment.CityCountry.City.Id, 

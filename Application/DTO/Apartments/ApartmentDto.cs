@@ -36,6 +36,7 @@ namespace Application.DTO.Apartments
         public IEnumerable<ApartmentImageDto> Images { get; set; }
         public decimal Lattitude { get; set; }
         public decimal Longitude { get; set; }
+        public bool UserCanBook { get; set; }
 
     }
 
