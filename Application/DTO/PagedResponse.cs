@@ -19,7 +19,7 @@ namespace Application.DTO
     public class PagedResponseApartment<TDto> : PagedResponse<TDto>
         where TDto : class
     {
-        public decimal? MaxPrice { get; set; }
-        public decimal? MinPrice { get; set; }
+        //public decimal? MaxPrice { get; set; }
+        //public decimal? MinPrice { get; set; }
     }
 }

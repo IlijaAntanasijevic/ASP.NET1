@@ -1,6 +1,7 @@
 ﻿using App.Domain;
-using Application.DTO.Search;
 using Application.DTO;
+using Application.DTO.Apartments;
+using Application.DTO.Search;
 using Application.Exceptions;
 using DataAccess;
 using Domain.Lookup;
@@ -17,13 +18,25 @@ namespace Implementation
 {
     public static class Extensions
     {
-        public static bool ApartmentIsAvailable(this BookingContext context, DateTime checkIn, DateTime checkOut)
+        public static bool ApartmentIsAvailable(this IEnumerable<Booking> bookings, CheckApartmentDto data)
         {
-            return context.Bookings.Any(x =>
-             (checkIn >= x.CheckIn && checkIn < x.CheckOut) ||
-             (checkOut > x.CheckIn && checkOut <= x.CheckOut) ||
-             (checkIn < x.CheckIn && checkOut > x.CheckOut));
+            if (data.CheckIn == null || data.CheckOut == null) return true;
+
+            return !bookings.Any(x => x.ApartmentId == data.ApartmentId && x.IsActive &&
+                                                        ((data.CheckIn >= x.CheckIn && data.CheckIn < x.CheckOut) ||
+                                                        (data.CheckOut > x.CheckIn && data.CheckOut <= x.CheckOut) ||
+                                                        (data.CheckIn < x.CheckIn && data.CheckOut > x.CheckOut)));
         }
+
+        public static Expression<Func<Apartment, bool>> ApartmentIsAvailable(DateTime checkIn, DateTime checkOut)
+        {
+            return a => !a.Bookings.Any(b => b.IsActive &&
+                ((checkIn >= b.CheckIn && checkIn < b.CheckOut) ||
+                 (checkOut > b.CheckIn && checkOut <= b.CheckOut) ||
+                 (checkIn < b.CheckIn && checkOut > b.CheckOut)));
+        }
+
+
 
         public static void DoesNotExist<TEntity>(this BookingContext context, Expression<Func<TEntity, bool>> method)
             where TEntity : class

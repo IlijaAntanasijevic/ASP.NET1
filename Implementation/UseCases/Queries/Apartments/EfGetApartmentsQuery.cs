@@ -1,8 +1,10 @@
-﻿using Application.DTO;
+﻿using Application;
+using Application.DTO;
 using Application.DTO.Apartments;
 using Application.DTO.Search;
 using Application.UseCases.Queries.Apartment;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +15,10 @@ namespace Implementation.UseCases.Queries.Apartments
 {
     public class EfGetApartmentsQuery : EfUseCase, IGetApartmentsQuery
     {
-        public EfGetApartmentsQuery(BookingContext context) : base(context)
+        private readonly IApplicationActor _actor;
+        public EfGetApartmentsQuery(BookingContext context, IApplicationActor actor) : base(context)
         {
+            _actor = actor;
         }
 
         public int Id => 15;
@@ -23,7 +27,7 @@ namespace Implementation.UseCases.Queries.Apartments
 
         public PagedResponseApartment<SearchApartmentsDto> Execute(ApartmentSearch search)
         {
-            var query = Context.Apartments.Where(x => x.IsActive == true).AsQueryable();
+            var query = Context.Apartments.Where(x => x.IsActive == true).Include(x => x.Bookings).AsQueryable();
             //string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
 
             if (!string.IsNullOrEmpty(search.Keyword))
@@ -48,6 +52,15 @@ namespace Implementation.UseCases.Queries.Apartments
             if (search.CityId.HasValue)
             {
                 query = query.Where(x => x.CityCountry.CityId == search.CityId.Value);
+            }
+            if (!search.IsMyApartment.Value)
+            {
+                query = query.Where(x => x.UserId != _actor.Id);
+            }
+            if (search.CheckIn.HasValue && search.CheckOut.HasValue && search.IsAvailable.Value)
+            {
+                query = query.Where(Extensions.ApartmentIsAvailable(search.CheckIn.Value, search.CheckOut.Value));
+                var tmp = query.ToList();
             }
 
             if (search.Sorts != null && !search.Sorts.Any())
@@ -101,15 +114,27 @@ namespace Implementation.UseCases.Queries.Apartments
             int page = search.Page.HasValue ? (int)Math.Abs((double)search.Page) : 1;
 
             int skip = perPage * (page - 1);
-
             //decimal maxPrice = query.Select(x => x.Price).Max();
             //decimal minPrice = query.Select(x => x.Price).Min();
 
-            query = query.Skip(skip).Take(perPage);
+            //query = query.Skip(skip).Take(perPage);
+            var apartments = query.Skip(skip).Take(perPage)
+                .Include(x => x.CityCountry)
+                .ThenInclude(x => x.City)
+                .Include(x => x.CityCountry)
+                .ThenInclude(x => x.Country)
+                .Include(x => x.ApartmentType).ToList();
 
-            var dto = query.Select(x => new SearchApartmentsDto
+            var bookings = Context.Bookings.Where(x => apartments.Select(a => a.Id).Contains(x.ApartmentId)).ToList();
+            var dto = apartments.Select(x => new SearchApartmentsDto
             {
                 Name = x.Name,
+                IsAvailable = bookings.ApartmentIsAvailable(new CheckApartmentDto
+                {
+                    ApartmentId = x.Id,
+                    CheckIn = search.CheckIn,
+                    CheckOut = search.CheckOut
+                }),
                 City = x.CityCountry.City.Name,
                 Country = x.CityCountry.Country.Name,
                 Id = x.Id,
@@ -132,8 +157,8 @@ namespace Implementation.UseCases.Queries.Apartments
                 Data = dto,
                 PerPage = perPage,
                 TotalCount = totalCount,
-                MaxPrice = null,
-                MinPrice = null,
+                //MaxPrice = null,
+                //MinPrice = null,
             };
 
             return response;
