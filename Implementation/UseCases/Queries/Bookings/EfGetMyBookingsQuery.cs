@@ -31,7 +31,7 @@ namespace Implementation.UseCases.Queries.Bookings
         {
             string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
 
-            var query = Context.Bookings.Where(x => x.UserId == _actor.Id)
+            var query = Context.Bookings.Where(x => x.UserId == _actor.Id).OrderByDescending(x => x.CheckIn)
                                         .AsQueryable();
 
             if (!string.IsNullOrEmpty(search.Keyword))
@@ -43,11 +43,11 @@ namespace Implementation.UseCases.Queries.Bookings
             {
                 CheckIn = x.CheckIn,
                 CheckOut = x.CheckOut,
-                PaymentMethod = x.BookingPayments.Select(b => b.PaymentApartment.Payment.Name).FirstOrDefault().ToString(),
+                PaymentMethod = x.BookingPayments.Select(b => b.PaymentApartment.Payment.Name).FirstOrDefault().ToString() ?? "/",
                 TotalGuests = x.TotalGuests,
                 ApartmentId = x.ApartmentId,
                 ApartmentName = x.Apartment.Name,
-                TotalPrice = (decimal)x.TotalPrice,
+                TotalPrice = x.TotalPrice ?? 0,
                 //ApartmentImage = url + x.Apartment.MainImage.Replace("wwwroot\\", ""),
                 ApartmentImage = x.Apartment.MainImage,
                 Owner = new UserDto
