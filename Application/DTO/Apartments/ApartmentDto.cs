@@ -27,6 +27,7 @@ namespace Application.DTO.Apartments
         public BasicDto City { get; set; }
         public BasicDto Country { get; set; }
         public string Description { get; set; }
+        public string Address { get; set; }
         public int TotalBookings { get; set; }
         public int ApartmentTypeId { get; set; }
         public IEnumerable<BasicDto> PaymentMethods { get; set; }

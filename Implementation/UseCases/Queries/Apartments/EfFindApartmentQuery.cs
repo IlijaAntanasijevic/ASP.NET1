@@ -53,6 +53,7 @@ namespace Implementation.UseCases.Queries.Apartments
             {
                 Id = apartment.Id,
                 UserCanBook = apartment.UserId != _actor.Id && _actor.Id != 0,
+                Address = apartment.Address,
                 City = new BasicDto 
                 { 
                     Id = apartment.CityCountry.City.Id, 
