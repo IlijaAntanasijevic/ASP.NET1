@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.DTO.Bookings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,11 @@ namespace Application.DTO.Search
         public int? CountryId { get; set; }
         public List<int> ApartmentTypeIds { get; set; } = new List<int>();
         public int? MaxPrice { get; set; }
+        public DateTime? CheckIn { get; set; }
+        public DateTime? CheckOut { get; set; }
+        public bool? IsAvailable { get; set; } = false;
+        public bool? IsMyApartment { get; set; } = true;
+
+        //public int TotalGuests { get; set; }
     }
 }
