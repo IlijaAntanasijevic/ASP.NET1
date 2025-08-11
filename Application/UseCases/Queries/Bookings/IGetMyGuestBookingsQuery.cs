@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Bookings
 {
-    public interface IGetMyGuestBookingsQuery : IQuery<PagedResponse<SearchedBookingDto>, BookingSearch>
+    public interface IGetMyGuestBookingsQuery : IQuery<List<SearchedBookingDto>, BookingSearch>
     {
     }
 }

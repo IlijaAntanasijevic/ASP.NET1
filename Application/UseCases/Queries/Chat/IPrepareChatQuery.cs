@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.UseCases.Queries.Bookings
+namespace Application.UseCases.Queries.Chat
 {
-    public interface IGetMyBookingsQuery : IQuery<List<SearchedBookingDto>, BookingSearch>
+    public interface IPrepareChatQuery : IQuery<PrepareChatDto, int>
     {
     }
 }

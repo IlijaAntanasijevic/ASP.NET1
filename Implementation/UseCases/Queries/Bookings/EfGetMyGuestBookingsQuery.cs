@@ -28,7 +28,7 @@ namespace Implementation.UseCases.Queries.Bookings
 
         public string Name => nameof(EfGetMyGuestBookingsQuery);
 
-        public PagedResponse<SearchedBookingDto> Execute(BookingSearch search)
+        public List<SearchedBookingDto> Execute(BookingSearch search)
         {
             string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
 
@@ -42,7 +42,7 @@ namespace Implementation.UseCases.Queries.Bookings
                 query = query.Where(x => x.Apartment.Name.ToLower().Contains(search.Keyword.ToLower()));
             }
 
-            return query.AsPagedReponse(search, x => new SearchedBookingDto
+            return query.Select(x => new SearchedBookingDto
             {
                 CheckIn = x.CheckIn,
                 CheckOut = x.CheckOut,
@@ -62,7 +62,7 @@ namespace Implementation.UseCases.Queries.Bookings
                     Phone = x.User.Phone,
                     Avatar = x.User.Avatar,
                 }
-            });
+            }).ToList();
         }
     }
 }

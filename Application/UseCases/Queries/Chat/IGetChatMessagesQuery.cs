@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Chat;
 
-public interface IGetChatMessages : IQuery<List<ChatMessagesDto>, int>
+public interface IGetChatMessagesQuery : IQuery<List<ChatMessagesDto>, int>
 {
 }

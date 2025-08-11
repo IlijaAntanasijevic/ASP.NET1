@@ -19,7 +19,7 @@ public class ChatListDto
     public int Id { get; set; }
     public int ReceiverId { get; set; }
     public string FullName { get; set; }
-    public DateTime LastChatMessage { get; set; }
+    public DateTime? LastChatMessage { get; set; }
     public bool IsRead { get; set; }
 }
 
@@ -35,3 +35,10 @@ public class ChatMessagesDto
     public bool IsRead { get; set; }
     public bool isMineMessage { get; set; } //Flag za front
 }
+
+public class PrepareChatDto
+{
+    public ChatListDto ChatInfo { get; set; }
+    public List<ChatMessagesDto> Messages { get; set; }
+}
+
