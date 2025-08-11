@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Implementation.UseCases.Queries.Chat;
 
-public class EfGetChatMessages : EfUseCase, IGetChatMessages
+public class EfGetChatMessages : EfUseCase, IGetChatMessagesQuery
 {
     private readonly IApplicationActor _currentUser;
     public EfGetChatMessages(BookingContext context, IApplicationActor currentUser) : base(context)

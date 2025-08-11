@@ -60,7 +60,6 @@ namespace Implementation.UseCases.Queries.Apartments
             if (search.CheckIn.HasValue && search.CheckOut.HasValue && search.IsAvailable.Value)
             {
                 query = query.Where(Extensions.ApartmentIsAvailable(search.CheckIn.Value, search.CheckOut.Value));
-                var tmp = query.ToList();
             }
 
             if (search.Sorts != null && !search.Sorts.Any())

@@ -24,7 +24,11 @@ namespace API.Controllers
         public IActionResult Get([FromServices] IGetChatListQuery query) => Ok(_handler.HandleQuery(query, null));
 
         [HttpGet("{id}")]
-        public IActionResult Get([FromServices] IGetChatMessages query, int id) => Ok(_handler.HandleQuery(query, id));
+        public IActionResult Get([FromServices] IGetChatMessagesQuery query, int id) => Ok(_handler.HandleQuery(query, id));
+
+        [HttpGet]
+        [Route("~/api/prepare-chat/{id}")]
+        public IActionResult PrepareChat([FromServices] IPrepareChatQuery query, int id) => Ok(_handler.HandleQuery(query, id));
 
     }
 }

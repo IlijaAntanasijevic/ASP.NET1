@@ -99,7 +99,8 @@ namespace API.Core
             //Chat
             services.AddScoped<ISendMessageCommand, EfSaveChatCommand>();
             services.AddTransient<IGetChatListQuery, EfGetChatListQuery>();
-            services.AddTransient<IGetChatMessages, EfGetChatMessages>();
+            services.AddTransient<IGetChatMessagesQuery, EfGetChatMessages>();
+            services.AddTransient<IPrepareChatQuery, EfPrepareChatQuery>();
 
 
 
