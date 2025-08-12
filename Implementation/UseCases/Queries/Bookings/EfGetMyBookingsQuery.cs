@@ -57,7 +57,7 @@ namespace Implementation.UseCases.Queries.Bookings
                     Email = x.Apartment.User.Email,
                     Phone = x.Apartment.User.Phone,
                     Avatar = x.Apartment.User.Avatar,
-                    Id = x.UserId,
+                    Id = x.Apartment.User.Id,
                 },
             }).ToList();
         }
