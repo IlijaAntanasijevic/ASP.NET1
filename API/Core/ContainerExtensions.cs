@@ -85,13 +85,14 @@ namespace API.Core
             services.AddTransient<IUpdateApartmentCommand, EfUpdateApartmentCommand>();
             services.AddTransient<IUpdateApartmentImagesCommand, EfUpdateApartmentImagesCommand>();
             services.AddTransient<UpdateApartmentValidator>();
+            services.AddTransient<IAddApartmentToFavoriteCommand, EfAddApartmentToFavoriteCommand>();
 
             //Booking
             services.AddTransient<ICreateBookingCommand, EfCreateBookingCommand>();
             services.AddTransient<CreateBookingValidator>();
             services.AddTransient<IUpdateBookingCommand, EfUpdateBookingCommand>();
             services.AddTransient<UpdateBookingValidator>();
-            services.AddTransient<IDeleteBookingCommand, EfDeleteBookingCommand>();
+            services.AddTransient<ICancelBookingCommand, EfCancelBookingCommand>();
             services.AddTransient<IGetMyBookingsQuery, EfGetMyBookingsQuery>();
             services.AddTransient<IGetMyGuestBookingsQuery, EfGetMyGuestBookingsQuery>();
             services.AddTransient<IFindBookingQuery, EfFindBookingQuery>();

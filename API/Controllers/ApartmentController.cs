@@ -39,8 +39,6 @@ namespace API.Controllers
             return Created();
         }
 
-
-
         [HttpPut("{id}")]
         [Authorize]
         public IActionResult Put(int id, [FromBody] UpdateApartmentDto data, [FromServices] IUpdateApartmentCommand command)
@@ -49,7 +47,6 @@ namespace API.Controllers
             _handler.HandleCommand(command, data);
             return NoContent();
         }
-
 
         [HttpPut("{id}/images")]
         [Authorize]
@@ -62,7 +59,6 @@ namespace API.Controllers
 
         }
 
-
         [HttpDelete("{id}")]
         [Authorize]
         public IActionResult Delete(int id, [FromServices] IDeleteApartmentCommand command)
@@ -70,6 +66,14 @@ namespace API.Controllers
             _handler.HandleCommand(command, id);
             return NoContent();
         }
+
+        [HttpPut("favorite/{id}")]
+        public IActionResult AddToFavorite(int id, [FromServices] IAddApartmentToFavoriteCommand command)
+        {
+            _handler.HandleCommand(command, id);
+            return NoContent();
+        }
+
 
         [HttpGet("image/{fileName}")]
         public IActionResult GetImage(string fileName)
