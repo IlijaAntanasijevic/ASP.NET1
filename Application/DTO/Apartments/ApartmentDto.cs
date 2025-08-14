@@ -1,4 +1,5 @@
-﻿using Application.DTO.Users;
+﻿using Application.DTO.Search;
+using Application.DTO.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,13 @@ namespace Application.DTO.Apartments
     {
         public string City { get; set; }
         public string Country { get; set; }
-        public bool IsAvailable { get; set; }
+        public bool? IsAvailable { get; set; }
+        public bool IsFavorite { get; set; }
+    }
+
+    public class FavoriteApartmantSearch : PagedSearch
+    {
+
     }
 
     public class ApartmentDto : BaseApartmentDto
@@ -39,6 +46,8 @@ namespace Application.DTO.Apartments
         public decimal Lattitude { get; set; }
         public decimal Longitude { get; set; }
         public bool UserCanBook { get; set; }
+        public bool CanLeaveFeedback { get; set; }
+        public bool IsFavorite { get; set; }
 
     }
 

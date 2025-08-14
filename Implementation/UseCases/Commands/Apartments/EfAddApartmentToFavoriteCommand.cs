@@ -32,13 +32,23 @@ namespace Implementation.UseCases.Commands.Apartments
                 throw new EntityNotFoundException(nameof(Apartments), apartmentId);
             }
 
-            var entity = new FavoriteApartments
-            {
-                ApartmentId = apartmentId,
-                UserId = _actor.Id
-            };
+            var favoriteAparment = Context.FavoriteApartments.FirstOrDefault(x => x.ApartmentId == apartmentId && x.UserId == _actor.Id);
 
-            Context.Add(entity);
+            if(favoriteAparment != null)
+            {
+                Context.Remove(favoriteAparment);
+            }
+            else
+            {
+                var entity = new FavoriteApartments
+                {
+                    ApartmentId = apartmentId,
+                    UserId = _actor.Id
+                };
+                Context.Add(entity);
+
+            }
+
             Context.SaveChanges();
         }
     }

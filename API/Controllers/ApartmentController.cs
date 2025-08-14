@@ -74,6 +74,13 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [HttpGet("favorite")]
+        public IActionResult GetFavorites([FromQuery] FavoriteApartmantSearch search, [FromServices] IGetFavoriteApartments query)
+        {
+            var response = _handler.HandleQuery(query, search);
+            return Ok(response);
+        }
+
 
         [HttpGet("image/{fileName}")]
         public IActionResult GetImage(string fileName)

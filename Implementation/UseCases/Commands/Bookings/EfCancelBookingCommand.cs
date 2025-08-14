@@ -36,7 +36,7 @@ namespace Implementation.UseCases.Commands.Bookings
 
             if(booking.CheckIn <= DateTime.Now.AddDays(1))
             {
-                throw new PermissionDeniedException("Booking cannot be caceled within one day of check-in.");
+                throw new PermissionDeniedException("Booking cannot be caceled within one day of check-in. Please contact our support.");
             }
 
             base.Execute(bookingId);

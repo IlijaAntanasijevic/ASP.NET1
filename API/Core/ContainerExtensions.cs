@@ -86,6 +86,7 @@ namespace API.Core
             services.AddTransient<IUpdateApartmentImagesCommand, EfUpdateApartmentImagesCommand>();
             services.AddTransient<UpdateApartmentValidator>();
             services.AddTransient<IAddApartmentToFavoriteCommand, EfAddApartmentToFavoriteCommand>();
+            services.AddTransient<IGetFavoriteApartments, EfGetFavoriteApartments>();   
 
             //Booking
             services.AddTransient<ICreateBookingCommand, EfCreateBookingCommand>();
