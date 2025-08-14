@@ -20,7 +20,7 @@ namespace App.Domain
         public int ApartmentTypeId { get; set; }
         public decimal? Longitude { get; set; }
         public decimal? Lattitude { get; set; }
-        public int? IsArchived { get; set; }
+        public bool? IsArchived { get; set; }
 
 
 

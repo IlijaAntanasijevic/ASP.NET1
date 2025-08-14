@@ -41,6 +41,7 @@ namespace Implementation.UseCases.Queries.Apartments
                                                   .Include(x => x.PaymentApartments)
                                                   .ThenInclude(p => p.Payment)
                                                   .Include(x => x.Bookings)
+                                                  .Include(x => x.Favorites)
                                                   .FirstOrDefault(x => x.Id == search);
 
 
@@ -53,6 +54,8 @@ namespace Implementation.UseCases.Queries.Apartments
             {
                 Id = apartment.Id,
                 UserCanBook = apartment.UserId != _actor.Id && _actor.Id != 0,
+                CanLeaveFeedback = apartment.Bookings.Any(b => b.UserId == _actor.Id),
+                IsFavorite = apartment.Favorites.Any(f => f.UserId == _actor.Id),
                 Address = apartment.Address,
                 City = new BasicDto 
                 { 
@@ -75,7 +78,7 @@ namespace Implementation.UseCases.Queries.Apartments
                 },
                 MaxGuests = apartment.MaxGuests,
                 PricePerNight = apartment.Price,
-                TotalBookings = apartment.Bookings.Where(x => x.ApartmentId == apartment.Id && x.IsActive).Sum(x => x.ApartmentId),
+                TotalBookings = apartment.Bookings.Where(x => x.IsActive).Count(),
                 ApartmentType = apartment.ApartmentType.Name,
                 Features = apartment.FeatureApartments.Select(x => new BasicDto
                 {

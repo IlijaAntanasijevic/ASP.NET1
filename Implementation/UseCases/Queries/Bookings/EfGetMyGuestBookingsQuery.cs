@@ -33,7 +33,7 @@ namespace Implementation.UseCases.Queries.Bookings
             string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
 
             var query = Context.Bookings
-                .Where(x => x.Apartment.UserId == _actor.Id)
+                .Where(x => x.Apartment.UserId == _actor.Id && x.IsActive)
                 .Include(x => x.Apartment.User)
                 .AsQueryable();
 

@@ -7,10 +7,10 @@ using DataAccess;
 
 namespace Implementation.UseCases.Commands.Bookings
 {
-    public class EfDeleteBookingCommand : EfDeleteCommand<Booking>, IDeleteBookingCommand
+    public class EfCancelBookingCommand : EfDeleteCommand<Booking>, ICancelBookingCommand
     {
         private readonly IApplicationActor _actor;
-        public EfDeleteBookingCommand(BookingContext context, IApplicationActor actor) 
+        public EfCancelBookingCommand(BookingContext context, IApplicationActor actor) 
             : base(context)
         {
             _actor = actor;
@@ -18,7 +18,7 @@ namespace Implementation.UseCases.Commands.Bookings
 
         public override int Id => 22;
 
-        public override string Name => nameof(EfDeleteBookingCommand);
+        public override string Name => nameof(EfCancelBookingCommand);
 
         public override void Execute(int bookingId)
         {
@@ -34,10 +34,9 @@ namespace Implementation.UseCases.Commands.Bookings
                 throw new PermissionDeniedException("You do not have permission to cancel this booking.");
             }
 
-            //2024-06-20 // 2024-06-21  TODAY = 2024-06-20 
             if(booking.CheckIn <= DateTime.Now.AddDays(1))
             {
-                throw new PermissionDeniedException("Booking cannot be caceled within one day of check-in.");
+                throw new PermissionDeniedException("Booking cannot be caceled within one day of check-in. Please contact our support.");
             }
 
             base.Execute(bookingId);

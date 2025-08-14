@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Bookings
 {
-    public interface IDeleteBookingCommand : ICommand<int>
+    public interface ICancelBookingCommand : ICommand<int>
     {
     }
 }

@@ -32,7 +32,7 @@ namespace Implementation.UseCases.Queries.Chat
             var messages = Context.ChatMessages.Include(x => x.Receiver).Include(x => x.Sender)
                              .Where(x => (x.SenderId == _actor.Id && x.ReceiverId == receiverId) ||
                                    (x.SenderId == receiverId && x.ReceiverId == _actor.Id))
-                             .OrderByDescending(x => x.ReceivedDate)
+                             .OrderBy(x => x.ReceivedDate)
                              .ToList();
 
             if (messages.Any())

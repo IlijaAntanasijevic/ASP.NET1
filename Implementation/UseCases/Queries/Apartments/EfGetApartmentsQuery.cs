@@ -83,6 +83,13 @@ namespace Implementation.UseCases.Queries.Apartments
                         break;
 
                     case SortProperty.MostPopular:
+                        if (sortDirc == SortDirection.Desc)
+                        {
+                            query = query.OrderByDescending(x => x.Bookings.Where(b => b.IsActive).Count());
+                            break;
+                        }
+
+                        query = query.OrderBy(x => x.Bookings.Where(b => b.IsActive).Count());
                         break;
                 }
                 //if(search.Sorts.Any(x => x.SortProperty == "price"))
@@ -122,7 +129,8 @@ namespace Implementation.UseCases.Queries.Apartments
                 .ThenInclude(x => x.City)
                 .Include(x => x.CityCountry)
                 .ThenInclude(x => x.Country)
-                .Include(x => x.ApartmentType).ToList();
+                .Include(x => x.ApartmentType)
+                .Include(x => x.Favorites).ToList();
 
             var bookings = Context.Bookings.Where(x => apartments.Select(a => a.Id).Contains(x.ApartmentId)).ToList();
             var dto = apartments.Select(x => new SearchApartmentsDto
@@ -145,7 +153,8 @@ namespace Implementation.UseCases.Queries.Apartments
                     OriginalFileName = null
                 },
                 MaxGuests = x.MaxGuests,
-                PricePerNight = x.Price
+                PricePerNight = x.Price,
+                IsFavorite = x.Favorites.Any(f => f.UserId == _actor.Id)
             });
 
 

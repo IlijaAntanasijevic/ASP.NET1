@@ -61,7 +61,7 @@ namespace API.Controllers
         // DELETE api/<BookingsController>/5
         [HttpDelete("{id}")]
         //[Authorize]
-        public IActionResult Delete(int id, [FromServices] IDeleteBookingCommand command)
+        public IActionResult Delete(int id, [FromServices] ICancelBookingCommand command)
         {
             _handler.HandleCommand(command, id);
             return NoContent();
