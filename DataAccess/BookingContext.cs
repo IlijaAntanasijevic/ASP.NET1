@@ -32,37 +32,7 @@ namespace DataAccess
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
 
-            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UseCaseId });
-
-            modelBuilder.Entity<FavoriteApartments>(entity =>
-            {
-                entity.HasKey(x => x.Id);
-
-                entity.HasOne(x => x.User)
-                      .WithMany(x => x.Favorites)
-                      .HasForeignKey(x => x.UserId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(x => x.Apartment)
-                      .WithMany(x => x.Favorites)
-                      .HasForeignKey(x => x.ApartmentId)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<ChatMessages>(entity =>
-            {
-                entity.HasKey(x => x.Id);
-
-                entity.HasOne(x => x.Sender)
-                      .WithMany()
-                      .HasForeignKey(x => x.SenderId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(x => x.Receiver)
-                      .WithMany()
-                      .HasForeignKey(x => x.ReceiverId)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
+            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UseCaseId });    
 
             base.OnModelCreating(modelBuilder);
         }
@@ -104,5 +74,8 @@ namespace DataAccess
         public DbSet<UseCaseLog> UseCaseLogs { get; set; }
         public DbSet<FavoriteApartments> FavoriteApartments { get; set; }
         public DbSet<ChatMessages> ChatMessages { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<RatingType> RatingTypes { get; set; }
+        public DbSet<ApartmentRating> ApartmentRatings { get; set; }
     }
 }

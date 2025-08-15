@@ -24,4 +24,12 @@ namespace DataAccess.Configurations
             
         }
     }
+
+    public class RatingTypeConfiguration : BasicEntityConfiguration<RatingType>
+    {
+        public override void Configure(EntityTypeBuilder<RatingType> builder)
+        {
+            base.Configure(builder);
+        }
+    }
 }

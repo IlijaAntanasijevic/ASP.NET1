@@ -14,10 +14,11 @@ namespace Implementation.UseCases
         private readonly IApplicationActor _actor;
         private readonly IUseCaseLogger _logger;
         //2 - Register | 6 - Find User | 4 - Get All Users | 4 - Get All Apartment Types
-        //15 - Get All Apartments | 16 - Find Apartment | 25+ Lookup tables get all
+        //15 - Get All Apartments | 16 - Find Apartment | 25+ Lookup tables get all | 42 - Get Apartment Ratings
 
         //PRIVREMENO - 34,35,36,38,37(MyGuestBookings),39 (AddToFavorite), 40 (Get Favorites)
-        private List<int> GloballyAllowed = new List<int> { 2, 3, 6, 4, 15, 16, 25,26,27,28,29,32,34,35,36,38,37,39,40 };
+        //41 - Create rating
+        private List<int> GloballyAllowed = new List<int> { 2, 3, 6, 4, 15, 16, 25,26,27,28,29,32,42, /*start*/34,35,36,38,37,39,40,41 /*end*/};
 
         public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
         {
