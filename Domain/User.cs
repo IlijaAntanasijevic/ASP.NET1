@@ -21,5 +21,6 @@ namespace App.Domain
         public virtual ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
         public virtual ICollection<UserUseCase> UseCases { get; set; } = new HashSet<UserUseCase>();
         public virtual ICollection<FavoriteApartments> Favorites { get; set; } = new HashSet<FavoriteApartments>();
+        public virtual ICollection<Rating> ApartmentRatings { get; set; } = new HashSet<Rating>();
     }
 }

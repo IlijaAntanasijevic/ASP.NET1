@@ -33,6 +33,7 @@ namespace App.Domain
         public virtual ICollection<PaymentApartment> PaymentApartments { get; set;} = new HashSet<PaymentApartment>();
         public virtual ICollection<Booking> Bookings { get; set;} = new HashSet<Booking>();
         public virtual ICollection<FavoriteApartments> Favorites { get; set;} = new HashSet<FavoriteApartments>();
+        public virtual ICollection<Rating> Ratings { get; set;} = new HashSet<Rating>();
 
     }
 }
