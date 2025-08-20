@@ -28,7 +28,6 @@ namespace Implementation.UseCases.Queries.Apartments
 
         public ApartmentDto Execute(int search)
         {
-            //string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
             var apartment = Context.Apartments.Include(x => x.CityCountry)
                                                   .ThenInclude(cc => cc.City)
                                                   .Include(x => x.CityCountry)
@@ -54,7 +53,7 @@ namespace Implementation.UseCases.Queries.Apartments
             {
                 Id = apartment.Id,
                 UserCanBook = apartment.UserId != _actor.Id && _actor.Id != 0,
-                CanLeaveFeedback = apartment.Bookings.Any(b => b.UserId == _actor.Id),
+                CanLeaveFeedback = apartment.Bookings.Any(b => b.UserId == _actor.Id && b.CheckOut < DateTime.UtcNow),
                 IsFavorite = apartment.Favorites.Any(f => f.UserId == _actor.Id),
                 Address = apartment.Address,
                 City = new BasicDto 
