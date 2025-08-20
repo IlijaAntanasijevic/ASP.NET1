@@ -14,7 +14,7 @@ namespace Application.DTO.Ratings
     {
         public int ApartmentId { get; set; }
 
-        public string Message { get; set; }
+        public string Comment { get; set; }
         public List<RaingValuesDto> Values { get; set; }
     }
 
