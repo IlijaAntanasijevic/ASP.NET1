@@ -2,11 +2,13 @@
 using Application;
 using Application.DTO;
 using Application.DTO.Apartments;
+using Application.DTO.Ratings;
 using Application.DTO.Users;
 using Application.Exceptions;
 using Application.UseCases.Queries.Apartment;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -41,6 +43,8 @@ namespace Implementation.UseCases.Queries.Apartments
                                                   .ThenInclude(p => p.Payment)
                                                   .Include(x => x.Bookings)
                                                   .Include(x => x.Favorites)
+                                                  .Include(x => x.Ratings)
+                                                  .ThenInclude(x => x.ApartmentRatings)
                                                   .FirstOrDefault(x => x.Id == search);
 
 
@@ -56,9 +60,9 @@ namespace Implementation.UseCases.Queries.Apartments
                 CanLeaveFeedback = apartment.Bookings.Any(b => b.UserId == _actor.Id && b.CheckOut < DateTime.UtcNow),
                 IsFavorite = apartment.Favorites.Any(f => f.UserId == _actor.Id),
                 Address = apartment.Address,
-                City = new BasicDto 
-                { 
-                    Id = apartment.CityCountry.City.Id, 
+                City = new BasicDto
+                {
+                    Id = apartment.CityCountry.City.Id,
                     Name = apartment.CityCountry.City.Name
                 },
                 ApartmentTypeId = apartment.ApartmentTypeId,
@@ -96,7 +100,18 @@ namespace Implementation.UseCases.Queries.Apartments
                     Name = x.Payment.Name
                 }),
                 Longitude = apartment.Longitude ?? 16.363449m,
-                Lattitude = apartment.Lattitude ?? 48.210033m
+                Lattitude = apartment.Lattitude ?? 48.210033m,
+                RatingInfo = new RatingDto
+                {
+                    TotalRatings = apartment.Ratings.Count(),
+                    AvgRating = apartment.Ratings.Any() ? apartment.Ratings.Average(a => a.ApartmentRatings.Average(x => (float)x.StarRating)) : 0,
+                    RatingStatistic = apartment.Ratings.SelectMany(x => x.ApartmentRatings).GroupBy(g => new { g.RatingTypeId }).Select(g => new RatingValuesDto
+                    {
+                        Id = g.Key.RatingTypeId,
+                        Value = (float)Math.Round(g.Average(ar => ar.StarRating), 1)
+                    }).ToList()
+                }
+              
             };
 
             return apartmentDto;

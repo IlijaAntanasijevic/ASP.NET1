@@ -36,7 +36,7 @@ namespace DataAccess.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.Rating)
-                .WithMany(x => x.Ratings)
+                .WithMany(x => x.ApartmentRatings)
                 .HasForeignKey(x => x.RatingId)
                 .OnDelete(DeleteBehavior.Restrict);
 

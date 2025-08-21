@@ -1,4 +1,5 @@
-﻿using Application.DTO.Search;
+﻿using Application.DTO.Ratings;
+using Application.DTO.Search;
 using Application.DTO.Users;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace Application.DTO.Apartments
         public bool UserCanBook { get; set; }
         public bool CanLeaveFeedback { get; set; }
         public bool IsFavorite { get; set; }
-
+        public RatingDto RatingInfo { get; set; }
     }
 
     public class ApartmentImageDto

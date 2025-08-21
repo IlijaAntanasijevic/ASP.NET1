@@ -20,9 +20,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] int id, [FromServices] IGetRatingsQuery query)
+        public IActionResult Get([FromQuery] RatingSearchDto search, [FromServices] IGetRatingsQuery query)
         {
-            return Ok(_handler.HandleQuery(query, id));
+            return Ok(_handler.HandleQuery(query, search));
         }
 
         [HttpPost]

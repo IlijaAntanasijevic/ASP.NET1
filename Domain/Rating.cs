@@ -16,6 +16,6 @@ namespace Domain
 
         public virtual User User { get; set; }
         public virtual Apartment Apartment { get; set; }
-        public virtual ICollection<ApartmentRating> Ratings { get; set; }
+        public virtual ICollection<ApartmentRating> ApartmentRatings { get; set; }
     }
 }
