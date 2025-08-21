@@ -32,8 +32,12 @@ namespace Implementation.UseCases.Commands.Apartments
         public void Execute(CreateRatingDto data)
         {
             _validator.ValidateAndThrow(data);
+            var hasPastBooking = Context.Bookings.Any(x => x.UserId == _actor.Id && 
+                                                      x.ApartmentId == data.ApartmentId && 
+                                                      x.CheckOut < DateTime.UtcNow &&
+                                                      x.IsActive);
 
-            if(Context.Bookings.Any(x => x.UserId == _actor.Id && x.ApartmentId == data.ApartmentId && x.CheckOut < DateTime.UtcNow))
+            if (!hasPastBooking)
             {
                 throw new PermissionDeniedException("You cannot leave a rating.");
             }
@@ -51,7 +55,7 @@ namespace Implementation.UseCases.Commands.Apartments
 
             var apartmentRatings = data.Values.Select(value => new ApartmentRating
             {
-                StarRating = value.Value,
+                StarRating = (int)value.Value,
                 RatingTypeId = value.Id,
                 Rating = rating
 
