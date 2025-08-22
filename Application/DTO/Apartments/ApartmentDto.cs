@@ -26,10 +26,11 @@ namespace Application.DTO.Apartments
         public bool IsFavorite { get; set; }
     }
 
-    public class FavoriteApartmantSearch : PagedSearch
+    public class BasicApartmantSearch : PagedSearch
     {
 
     }
+
 
     public class ApartmentDto : BaseApartmentDto
     {

@@ -1,44 +1,43 @@
 ﻿using Application;
 using Application.DTO;
 using Application.DTO.Apartments;
-using Application.DTO.Search;
 using Application.UseCases.Queries.Apartment;
 using DataAccess;
-using DataAccess.Migrations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Implementation.UseCases.Queries.Apartments
 {
-    public class EfGetFavoriteApartments : EfUseCase, IGetFavoriteApartments
+    public class EfGetArchivedApartmentsQuery : EfUseCase, IGetArchivedApartmentsQuery
     {
         private readonly IApplicationActor _actor;
-        public EfGetFavoriteApartments(BookingContext context, IApplicationActor actor) : base(context)
+        public EfGetArchivedApartmentsQuery(BookingContext context, IApplicationActor actor) 
+            : base(context)
         {
             _actor = actor;
         }
 
-        public int Id => 40;
+        public int Id => 44;
 
-        public string Name => nameof(EfGetFavoriteApartments);
+        public string Name => nameof(EfGetArchivedApartmentsQuery);
 
         public PagedResponseApartment<SearchApartmentsDto> Execute(BasicApartmantSearch search)
         {
             var data = new List<SearchApartmentsDto>();
 
 
-            var query = Context.Apartments.Where(x => x.Favorites.Any(f => f.UserId == _actor.Id))
+            var query = Context.Apartments.Where(x => x.IsArchived.GetValueOrDefault() && x.UserId == _actor.Id)
                 .Include(x => x.CityCountry)
                 .ThenInclude(x => x.City)
                 .Include(x => x.CityCountry)
                 .ThenInclude(x => x.Country)
                 .Include(x => x.ApartmentType)
                 .Include(x => x.Favorites).AsQueryable();
+
             int totalCount = query.Count();
 
             int perPage = search.PerPage.HasValue ? (int)Math.Abs((double)search.PerPage) : 10;
@@ -73,7 +72,6 @@ namespace Implementation.UseCases.Queries.Apartments
                 PerPage = perPage,
                 CurrentPage = page,
             };
-
         }
     }
 }

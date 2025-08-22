@@ -45,7 +45,8 @@ namespace Implementation.UseCases.Queries.Apartments
                                                   .Include(x => x.Favorites)
                                                   .Include(x => x.Ratings)
                                                   .ThenInclude(x => x.ApartmentRatings)
-                                                  .FirstOrDefault(x => x.Id == search);
+                                                  .FirstOrDefault(x => x.Id == search && 
+                                                                 (!x.IsArchived.Value || (x.IsArchived.Value && x.UserId == _actor.Id)));
 
 
             if (apartment == null)
