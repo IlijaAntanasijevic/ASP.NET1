@@ -19,6 +19,7 @@ namespace Application.DTO.Search
         public DateTime? CheckOut { get; set; }
         public bool? IsAvailable { get; set; } = false;
         public bool? IsMyApartment { get; set; } = true;
+        public bool? ShowOnlyMyApartment { get; set; } = false;
 
         //public int TotalGuests { get; set; }
     }

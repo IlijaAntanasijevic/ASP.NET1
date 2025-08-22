@@ -29,8 +29,7 @@ namespace Implementation.UseCases.Queries.Apartments
         {
             var data = new List<SearchApartmentsDto>();
 
-
-            var query = Context.Apartments.Where(x => x.IsArchived.GetValueOrDefault() && x.UserId == _actor.Id)
+            var query = Context.Apartments.Where(x => x.IsArchived.Value && x.UserId == _actor.Id)
                 .Include(x => x.CityCountry)
                 .ThenInclude(x => x.City)
                 .Include(x => x.CityCountry)

@@ -61,6 +61,10 @@ namespace Implementation.UseCases.Queries.Apartments
             {
                 query = query.Where(Extensions.ApartmentIsAvailable(search.CheckIn.Value, search.CheckOut.Value));
             }
+            if (search.ShowOnlyMyApartment.Value)
+            {
+                query = query.Where(x => x.UserId == _actor.Id);
+            }
 
             if (search.Sorts != null && !search.Sorts.Any())
             {
