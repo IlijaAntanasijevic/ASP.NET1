@@ -57,6 +57,8 @@ namespace Implementation.UseCases.Commands.Users
             //40 - Get Favorite Apartments
             //41 - Create Rating
             //42 - Get Ratings
+            //43 - Archive Apartment
+            //44 - Get Archived Apartments
 
             User user = new User
             {
@@ -89,6 +91,8 @@ namespace Implementation.UseCases.Commands.Users
                     new UserUseCase { UseCaseId = 40},
                     new UserUseCase { UseCaseId = 41},
                     new UserUseCase { UseCaseId = 42},
+                    new UserUseCase { UseCaseId = 43},
+                    new UserUseCase { UseCaseId = 44},
                 }
             };
 

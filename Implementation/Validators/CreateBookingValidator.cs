@@ -55,6 +55,9 @@ namespace Implementation.Validators
 
             RuleFor(dto => dto).Must(IsApartmentAvailable)
                                .WithMessage("The apartment is not available for the selected dates.");
+
+            RuleFor(dto => dto).Must(NotArchivedApartment)
+                               .WithMessage("This apartment is archived.");
         }
 
 
@@ -85,6 +88,12 @@ namespace Implementation.Validators
                 maximun = apartment.MaxGuests >= number;
             }
             return maximun;
+        }
+
+        private bool NotArchivedApartment(BookingDto dto)
+        {
+            var apartment = _context.Apartments.FirstOrDefault(a => a.Id == dto.ApartmentId);
+            return !apartment.IsArchived.GetValueOrDefault();
         }
     }
     

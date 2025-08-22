@@ -55,6 +55,8 @@ namespace Implementation.UseCases.Commands.Apartments
                 Description = data.Description,
                 Address = data.Address,
                 CityCountryId = cityCountry.Id,
+                IsArchived = false,
+                IsActive = true,
                 //MaxGuests = data.MaxGuests,
                 Price = data.Price,
                 ApartmentTypeId = data.ApartmentTypeId,

@@ -75,7 +75,22 @@ namespace API.Controllers
         }
 
         [HttpGet("favorite")]
-        public IActionResult GetFavorites([FromQuery] FavoriteApartmantSearch search, [FromServices] IGetFavoriteApartments query)
+        public IActionResult GetFavorites([FromQuery] BasicApartmantSearch search, [FromServices] IGetFavoriteApartments query)
+        {
+            var response = _handler.HandleQuery(query, search);
+            return Ok(response);
+        }
+
+
+        [HttpPut("archive/{id}")]
+        public IActionResult ArchiveApartment(int id, [FromServices] IArchiveApartmentCommand command)
+        {
+            _handler.HandleCommand(command, id);
+            return NoContent();
+        }
+
+        [HttpGet("archive")]
+        public IActionResult GetArchived([FromQuery] BasicApartmantSearch search, [FromServices] IGetArchivedApartmentsQuery query)
         {
             var response = _handler.HandleQuery(query, search);
             return Ok(response);
