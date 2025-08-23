@@ -35,11 +35,11 @@ namespace Implementation.UseCases.Queries.Apartments
 
             var response = ratings.AsPagedReponse(search, x => new RatingDetailDto
             {
-                 Avatar = x.User.Avatar,
-                  AvgRating = x.ApartmentRatings.Average(a => (float)a.StarRating),
-                   Comment = x.Message,
-                    Date = x.Date,
-                     FullName = x.User.FirstName + " " + x.User.LastName,
+                Avatar = x.User.Avatar,
+                AvgRating = x.ApartmentRatings.Average(a => (float)a.StarRating),
+                Comment = x.Message,
+                Date = x.Date,
+                FullName = x.User.FirstName + " " + x.User.LastName,
             });
 
 

@@ -27,6 +27,8 @@ namespace Application.DTO.Apartments
         public string Country { get; set; }
         public bool? IsAvailable { get; set; }
         public bool IsFavorite { get; set; }
+        public int TotalRatings { get; set; } = 0;
+        public float AvgRating { get; set; } = 0;
     }
 
     public class BasicApartmantSearch : PagedSearch
