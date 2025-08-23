@@ -34,7 +34,6 @@ namespace Implementation.UseCases.Commands.Apartments
         public void Execute(CreateApartmentDto data)
         {
             _validator.ValidateAndThrow(data);
-
             //var mainImagePath = _fileUploader.Upload(data.MainImage, UploadType.MainImage);
             //var otherImages = _fileUploader.Upload(data.Images, UploadType.Apartment);
 
@@ -63,6 +62,9 @@ namespace Implementation.UseCases.Commands.Apartments
                 Lattitude = data.Lattitude,
                 Longitude = data.Longitude,
                 MainImage = data.MainImage,
+                MaxAdults = data.Guests.Adults,
+                MaxChildren = data.Guests.Childrens,
+                TotalRooms = data.Guests.TotalRooms,
                 FeatureApartments = data.FeatureIds.Select(x => new FeatureApartment
                 {
                     FeatureId = x

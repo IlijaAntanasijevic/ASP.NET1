@@ -32,6 +32,11 @@ namespace Implementation.UseCases.Commands.Apartments
                 throw new EntityNotFoundException(nameof(Apartments), apartmentId);
             }
 
+            if(_actor.Id == apartment.UserId)
+            {
+                throw new PermissionDeniedException("You cannot add your apartment to favorites");
+            }
+
             var favoriteAparment = Context.FavoriteApartments.FirstOrDefault(x => x.ApartmentId == apartmentId && x.UserId == _actor.Id);
 
             if(favoriteAparment != null)

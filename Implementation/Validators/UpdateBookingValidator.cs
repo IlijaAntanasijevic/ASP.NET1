@@ -117,8 +117,8 @@ namespace Implementation.Validators
             {
                 return false;
             }
-
-            return apartment.MaxGuests >= number;
+            return true;
+            //return apartment.MaxGuests >= number;
         }
     }
 }

@@ -61,7 +61,10 @@ namespace Implementation.UseCases.Queries.Apartments
                     ImageType = UploadType.MainImage,
                     OriginalFileName = null
                 },
-                MaxGuests = x.MaxGuests,
+                //MaxGuests = x.MaxGuests,
+                Adults = x.MaxAdults,
+                Childrens = x.MaxChildren,
+                TotalRooms = x.TotalRooms,
                 PricePerNight = x.Price,
                 IsFavorite = x.Favorites.Any(f => f.UserId == _actor.Id),
                 CurrentBookings = x.Bookings.Count()

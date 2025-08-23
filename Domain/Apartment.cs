@@ -12,7 +12,7 @@ namespace App.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
-        public int MaxGuests { get; set; }
+        //public int MaxGuests { get; set; }
         public string MainImage { get; set; }
         public Decimal Price { get; set; }
         public int CityCountryId { get; set; }
@@ -21,7 +21,9 @@ namespace App.Domain
         public decimal? Longitude { get; set; }
         public decimal? Lattitude { get; set; }
         public bool? IsArchived { get; set; }
-
+        public int MaxAdults { get; set; }
+        public int MaxChildren { get; set; }
+        public int TotalRooms { get; set; }
 
 
         public virtual CityCountry CityCountry { get; set; }

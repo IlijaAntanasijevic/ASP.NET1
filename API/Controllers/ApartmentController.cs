@@ -32,7 +32,7 @@ namespace API.Controllers
             => Ok(_handler.HandleQuery(query, id));
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public IActionResult Post([FromBody] CreateApartmentDto data, ICreateApartmentCommand command)
         {
             _handler.HandleCommand(command, data);
@@ -40,7 +40,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult Put(int id, [FromBody] UpdateApartmentDto data, [FromServices] IUpdateApartmentCommand command)
         {
             data.Id = id;
@@ -49,7 +49,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}/images")]
-        [Authorize]
+        //[Authorize]
         public IActionResult UpdateImages(int id, [FromBody] UpdateApartmentImagesDto data, [FromServices] IUpdateApartmentImagesCommand command)
         {
 

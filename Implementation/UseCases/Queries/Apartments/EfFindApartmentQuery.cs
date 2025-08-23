@@ -79,7 +79,10 @@ namespace Implementation.UseCases.Queries.Apartments
                     ImageType = UploadType.MainImage,
                     OriginalFileName = null
                 },
-                MaxGuests = apartment.MaxGuests,
+                //MaxGuests = apartment.MaxGuests,
+                Adults = apartment.MaxAdults,
+                Childrens = apartment.MaxChildren,
+                TotalRooms = apartment.TotalRooms,
                 PricePerNight = apartment.Price,
                 TotalBookings = apartment.Bookings.Where(x => x.IsActive).Count(),
                 ApartmentType = apartment.ApartmentType.Name,
