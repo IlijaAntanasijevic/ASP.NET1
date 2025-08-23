@@ -21,6 +21,8 @@ namespace Application.DTO.Search
         public bool? IsMyApartment { get; set; } = true;
         public bool? ShowOnlyMyApartment { get; set; } = false;
 
-        //public int TotalGuests { get; set; }
+        public int? Adults { get; set; }
+        public int? Childrens { get; set; }
+        public int? TotalRooms { get; set; }
     }
 }

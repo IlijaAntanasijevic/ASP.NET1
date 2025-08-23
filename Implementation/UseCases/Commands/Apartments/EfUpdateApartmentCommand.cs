@@ -55,7 +55,9 @@ namespace Implementation.UseCases.Commands.Apartments
                 .Ignore(x => x.MainImage);
 
             data.Adapt(apartment);
-
+            apartment.MaxChildren = data.Guests.Childrens;
+            apartment.MaxAdults = data.Guests.Adults;
+            apartment.TotalRooms = data.Guests.TotalRooms;
             Context.RemoveRange(apartment.FeatureApartments);
             Context.RemoveRange(apartment.PaymentApartments);
 

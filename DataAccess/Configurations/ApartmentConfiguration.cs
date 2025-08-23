@@ -18,13 +18,15 @@ namespace DataAccess.Configurations
                    .IsRequired()
                    .HasMaxLength(80);
 
-            builder.HasIndex(x => new { x.Name, x.Price, x.MaxGuests, x.CityCountryId});
+            builder.HasIndex(x => new { x.Name, x.Price, x.MaxAdults, x.MaxChildren, x.TotalRooms, x.CityCountryId});
 
             builder.Property(x => x.Address)
                    .IsRequired()
                    .HasMaxLength(50);
 
-            builder.Property(x => x.MaxGuests).HasMaxLength(10);
+            builder.Property(x => x.MaxAdults).HasMaxLength(10);
+            builder.Property(x => x.MaxChildren).HasMaxLength(10);
+            builder.Property(x => x.TotalRooms).HasMaxLength(10);
 
             builder.Property(x => x.Price)
                    .IsRequired()

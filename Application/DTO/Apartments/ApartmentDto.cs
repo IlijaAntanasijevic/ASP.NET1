@@ -13,7 +13,10 @@ namespace Application.DTO.Apartments
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int MaxGuests { get; set; }
+        //public int MaxGuests { get; set; }
+        public int Adults { get; set; }
+        public int Childrens { get; set; }
+        public int TotalRooms { get; set; }
         public decimal PricePerNight { get; set; }
         public ApartmentImageDto MainImage { get; set; }
         public string ApartmentType { get; set; }

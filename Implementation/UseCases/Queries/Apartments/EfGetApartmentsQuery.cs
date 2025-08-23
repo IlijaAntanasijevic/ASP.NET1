@@ -65,6 +65,18 @@ namespace Implementation.UseCases.Queries.Apartments
             {
                 query = query.Where(x => x.UserId == _actor.Id);
             }
+            if(search.Adults.HasValue || search.Childrens.HasValue)
+            {
+                query = query.Where(x => x.MaxAdults >= search.Adults.Value);
+            }
+            if (search.Childrens.HasValue)
+            {
+                query = query.Where(x => x.MaxChildren >= search.Childrens.Value);
+            }
+            if (search.TotalRooms.HasValue)
+            {
+                query = query.Where(x => x.TotalRooms >= search.TotalRooms.Value);
+            }
 
             if (search.Sorts != null && !search.Sorts.Any())
             {
@@ -156,7 +168,10 @@ namespace Implementation.UseCases.Queries.Apartments
                     ImageType = Application.UploadType.MainImage,
                     OriginalFileName = null
                 },
-                MaxGuests = x.MaxGuests,
+                //MaxGuests = x.MaxGuests,
+                Adults = x.MaxAdults,
+                Childrens = x.MaxChildren,
+                TotalRooms = x.TotalRooms,
                 PricePerNight = x.Price,
                 IsFavorite = x.Favorites.Any(f => f.UserId == _actor.Id)
             });
