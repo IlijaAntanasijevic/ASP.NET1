@@ -92,6 +92,7 @@ namespace API.Core
             services.AddTransient<CreateRatingValidator>();
             services.AddTransient<IArchiveApartmentCommand, EfArchiveApartmentCommand>();
             services.AddTransient<IGetArchivedApartmentsQuery, EfGetArchivedApartmentsQuery>();
+            services.AddTransient<IActivateApartmentCommand, EfActivateApartmentCommand>();
 
             //Booking
             services.AddTransient<ICreateBookingCommand, EfCreateBookingCommand>();

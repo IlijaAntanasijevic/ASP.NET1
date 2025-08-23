@@ -51,6 +51,14 @@ namespace DataAccess
                         e.UpdatedAt = DateTime.UtcNow;
                     }
                 }
+
+                //if(entry.State == EntityState.Deleted)
+                //{
+                //    if(entry.Entity is ApplicationUser e)
+                //    {
+                //        if(e.UserId != _)
+                //    }
+                //}
             }
 
             return base.SaveChanges();

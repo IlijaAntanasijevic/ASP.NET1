@@ -1,5 +1,8 @@
 ﻿using Application;
 using Application.UseCases;
+using Domain.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +20,8 @@ namespace Implementation.UseCases
         //15 - Get All Apartments | 16 - Find Apartment | 25+ Lookup tables get all | 42 - Get Apartment Ratings
 
         //PRIVREMENO - 34,35,36,38,37(MyGuestBookings),39 (AddToFavorite), 40 (Get Favorites)
-        //41 - Create rating, 42 - Get Rating, 43 - Archive Apartment
-        private List<int> GloballyAllowed = new List<int> { 2, 3, 6, 4, 15, 16, 25,26,27,28,29,32,42, /*start(delete)*/34,35,36,38,37,39,40,41,42,43,44 /*end*/};
+        //41 - Create rating, 42 - Get Rating, 43 - Archive Apartment, 44 - Get Archived Apartment, 45 - Activate Apartment
+        private List<int> GloballyAllowed = new List<int> { 2, 3, 6, 4, 15, 16, 25,26,27,28,29,32,42, /*start(delete)*/34,35,36,38,37,39,40,41,42,43,44,45 /*end*/};
 
         public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
         {

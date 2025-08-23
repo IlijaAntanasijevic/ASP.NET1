@@ -33,13 +33,13 @@ namespace Implementation.UseCases.Commands.Apartments
                 throw new ConflictException("You cannot archive the apartment.");
             }
 
-            var now = DateTime.UtcNow;
-            bool hasActiveBookings = apartment.Bookings.Any(x => x.IsActive && x.CheckIn >= now || (x.CheckIn <= now && x.CheckOut >= now));
+            //var now = DateTime.UtcNow;
+            //bool hasActiveBookings = apartment.Bookings.Any(x => x.IsActive && x.CheckIn >= now || (x.CheckIn <= now && x.CheckOut >= now));
             
-            if (hasActiveBookings)
-            {
-                throw new ConflictException("You cannot archive the apartment because it has active or upcoming bookings.");
-            }
+            //if (hasActiveBookings)
+            //{
+            //    throw new ConflictException("You cannot archive the apartment because it has active or upcoming bookings.");
+            //}
 
             apartment.IsArchived = true;
             Context.SaveChangesAsync();

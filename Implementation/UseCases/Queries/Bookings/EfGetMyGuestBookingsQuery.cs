@@ -35,6 +35,7 @@ namespace Implementation.UseCases.Queries.Bookings
             var query = Context.Bookings
                 .Where(x => x.Apartment.UserId == _actor.Id && x.IsActive)
                 .Include(x => x.Apartment.User)
+                .OrderByDescending(x => x.CheckIn)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(search.Keyword))
