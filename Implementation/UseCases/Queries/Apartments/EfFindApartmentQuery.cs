@@ -45,8 +45,7 @@ namespace Implementation.UseCases.Queries.Apartments
                                                   .Include(x => x.Favorites)
                                                   .Include(x => x.Ratings)
                                                   .ThenInclude(x => x.ApartmentRatings)
-                                                  .FirstOrDefault(x => x.Id == search && 
-                                                                 (!x.IsArchived.Value || (x.IsArchived.Value && x.UserId == _actor.Id)));
+                                                  .FirstOrDefault(x => x.Id == search);
 
 
             if (apartment == null)
@@ -102,6 +101,7 @@ namespace Implementation.UseCases.Queries.Apartments
                 }),
                 Longitude = apartment.Longitude ?? 16.363449m,
                 Lattitude = apartment.Lattitude ?? 48.210033m,
+                IsArchived = apartment.IsArchived ?? false,
                 RatingInfo = new RatingDto
                 {
                     TotalRatings = apartment.Ratings.Count(),

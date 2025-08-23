@@ -25,17 +25,19 @@ namespace Implementation.UseCases.Queries.Apartments
 
         public string Name => nameof(EfGetArchivedApartmentsQuery);
 
-        public PagedResponseApartment<SearchApartmentsDto> Execute(BasicApartmantSearch search)
+        public PagedResponseApartment<ArchivedApartmentsDto> Execute(BasicApartmantSearch search)
         {
-            var data = new List<SearchApartmentsDto>();
+            var data = new List<ArchivedApartmentsDto>();
 
-            var query = Context.Apartments.Where(x => x.IsArchived.Value && x.UserId == _actor.Id)
-                .Include(x => x.CityCountry)
-                .ThenInclude(x => x.City)
-                .Include(x => x.CityCountry)
-                .ThenInclude(x => x.Country)
-                .Include(x => x.ApartmentType)
-                .Include(x => x.Favorites).AsQueryable();
+            var query = Context.Apartments.Where(x => x.IsArchived.Value && x.IsActive && x.UserId == _actor.Id)
+                                          .Include(x => x.CityCountry)
+                                          .ThenInclude(x => x.City)
+                                          .Include(x => x.CityCountry)
+                                          .ThenInclude(x => x.Country)
+                                          .Include(x => x.ApartmentType)
+                                          .Include(x => x.Bookings)
+                                          .OrderByDescending(x => x.UpdatedAt)
+                                          .AsQueryable();
 
             int totalCount = query.Count();
 
@@ -46,7 +48,7 @@ namespace Implementation.UseCases.Queries.Apartments
 
             var apartments = query.Skip(skip).Take(perPage).ToList();
 
-            data.AddRange(apartments.Select(x => new SearchApartmentsDto
+            data.AddRange(apartments.Select(x => new ArchivedApartmentsDto
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -61,10 +63,17 @@ namespace Implementation.UseCases.Queries.Apartments
                 },
                 MaxGuests = x.MaxGuests,
                 PricePerNight = x.Price,
-                IsFavorite = x.Favorites.Any(f => f.UserId == _actor.Id)
+                IsFavorite = x.Favorites.Any(f => f.UserId == _actor.Id),
+                CurrentBookings = x.Bookings.Count()
+                //CurrentBookings = x.Bookings.Select(x => new ArchivedApartmentBookingsDto
+                //{
+                //    CheckIn = x.CheckIn,
+                //    CheckOut = x.CheckOut,
+                //    FullName = x.User.FirstName + " " + x.User.LastName,
+                //}).ToList()
             }));
 
-            return new PagedResponseApartment<SearchApartmentsDto>
+            return new PagedResponseApartment<ArchivedApartmentsDto>
             {
                 Data = data,
                 TotalCount = totalCount,

@@ -4,6 +4,7 @@ using Application.DTO.Apartments;
 using Application.Exceptions;
 using Application.UseCases.Commands.Apartments;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Implementation.UseCases.Commands.Apartments
@@ -23,11 +24,24 @@ namespace Implementation.UseCases.Commands.Apartments
 
         public override void Execute(int id)
         {
-            var apartment = Context.Apartments.FirstOrDefault(x => x.Id == id);
+            var apartment = Context.Apartments.Include(x => x.Bookings).FirstOrDefault(x => x.Id == id);
 
-            if(apartment.UserId != _actor.Id)
+            if (apartment == null)
+            {
+                throw new EntityNotFoundException(nameof(apartment), id);
+            }
+
+            if (apartment.UserId != _actor.Id)
             {
                 throw new PermissionDeniedException("You do not have permission to delete this apartment.");
+            }
+
+            var now = DateTime.UtcNow;
+            bool hasActiveBookings = apartment.Bookings.Any(x => x.IsActive && x.CheckIn >= now || (x.CheckIn <= now && x.CheckOut >= now));
+
+            if (hasActiveBookings)
+            {
+                throw new ConflictException("You cannot archive the apartment because it has active or upcoming bookings.");
             }
 
             base.Execute(id);

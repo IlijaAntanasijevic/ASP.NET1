@@ -10,4 +10,9 @@ namespace Domain.Core
         public bool IsActive { get; set; }
 
     }
+
+    public abstract class ApplicationUser
+    {
+        public int UserId { get; set; }
+    }
 }

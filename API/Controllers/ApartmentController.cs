@@ -60,7 +60,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult Delete(int id, [FromServices] IDeleteApartmentCommand command)
         {
             _handler.HandleCommand(command, id);
@@ -94,6 +94,13 @@ namespace API.Controllers
         {
             var response = _handler.HandleQuery(query, search);
             return Ok(response);
+        }
+
+        [HttpPut("activate/{id}")]
+        public IActionResult ActivateApartment(int id, [FromServices] IActivateApartmentCommand command)
+        {
+            _handler.HandleCommand(command, id);
+            return NoContent();
         }
 
 

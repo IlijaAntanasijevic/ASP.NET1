@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Apartment
 {
-    public interface IGetArchivedApartmentsQuery : IQuery<PagedResponseApartment<SearchApartmentsDto>, BasicApartmantSearch>
+    public interface IGetArchivedApartmentsQuery : IQuery<PagedResponseApartment<ArchivedApartmentsDto>, BasicApartmantSearch>
     {
     }
 }

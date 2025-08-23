@@ -51,6 +51,7 @@ namespace Application.DTO.Apartments
         public bool CanLeaveFeedback { get; set; }
         public bool IsFavorite { get; set; }
         public RatingDto RatingInfo { get; set; }
+        public bool IsArchived { get; set; }
     }
 
     public class ApartmentImageDto
@@ -59,6 +60,19 @@ namespace Application.DTO.Apartments
         public string FileName { get; set; }
         public string? OriginalFileName { get; set; }
     }
+
+    public class ArchivedApartmentsDto : SearchApartmentsDto
+    {
+        //public List<ArchivedApartmentBookingsDto> CurrentBookings { get; set; }
+        public int CurrentBookings { get; set; }
+    }
+
+    //public class ArchivedApartmentBookingsDto
+    //{
+    //    public DateTime CheckIn { get; set; }
+    //    public DateTime CheckOut { get; set; }
+    //    public string FullName { get; set; }
+    //}
 
 
 }
