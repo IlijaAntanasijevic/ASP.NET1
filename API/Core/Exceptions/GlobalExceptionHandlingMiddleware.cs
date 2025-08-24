@@ -40,9 +40,15 @@ namespace API.Core.Exceptions
                     return;
                 }
 
-                if (exception is EntityNotFoundException)
+                if (exception is EntityNotFoundException e)
                 {
                     httpContext.Response.StatusCode = 404;
+                    if (e.Message.Any())
+                    {
+                        var body = new { error = e.Message };
+                        await httpContext.Response.WriteAsJsonAsync(body);
+                    }
+
                     return;
                 }
 

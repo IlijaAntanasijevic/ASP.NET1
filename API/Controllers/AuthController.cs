@@ -2,7 +2,9 @@
 using API.Core.JWT;
 using API.DTO;
 using Application.DTO;
+using Application.DTO.Users;
 using Application.UseCases.Commands.Users;
+using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
@@ -15,7 +17,13 @@ namespace API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-    
+        private readonly UseCaseHandler _handler;
+
+        public AuthController(UseCaseHandler handler)
+        {
+            _handler = handler;
+        }
+
         // POST api/<AuthController>
         [HttpPost]
         [Route("/api/login")]
@@ -35,5 +43,22 @@ namespace API.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("confirm")]
+        public IActionResult ConfirmEmail([FromBody] ConfirmEmailDto data, [FromServices] IConfirmEmailCommand command)
+        {
+
+            _handler.HandleCommand(command, data);
+            return NoContent();
+        }
+
+        [HttpPut("resend")]
+        public IActionResult ResendCode([FromBody] ResendCodeDto data, [FromServices] IResendCodeCommand command)
+        {
+
+            _handler.HandleCommand(command, data);
+            return NoContent();
+        }
+
     }
 }
