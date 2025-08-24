@@ -1,5 +1,6 @@
 ﻿using App.Domain;
 using Application;
+using Application.Common;
 using Application.DTO;
 using Application.DTO.Apartments;
 using Application.UseCases.Commands.Apartments;

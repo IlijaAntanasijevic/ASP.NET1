@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Common;
 using Application.DTO;
 using Application.DTO.Apartments;
 using Application.UseCases.Queries.Apartment;

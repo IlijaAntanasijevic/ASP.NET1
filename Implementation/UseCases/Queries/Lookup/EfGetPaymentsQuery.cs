@@ -2,6 +2,7 @@
 using Application.DTO.Search;
 using Application.UseCases.Queries.Lookup;
 using DataAccess;
+using Implementation.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

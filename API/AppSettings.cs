@@ -1,4 +1,5 @@
-﻿using API.Core.JWT;
+﻿using API.Core;
+using API.Core.JWT;
 
 namespace API
 {

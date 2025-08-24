@@ -1,4 +1,5 @@
 ﻿using API.Core.JWT;
+using Application.Common;
 using Application.UseCases.Commands;
 using Application.UseCases.Commands.Apartments;
 using Application.UseCases.Commands.Bookings;
@@ -10,6 +11,7 @@ using Application.UseCases.Queries.Bookings;
 using Application.UseCases.Queries.Chat;
 using Application.UseCases.Queries.Lookup;
 using Application.UseCases.Queries.Users;
+using Implementation.Common;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands;
 using Implementation.UseCases.Commands.Apartments;
@@ -41,6 +43,7 @@ namespace API.Core
             services.AddTransient<UseCaseHandler>();
             services.AddTransient<IGetUseCaseLogsQuery, EfGetUseCaseLogsQuery>();
             services.AddTransient<IGetErrorLogsQuery, EfGetErrorLogsQuery>();
+            services.AddTransient<IEmailSender, EmailSender>();
 
 
             //User

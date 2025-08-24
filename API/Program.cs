@@ -4,9 +4,11 @@ using API.Core;
 using API.Core.Exceptions;
 using API.Core.JWT;
 using Application;
+using Application.Common;
 using Application.UseCases.Commands;
 using DataAccess;
 using Implementation;
+using Implementation.Common;
 using Implementation.Logging.UseCases;
 using Implementation.UseCases.Commands;
 using Microsoft.AspNetCore.SignalR;
@@ -28,8 +30,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 
-
-
+builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSettings").Get<EmailSettings>());
 builder.Services.AddTransient(x => new BookingContext(settings.ConnectionString));
 builder.Services.AddTransient<IUseCaseLogger, DbUseCaseLogger>();
 builder.Services.AddTransient<IExceptionLogger, DbExceptionLogger>();
@@ -72,6 +73,12 @@ builder.Services.AddTransient<IApplicationActor>(x =>
 builder.Services.AddJwt(settings);
 builder.Services.AddAuthorization();
 var app = builder.Build();
+
+app.MapGet("/send-test", async (IEmailSender emailSender) =>
+{
+    await emailSender.SendEmailConfirmRegistrationAsync("ilija0308@gmail.com","123456");
+    return Results.Ok("Sent!");
+});
 
 var allowedOrigin = "http://localhost:4200";
 

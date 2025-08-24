@@ -1,9 +1,11 @@
 ﻿using Application;
+using Application.Common;
 using Application.DTO;
 using Application.DTO.Apartments;
 using Application.DTO.Search;
 using Application.UseCases.Queries.Apartment;
 using DataAccess;
+using Implementation.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,8 +29,11 @@ namespace Implementation.UseCases.Queries.Apartments
 
         public PagedResponseApartment<SearchApartmentsDto> Execute(ApartmentSearch search)
         {
-            var query = Context.Apartments.Where(x => x.IsActive == true && !x.IsArchived.Value).Include(x => x.Bookings).AsQueryable();
-            //string url = new Uri($"{Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";").First()}").AbsoluteUri;
+            var query = Context.Apartments.Where(x => x.IsActive == true && !x.IsArchived.Value)
+                                           .Include(x => x.Bookings)
+                                           .Include(x => x.Ratings)
+                                           .ThenInclude(x => x.ApartmentRatings)
+                                           .AsQueryable();
 
             if (!string.IsNullOrEmpty(search.Keyword))
             {
@@ -65,7 +70,7 @@ namespace Implementation.UseCases.Queries.Apartments
             {
                 query = query.Where(x => x.UserId == _actor.Id);
             }
-            if(search.Adults.HasValue || search.Childrens.HasValue)
+            if(search.Adults.HasValue)
             {
                 query = query.Where(x => x.MaxAdults >= search.Adults.Value);
             }
@@ -98,6 +103,19 @@ namespace Implementation.UseCases.Queries.Apartments
                         query = query.OrderBy(x => x.Price);
                         break;
 
+                    case SortProperty.TopRated:
+                        if (sortDirc == SortDirection.Desc)
+                        {
+                            query = query.OrderByDescending(x => x.Ratings.SelectMany(r => r.ApartmentRatings)
+                                         .Select(ar => (double)ar.StarRating).Average());
+                        }
+                        else
+                        {
+                            query = query.OrderBy(x => x.Ratings.SelectMany(r => r.ApartmentRatings)
+                                         .Select(ar => (double)ar.StarRating).Average());
+                        }
+                        break;
+
                     case SortProperty.MostPopular:
                         if (sortDirc == SortDirection.Desc)
                         {
@@ -108,17 +126,6 @@ namespace Implementation.UseCases.Queries.Apartments
                         query = query.OrderBy(x => x.Bookings.Where(b => b.IsActive).Count());
                         break;
                 }
-                //if(search.Sorts.Any(x => x.SortProperty == "price"))
-                //{
-                //    if(search.Sorts.FirstOrDefault(x => x.SortProperty == "price").Direction == SortDirection.Asc)
-                //    {
-                //        query = query.OrderBy(x => x.Price);
-                //    }
-                //    else
-                //    {
-                //        query = query.OrderByDescending(x => x.Price);
-                //    }
-                //}
                 if (search.Sorts.Any(x => x.Direction == SortDirection.Desc) && search.Sorts.Any(x => x.SortProperty == null))
                 {
                     query = query.OrderByDescending(x => x.CreatedAt);
@@ -165,7 +172,7 @@ namespace Implementation.UseCases.Queries.Apartments
                 MainImage = new ApartmentImageDto
                 {
                     FileName = x.MainImage,
-                    ImageType = Application.UploadType.MainImage,
+                    ImageType = UploadType.MainImage,
                     OriginalFileName = null
                 },
                 //MaxGuests = x.MaxGuests,
@@ -173,7 +180,9 @@ namespace Implementation.UseCases.Queries.Apartments
                 Childrens = x.MaxChildren,
                 TotalRooms = x.TotalRooms,
                 PricePerNight = x.Price,
-                IsFavorite = x.Favorites.Any(f => f.UserId == _actor.Id)
+                IsFavorite = x.Favorites.Any(f => f.UserId == _actor.Id),
+                AvgRating = x.Ratings.Any() ? x.Ratings.Average(a => a.ApartmentRatings.Average(x => (float)x.StarRating)) : 0,
+                TotalRatings = x.Ratings.Count()
             });
 
 
