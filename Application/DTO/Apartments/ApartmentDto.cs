@@ -1,4 +1,5 @@
-﻿using Application.DTO.Ratings;
+﻿using Application.Common;
+using Application.DTO.Ratings;
 using Application.DTO.Search;
 using Application.DTO.Users;
 using System;

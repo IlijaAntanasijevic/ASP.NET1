@@ -8,6 +8,7 @@ using Application.Exceptions;
 using Implementation.Validators;
 using FluentValidation;
 using Mapster;
+using Application.Common;
 namespace Implementation.UseCases.Commands.Apartments
 {
     public class EfUpdateApartmentCommand : EfUseCase, IUpdateApartmentCommand

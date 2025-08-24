@@ -32,7 +32,14 @@ namespace DataAccess
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
 
-            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UseCaseId });    
+            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UseCaseId });
+
+            modelBuilder.Entity<EmailConfirmation>(entity =>
+            {
+                entity.HasKey(entity => entity.UserId);
+                entity.Property(entity => entity.Code).HasColumnType("nvarchar(10)");
+            });
+            
 
             base.OnModelCreating(modelBuilder);
         }
@@ -85,5 +92,6 @@ namespace DataAccess
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<RatingType> RatingTypes { get; set; }
         public DbSet<ApartmentRating> ApartmentRatings { get; set; }
+        public DbSet<EmailConfirmation> EmailConfirmations { get; set; }
     }
 }

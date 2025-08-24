@@ -1,9 +1,11 @@
 ﻿using Application;
+using Application.Common;
 using Application.DTO;
 using Application.DTO.Apartments;
 using Application.DTO.Search;
 using Application.UseCases.Queries.Apartment;
 using DataAccess;
+using Implementation.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -170,7 +172,7 @@ namespace Implementation.UseCases.Queries.Apartments
                 MainImage = new ApartmentImageDto
                 {
                     FileName = x.MainImage,
-                    ImageType = Application.UploadType.MainImage,
+                    ImageType = UploadType.MainImage,
                     OriginalFileName = null
                 },
                 //MaxGuests = x.MaxGuests,

@@ -4,6 +4,7 @@ using Application.DTO.Ratings;
 using Application.UseCases.Queries.Apartment;
 using Azure;
 using DataAccess;
+using Implementation.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
