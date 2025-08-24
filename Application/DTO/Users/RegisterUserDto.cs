@@ -16,4 +16,15 @@ namespace Application.DTO.Users
         public string Avatar { get; set; }
 
     }
+
+    public class ConfirmEmailDto
+    {
+        public string Email { get; set; }
+        public string Code { get; set; }
+    }
+
+    public class ResendCodeDto
+    {
+        public string Email { get; set; }
+    }
 }

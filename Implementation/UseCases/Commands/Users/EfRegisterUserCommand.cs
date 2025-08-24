@@ -71,6 +71,9 @@ namespace Implementation.UseCases.Commands.Users
             //42 - Get Ratings
             //43 - Archive Apartment
             //44 - Get Archived Apartments
+            //45 - Activate Apartment
+            //46 - Confirm Email
+            //47 - Resend Code
 
             User user = new User
             {
@@ -80,6 +83,7 @@ namespace Implementation.UseCases.Commands.Users
                 LastName = data.LastName,
                 Phone = data.Phone,
                 Avatar = data.Avatar,
+                IsActive = false,
                 UseCases = new List<UserUseCase>()
                 {
                     new UserUseCase { UseCaseId = 7},
@@ -106,6 +110,8 @@ namespace Implementation.UseCases.Commands.Users
                     new UserUseCase { UseCaseId = 43},
                     new UserUseCase { UseCaseId = 44},
                     new UserUseCase { UseCaseId = 45},
+                    new UserUseCase { UseCaseId = 46},
+                    new UserUseCase { UseCaseId = 47},
                 }
             };
 
@@ -117,7 +123,7 @@ namespace Implementation.UseCases.Commands.Users
             {
                 User = user,
                 Code = confirmationCode,
-                Expire = DateTime.Now.AddMinutes(15)
+                Expire = DateTime.Now.AddMinutes(5)
             };
 
             Context.EmailConfirmations.Add(emailConfirmation);
