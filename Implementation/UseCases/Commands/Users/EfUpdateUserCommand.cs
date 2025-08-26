@@ -7,6 +7,7 @@ using DataAccess;
 using FluentValidation;
 using FluentValidation.Results;
 using Implementation.Validators;
+using ValidationException = FluentValidation.ValidationException;
 
 
 namespace Implementation.UseCases.Commands.Users

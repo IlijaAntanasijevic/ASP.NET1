@@ -25,12 +25,23 @@ namespace API.Core.Exceptions
             catch (Exception exception)
             {
 
-                if (exception is ValidationException ex)
+                if (exception is FluentValidation.ValidationException ex)
                 {
                     httpContext.Response.StatusCode = 422;
                     var body = ex.Errors.Select(x => new { Property = x.PropertyName, Error = x.ErrorMessage });
 
                     await httpContext.Response.WriteAsJsonAsync(body);
+                    return;
+                }
+
+                if (exception is Application.Exceptions.ValidationException v)
+                {
+                    httpContext.Response.StatusCode = 422;
+                    if (v.Message.Any())
+                    {
+                        var body = new { error = v.Message };
+                        await httpContext.Response.WriteAsJsonAsync(body);
+                    }
                     return;
                 }
 

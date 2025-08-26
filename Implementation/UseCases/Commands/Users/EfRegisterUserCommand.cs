@@ -123,7 +123,7 @@ namespace Implementation.UseCases.Commands.Users
             {
                 User = user,
                 Code = confirmationCode,
-                Expire = DateTime.Now.AddMinutes(5)
+                Expire = DateTime.Now.AddMinutes(2)
             };
 
             Context.EmailConfirmations.Add(emailConfirmation);

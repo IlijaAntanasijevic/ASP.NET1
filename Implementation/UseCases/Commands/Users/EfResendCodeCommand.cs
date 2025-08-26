@@ -36,8 +36,7 @@ namespace Implementation.UseCases.Commands.Users
 
             if (user == null)
             {
-                throw new PermissionDeniedException($"User with {data.Email ?? "/"} email not found");
-                //throw new ValidationException(failures);
+                throw new ValidationException($"User with {data.Email ?? "/"} email not found");
             }
 
             var confirmation = Context.EmailConfirmations.Where(x => x.UserId == user.Id).FirstOrDefault();
@@ -58,7 +57,8 @@ namespace Implementation.UseCases.Commands.Users
             Context.Add(emailConfirmation);
             Context.SaveChanges();
 
-            await _emailSender.SendEmailConfirmRegistrationAsync(user.Email, newCode);
+            //await _emailSender.SendEmailConfirmRegistrationAsync(user.Email, newCode);
+            await _emailSender.SendEmailConfirmRegistrationAsync("ilija0308@gmail.com", newCode);
         }
     }
 }

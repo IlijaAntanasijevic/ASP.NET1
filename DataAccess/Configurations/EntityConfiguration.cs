@@ -18,7 +18,8 @@ namespace DataAccess.Configurations
             builder.Property(x => x.CreatedAt)
                    .HasDefaultValueSql("GETDATE()");
 
-            builder.Property(x => x.IsActive).HasDefaultValueSql("1");
+            builder.Property(x => x.IsActive).HasDefaultValueSql("1")
+                                             .ValueGeneratedNever();
 
 
             ConfigureEntity(builder);
