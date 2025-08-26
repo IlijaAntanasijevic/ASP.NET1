@@ -36,8 +36,17 @@ namespace DataAccess
 
             modelBuilder.Entity<EmailConfirmation>(entity =>
             {
-                entity.HasKey(entity => entity.UserId);
-                entity.Property(entity => entity.Code).HasColumnType("nvarchar(10)");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).UseIdentityColumn();
+
+                entity.Property(e => e.Code).HasColumnType("nvarchar(10)");
+
+                entity.HasOne(e => e.User)
+                      .WithMany(u => u.EmailConfirmations)
+                      .HasForeignKey(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasIndex(e => e.UserId);
             });
             
 

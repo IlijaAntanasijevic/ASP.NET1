@@ -44,7 +44,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpPut("confirm")]
+        [HttpPost("confirm")]
         public IActionResult ConfirmEmail([FromBody] ConfirmEmailDto data, [FromServices] IConfirmEmailCommand command)
         {
 
@@ -52,7 +52,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpPut("resend")]
+        [HttpPost("resend")]
         public IActionResult ResendCode([FromBody] ResendCodeDto data, [FromServices] IResendCodeCommand command)
         {
 

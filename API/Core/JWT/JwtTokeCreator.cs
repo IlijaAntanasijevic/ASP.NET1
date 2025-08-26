@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using Application.Exceptions;
+using DataAccess;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
@@ -28,12 +29,22 @@ namespace API.Core.JWT
                 x.FirstName,
                 x.LastName,
                 x.Id,
+                x.IsActive,
                 UseCaseIds = x.UseCases.Select(x => x.UseCaseId)
             }).FirstOrDefault();
 
             if (user == null)
             {
                 throw new UnauthorizedAccessException();
+            }
+
+            if (!user.IsActive)
+            {
+                var userNotActive = _context.EmailConfirmations.FirstOrDefault(x => x.UserId == user.Id);
+                if(userNotActive != null)
+                {
+                    throw new PermissionDeniedException("Please activate your account");
+                }
             }
 
             if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
