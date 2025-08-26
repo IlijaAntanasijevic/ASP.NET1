@@ -74,6 +74,9 @@ namespace Implementation.UseCases.Commands.Users
             //45 - Activate Apartment
             //46 - Confirm Email
             //47 - Resend Code
+            //48 - Forgot Password Send Email
+            //49 - Forgot Password Check Code
+            //50 - Change Password
 
             User user = new User
             {
@@ -112,6 +115,9 @@ namespace Implementation.UseCases.Commands.Users
                     new UserUseCase { UseCaseId = 45},
                     new UserUseCase { UseCaseId = 46},
                     new UserUseCase { UseCaseId = 47},
+                    new UserUseCase { UseCaseId = 48},
+                    new UserUseCase { UseCaseId = 49},
+                    new UserUseCase { UseCaseId = 50},
                 }
             };
 
