@@ -57,6 +57,9 @@ namespace API.Core
             services.AddTransient<IChangeProfilePhotoCommand, EfChangeProfilePhotoCommand>();
             services.AddTransient<IConfirmEmailCommand, EfConfirmEmailCommand>();
             services.AddTransient<IResendCodeCommand, EfResendCodeCommand>();
+            services.AddTransient<IForgotPasswordSendEmailCommand, EfForgotPasswordSendEmailCommand>();
+            services.AddTransient<IForgotPasswordCheckCodeCommand, EfForgotPasswordCheckCodeCommand>();
+            services.AddTransient<IChangePasswordCommand, EfChangePasswordCommand>();
 
             //Lookup
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();

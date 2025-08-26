@@ -25,12 +25,12 @@ namespace Implementation.UseCases.Commands.Users
 
         public string Name => nameof(EfResendCodeCommand);
 
-        public void Execute(ResendCodeDto data)
+        public void Execute(EmailCodeDto data)
         {
             ExecuteInternal(data).GetAwaiter().GetResult();
         }
 
-        private async Task ExecuteInternal(ResendCodeDto data)
+        private async Task ExecuteInternal(EmailCodeDto data)
         {
             var user = Context.Users.Where(x => x.Email == data.Email).FirstOrDefault();
 

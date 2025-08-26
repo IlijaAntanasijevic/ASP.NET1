@@ -53,12 +53,35 @@ namespace API.Controllers
         }
 
         [HttpPost("resend")]
-        public IActionResult ResendCode([FromBody] ResendCodeDto data, [FromServices] IResendCodeCommand command)
+        public IActionResult ResendCode([FromBody] EmailCodeDto data, [FromServices] IResendCodeCommand command)
         {
 
             _handler.HandleCommand(command, data);
             return NoContent();
         }
 
+        [HttpPost("forgot-password")]
+        public IActionResult ForgotPasswordSendEmail([FromBody] EmailCodeDto data, [FromServices] IForgotPasswordSendEmailCommand command)
+        {
+
+            _handler.HandleCommand(command, data);
+            return NoContent();
+        }
+
+        [HttpPut("forgot-password")]
+        public IActionResult ForgotPasswordCheckCode([FromBody] EmailCodeDto data, [FromServices] IForgotPasswordCheckCodeCommand command)
+        {
+
+            _handler.HandleCommand(command, data);
+            return NoContent();
+        }
+
+        [HttpPut("change-password")]
+        public IActionResult ChangePassword([FromBody] EmailCodeDto data, [FromServices] IChangePasswordCommand command)
+        {
+
+            _handler.HandleCommand(command, data);
+            return NoContent();
+        }
     }
 }

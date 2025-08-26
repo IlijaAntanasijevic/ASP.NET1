@@ -23,8 +23,9 @@ namespace Application.DTO.Users
         public string Code { get; set; }
     }
 
-    public class ResendCodeDto
+    public class EmailCodeDto
     {
         public string Email { get; set; }
     }
+
 }
