@@ -59,8 +59,7 @@ namespace Implementation.UseCases.Commands.Users
             Context.SaveChanges();
 
 
-            //await _emailSender.SendEmailForgotPasswordAsync(user.Email, newCode);
-            await _emailSender.SendEmailForgotPasswordAsync("ilija0308@gmail.com", newCode);
+            await _emailSender.ForgotPasswordAsync(user.Email, newCode);
         }
 
     }

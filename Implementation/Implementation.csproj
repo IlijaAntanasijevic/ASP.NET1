@@ -23,4 +23,8 @@
     <Folder Include="Exceptions\" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Include="Templates\*.html" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
 </Project>
