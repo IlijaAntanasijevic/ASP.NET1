@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.DTO.Bookings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace Application.Common
 {
     public interface IEmailSender
     {
-        Task SendEmailConfirmRegistrationAsync(string email, string code);
-        Task SendEmailForgotPasswordAsync(string email, string code);
+        Task ConfirmRegistrationAsync(string email, string code);
+        Task ForgotPasswordAsync(string email, string code);
+        Task BookingConfirmed(ConfirmedBookingEmailDto data);
     }
 }

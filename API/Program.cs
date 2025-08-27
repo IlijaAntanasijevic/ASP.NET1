@@ -76,7 +76,7 @@ var app = builder.Build();
 
 app.MapGet("/send-test", async (IEmailSender emailSender) =>
 {
-    await emailSender.SendEmailConfirmRegistrationAsync("ilija0308@gmail.com","123456");
+    await emailSender.ConfirmRegistrationAsync("ilija0308@gmail.com","123456");
     return Results.Ok("Sent!");
 });
 

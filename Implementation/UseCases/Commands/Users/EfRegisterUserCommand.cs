@@ -136,8 +136,7 @@ namespace Implementation.UseCases.Commands.Users
 
             Context.SaveChanges();
 
-            //await _emailSender.SendEmailConfirmRegistrationAsync(user.Email, confirmationCode);
-            await _emailSender.SendEmailConfirmRegistrationAsync("ilija0308@gmail.com", confirmationCode);
+            await _emailSender.ConfirmRegistrationAsync(user.Email, confirmationCode);
         }
     }
 

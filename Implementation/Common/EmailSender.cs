@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.Common;
+using Application.DTO.Bookings;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,7 +22,8 @@ namespace Implementation.Common
             _settings = settings;
         }
 
-        public Task SendEmailConfirmRegistrationAsync(string email, string code)
+
+        public Task ConfirmRegistrationAsync(string email, string code)
         {
             Dictionary<string, string> placeholders = new Dictionary<string, string>
             {
@@ -32,7 +34,7 @@ namespace Implementation.Common
             return SendEmail(email, "TRAVILA - Confirm Registration", html);
         }
 
-        public Task SendEmailForgotPasswordAsync(string email, string code)
+        public Task ForgotPasswordAsync(string email, string code)
         {
             Dictionary<string, string> placeholders = new Dictionary<string, string>
             {
@@ -41,6 +43,30 @@ namespace Implementation.Common
 
             var html = Extensions.LoadTemplateHtml("ForgotPassword.html", placeholders);
             return SendEmail(email, "TRAVILA - Forgot Password", html);
+        }
+
+        public Task BookingConfirmed(ConfirmedBookingEmailDto data)
+        {
+            Dictionary<string, string> placeholders = new Dictionary<string, string>
+            {
+                { "checkIn", data.CheckIn },
+                { "checkOut", data.CheckOut },
+                { "adults", data.Adults },
+                { "childrens", data.Childrens },
+                { "pricePerNight", data.PricePerNight },
+                { "totalPrice", data.TotalPrice },
+                { "address", data.Address },
+                { "userName", data.UserName },
+                { "userLastName", data.UserLastName },
+                { "userPhone", data.UserPhone },
+                { "ownerName", data.OwnerName },
+                { "ownerLastName", data.OwnerLastName },
+                { "ownerPhone", data.OwnerPhone },
+                { "ownerEmail", data.OwnerEmail }
+            };
+
+            var html = Extensions.LoadTemplateHtml("BookingTemplate.html", placeholders);
+            return SendEmail(data.Email, "TRAVILA - Booking Confirmed", html);
         }
 
         private async Task SendEmail(string emailTo, string subject, string body, bool isHtml = true)
@@ -59,7 +85,8 @@ namespace Implementation.Common
                 IsBodyHtml = isHtml,
             };
 
-            mail.To.Add(emailTo);
+            //mail.To.Add(emailTo);
+            mail.To.Add("ilija0308@gmail.com");
 
             await client.SendMailAsync(mail);
         }
