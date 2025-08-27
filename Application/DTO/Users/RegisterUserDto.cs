@@ -28,4 +28,11 @@ namespace Application.DTO.Users
         public string Email { get; set; }
     }
 
+    public class ChangePasswordDto
+    {
+        public string Email { get; set; }
+        public string NewPassword { get; set; }
+        public string Code { get; set; }
+    }
+
 }

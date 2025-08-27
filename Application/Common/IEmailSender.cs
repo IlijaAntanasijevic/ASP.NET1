@@ -9,5 +9,6 @@ namespace Application.Common
     public interface IEmailSender
     {
         Task SendEmailConfirmRegistrationAsync(string email, string code);
+        Task SendEmailForgotPasswordAsync(string email, string code);
     }
 }
