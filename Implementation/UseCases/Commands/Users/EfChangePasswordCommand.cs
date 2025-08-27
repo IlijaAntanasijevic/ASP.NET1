@@ -1,4 +1,5 @@
 ﻿using Application.DTO.Users;
+using Application.Exceptions;
 using Application.UseCases.Commands.Users;
 using DataAccess;
 using System;
@@ -19,9 +20,36 @@ namespace Implementation.UseCases.Commands.Users
 
         public string Name => nameof(EfChangePasswordCommand);
 
-        public void Execute(EmailCodeDto data)
+        public void Execute(ChangePasswordDto data)
         {
-            throw new NotImplementedException();
+            var user = Context.Users.Where(x => x.Email == data.Email).FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new ValidationException($"User with {data.Email ?? "/"} email not found");
+            }
+
+            var confirmation = Context.EmailConfirmations.Where(x => x.UserId == user.Id).FirstOrDefault();
+
+            if (confirmation == null)
+            {
+                throw new ValidationException($"User with {data.Email} email not found");
+            }
+
+            if (confirmation.Expire < DateTime.Now)
+            {
+                throw new ValidationException($"The code has expired");
+            }
+
+            if (data.Code != confirmation.Code)
+            {
+                throw new ValidationException($"Wrong code");
+            }
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(data.NewPassword);
+
+            Context.SaveChanges();
+            
         }
     }
 }

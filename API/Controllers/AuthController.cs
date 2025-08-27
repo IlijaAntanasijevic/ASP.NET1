@@ -69,7 +69,7 @@ namespace API.Controllers
         }
 
         [HttpPut("forgot-password")]
-        public IActionResult ForgotPasswordCheckCode([FromBody] EmailCodeDto data, [FromServices] IForgotPasswordCheckCodeCommand command)
+        public IActionResult ForgotPasswordCheckCode([FromBody] ConfirmEmailDto data, [FromServices] IForgotPasswordCheckCodeCommand command)
         {
 
             _handler.HandleCommand(command, data);
@@ -77,7 +77,7 @@ namespace API.Controllers
         }
 
         [HttpPut("change-password")]
-        public IActionResult ChangePassword([FromBody] EmailCodeDto data, [FromServices] IChangePasswordCommand command)
+        public IActionResult ChangePassword([FromBody] ChangePasswordDto data, [FromServices] IChangePasswordCommand command)
         {
 
             _handler.HandleCommand(command, data);

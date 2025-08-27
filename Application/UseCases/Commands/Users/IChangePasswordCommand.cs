@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Users
 {
-    public interface IChangePasswordCommand : ICommand<EmailCodeDto>
+    public interface IChangePasswordCommand : ICommand<ChangePasswordDto>
     {
     }
 }

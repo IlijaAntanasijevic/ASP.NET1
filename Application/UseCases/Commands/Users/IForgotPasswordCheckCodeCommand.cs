@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Users
 {
-    public interface IForgotPasswordCheckCodeCommand : ICommand<EmailCodeDto>
+    public interface IForgotPasswordCheckCodeCommand : ICommand<ConfirmEmailDto>
     {
     }
 }
