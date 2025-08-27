@@ -64,7 +64,19 @@ namespace Implementation.Common
                 Name = nameSelector(x)
             });
         }
-    }
 
+        public static string LoadTemplateHtml(string fileName, Dictionary<string, string> placeholders)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, "Templates", fileName);
+            var html = File.ReadAllText(path);
+
+            foreach(var item in placeholders)
+            {
+                html = html.Replace($"{{{item.Key}}}", item.Value);
+            }
+
+            return html;
+        }
+    }
 
 }
