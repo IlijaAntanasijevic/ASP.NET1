@@ -29,6 +29,7 @@ namespace API.Core.JWT
                 x.FirstName,
                 x.LastName,
                 x.Id,
+                x.IsOAuth,
                 x.IsActive,
                 UseCaseIds = x.UseCases.Select(x => x.UseCaseId)
             }).FirstOrDefault();
@@ -47,7 +48,7 @@ namespace API.Core.JWT
                 }
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password) && !user.IsOAuth)
             {
                 throw new UnauthorizedAccessException();
             }

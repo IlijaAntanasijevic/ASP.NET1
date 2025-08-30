@@ -83,5 +83,19 @@ namespace API.Controllers
             _handler.HandleCommand(command, data);
             return NoContent();
         }
+
+        [HttpGet("oauth")]
+        public IActionResult OAuth([FromQuery] OAuthDto data, [FromServices] IOAuthRegisterCommand command)
+        {
+            try
+            {
+                _handler.HandleCommand(command, data);
+                return Redirect($"http://localhost:4200/auth/login?isSuccess=true");
+            }
+            catch (Exception ex)
+            {
+                return Redirect($"http://localhost:4200/auth/register?isSuccess=false&error={Uri.EscapeDataString(ex.Message)}");
+            }
+        }
     }
 }
