@@ -16,6 +16,10 @@
 # Mono auto generated files
 mono_crash.*
 
+#Moj git
+API/appsettings.Development.json
+API/appsettings.json
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

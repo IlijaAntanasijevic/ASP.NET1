@@ -26,15 +26,12 @@ namespace DataAccess.Configurations
                    .IsRequired();
 
             builder.Property(x => x.Password)
-                   .IsRequired()
                    .HasMaxLength(150);
 
             builder.Property(x => x.Phone)
-                   .IsRequired()
                    .HasMaxLength(20);
 
             builder.Property(x => x.Avatar)
-                   .IsRequired()
                    .HasMaxLength(100);
          
             builder.HasIndex(x => new { x.Email, x.Password });

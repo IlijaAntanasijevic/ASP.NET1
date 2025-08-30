@@ -77,6 +77,72 @@ namespace Implementation.Common
 
             return html;
         }
+
+        public static List<UserUseCase> AddUserUseCases()
+        {
+            //7 - Delete user
+            //8 - Update user
+            //9 - Create Apartment
+            //17 - Delete Apartment
+            //18 - Update Apartment
+            //19 - Update Apartment Images
+            //20 - Create Booking
+            //21 - Update Booking
+            //22 - Delete Booking
+            //23 - Get Bookings
+            //24 - Find Booking
+            //33 - Change profile photo
+            //34 - Send message
+            //35 - User Chat List
+            //36 - Chat Messages
+            //37 - My Guest Bookings
+            //38 - Prepare Chat
+            //39 - Add Apartment To Favorite
+            //40 - Get Favorite Apartments
+            //41 - Create Rating
+            //42 - Get Ratings
+            //43 - Archive Apartment
+            //44 - Get Archived Apartments
+            //45 - Activate Apartment
+            //46 - Confirm Email
+            //47 - Resend Code
+            //48 - Forgot Password Send Email
+            //49 - Forgot Password Check Code
+            //50 - Change Password
+
+            return new List<UserUseCase>()
+            {
+                new UserUseCase { UseCaseId = 7},
+                new UserUseCase { UseCaseId = 8},
+                new UserUseCase { UseCaseId = 9},
+                new UserUseCase { UseCaseId = 17},
+                new UserUseCase { UseCaseId = 18},
+                new UserUseCase { UseCaseId = 19},
+                new UserUseCase { UseCaseId = 20},
+                new UserUseCase { UseCaseId = 21},
+                new UserUseCase { UseCaseId = 22},
+                new UserUseCase { UseCaseId = 23},
+                new UserUseCase { UseCaseId = 24},
+                new UserUseCase { UseCaseId = 33},
+                new UserUseCase { UseCaseId = 34},
+                new UserUseCase { UseCaseId = 35},
+                new UserUseCase { UseCaseId = 36},
+                new UserUseCase { UseCaseId = 37},
+                new UserUseCase { UseCaseId = 38},
+                new UserUseCase { UseCaseId = 39},
+                new UserUseCase { UseCaseId = 40},
+                new UserUseCase { UseCaseId = 41},
+                new UserUseCase { UseCaseId = 42},
+                new UserUseCase { UseCaseId = 43},
+                new UserUseCase { UseCaseId = 44},
+                new UserUseCase { UseCaseId = 45},
+                new UserUseCase { UseCaseId = 46},
+                new UserUseCase { UseCaseId = 47},
+                new UserUseCase { UseCaseId = 48},
+                new UserUseCase { UseCaseId = 49},
+                new UserUseCase { UseCaseId = 50},
+             };
+        }
     }
 
 }

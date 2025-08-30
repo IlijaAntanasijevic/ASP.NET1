@@ -60,6 +60,7 @@ namespace API.Core
             services.AddTransient<IForgotPasswordSendEmailCommand, EfForgotPasswordSendEmailCommand>();
             services.AddTransient<IForgotPasswordCheckCodeCommand, EfForgotPasswordCheckCodeCommand>();
             services.AddTransient<IChangePasswordCommand, EfChangePasswordCommand>();
+            services.AddTransient<IOAuthRegisterCommand, EfOAuthRegisterCommand>();
 
             //Lookup
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();

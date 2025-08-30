@@ -16,6 +16,7 @@ namespace App.Domain
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Avatar { get; set; }
+        public bool IsOAuth { get; set; } = false;
 
         public virtual ICollection<Apartment> Apartments { get; set; } = new HashSet<Apartment>();
         public virtual ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
