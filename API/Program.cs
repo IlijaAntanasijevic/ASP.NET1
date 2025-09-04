@@ -32,6 +32,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSettings").Get<EmailSettings>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("OAuthGoogleSettings").Get<OAuthGoogleSettings>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("OpenAISettings").Get<OpenAISettings>());
 builder.Services.AddTransient(x => new BookingContext(settings.ConnectionString));
 builder.Services.AddTransient<IUseCaseLogger, DbUseCaseLogger>();
 builder.Services.AddTransient<IExceptionLogger, DbExceptionLogger>();

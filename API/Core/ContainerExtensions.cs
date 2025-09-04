@@ -44,6 +44,7 @@ namespace API.Core
             services.AddTransient<IGetUseCaseLogsQuery, EfGetUseCaseLogsQuery>();
             services.AddTransient<IGetErrorLogsQuery, EfGetErrorLogsQuery>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IOpenAIChatQuery, EfOpenAIChatQuery>();
 
 
             //User

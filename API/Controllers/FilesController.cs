@@ -82,7 +82,7 @@ namespace API.Controllers
                 response.Add(new FileUploadResponseDto
                 {
                     FileName = uniqueFileName,
-                    ImageType = fileDto.ImageType == UploadType.MainImage ? UploadType.MainImage : UploadType.Apartment,
+                    ImageType = fileDto.ImageType ?? UploadType.MainImage,
                     OriginalFileName = fileDto.File.FileName
                 });
             }

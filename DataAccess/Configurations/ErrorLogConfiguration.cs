@@ -27,11 +27,11 @@ namespace DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<UseCaseLog> builder)
         {
-            builder.Property(x => x.Email).IsRequired().HasMaxLength(20);
+            builder.Property(x => x.Email).IsRequired().HasMaxLength(500);
             builder.Property(x => x.UseCaseName).IsRequired().HasMaxLength(50);
 
-            builder.HasIndex(x => new { x.Email, x.UseCaseName, x.ExecutedAt })
-                   .IncludeProperties(x => x.UseCaseData);
+            //builder.HasIndex(x => new { x.Email, x.UseCaseName, x.ExecutedAt })
+            //       .IncludeProperties(x => x.UseCaseData);
         }
     }
 }

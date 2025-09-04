@@ -1,8 +1,10 @@
 ﻿using Application;
+using Application.DTO;
 using Application.DTO.Apartments;
 using Application.DTO.Search;
 using Application.UseCases.Commands.Apartments;
 using Application.UseCases.Queries.Apartment;
+using Application.UseCases.Queries.Chat;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -101,6 +103,13 @@ namespace API.Controllers
         {
             _handler.HandleCommand(command, id);
             return NoContent();
+        }
+
+        [HttpPost("ai")]
+        public IActionResult OpenAi(OpenAIRequestDto request, [FromServices] IOpenAIChatQuery query)
+        {
+            var response = _handler.HandleQuery(query, request);
+            return Ok(response);
         }
 
 
