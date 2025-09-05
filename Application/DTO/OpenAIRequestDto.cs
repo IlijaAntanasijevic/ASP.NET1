@@ -18,6 +18,13 @@ namespace Application.DTO
 
     public class OpenAIResponseDto
     {
+        public int? ConversationId { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class OpenAIConituneConversationDto 
+    {
+        public int ConversationId { get; set; }
         public string Text { get; set; }
     }
 }

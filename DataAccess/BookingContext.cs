@@ -102,5 +102,7 @@ namespace DataAccess
         public DbSet<RatingType> RatingTypes { get; set; }
         public DbSet<ApartmentRating> ApartmentRatings { get; set; }
         public DbSet<EmailConfirmation> EmailConfirmations { get; set; }
+        public DbSet<OpenAiConversation> OpenAiConversation { get; set; }
+        public DbSet<OpenAiMessages> OpenAiMessages { get; set; }
     }
 }

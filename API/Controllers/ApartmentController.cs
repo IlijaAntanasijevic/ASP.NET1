@@ -106,7 +106,14 @@ namespace API.Controllers
         }
 
         [HttpPost("ai")]
-        public IActionResult OpenAi(OpenAIRequestDto request, [FromServices] IOpenAIChatQuery query)
+        public IActionResult OpenAi(OpenAIRequestDto request, [FromServices] IOpenAIStartChatQuery query)
+        {
+            var response = _handler.HandleQuery(query, request);
+            return Ok(response);
+        }
+
+        [HttpPost("chat")]
+        public IActionResult OpenAi(OpenAIConituneConversationDto request, [FromServices] IOpenAIMessageQuery query)
         {
             var response = _handler.HandleQuery(query, request);
             return Ok(response);
