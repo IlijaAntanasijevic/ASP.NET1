@@ -9,6 +9,7 @@ namespace Implementation.Common
     public class OpenAISettings
     {
         public string ApiKey {  get; set; }
+        public string Model { get; set; }
         public string Prompt { get; set; }
         public string PromptSrb { get; set; }
 

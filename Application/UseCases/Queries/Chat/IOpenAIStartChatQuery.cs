@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Chat
 {
-    public interface IOpenAIChatQuery : IQuery<OpenAIResponseDto, OpenAIRequestDto>
+    public interface IOpenAIStartChatQuery : IQuery<OpenAIResponseDto, OpenAIRequestDto>
     {
     }
 }
