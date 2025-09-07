@@ -6,6 +6,7 @@ using Application.UseCases.Commands.Bookings;
 using Application.UseCases.Commands.Lookup;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
+using Application.UseCases.Queries.Admin;
 using Application.UseCases.Queries.Apartment;
 using Application.UseCases.Queries.Bookings;
 using Application.UseCases.Queries.Chat;
@@ -20,6 +21,7 @@ using Implementation.UseCases.Commands.Lookup;
 using Implementation.UseCases.Commands.Lookup.CityCountry;
 using Implementation.UseCases.Commands.Users;
 using Implementation.UseCases.Queries;
+using Implementation.UseCases.Queries.Admin;
 using Implementation.UseCases.Queries.Apartments;
 using Implementation.UseCases.Queries.Bookings;
 using Implementation.UseCases.Queries.Chat;
@@ -41,11 +43,14 @@ namespace API.Core
         public static void AddUseCases(this IServiceCollection services)
         {
             services.AddTransient<UseCaseHandler>();
-            services.AddTransient<IGetUseCaseLogsQuery, EfGetUseCaseLogsQuery>();
-            services.AddTransient<IGetErrorLogsQuery, EfGetErrorLogsQuery>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOpenAIStartChatQuery, EfOpenAIStartChatQuery>();
             services.AddTransient<IOpenAIMessageQuery, EfOpenAIMessageQuery>();
+
+            //Admin
+            services.AddTransient<IGetUseCaseLogsQuery, EfGetUseCaseLogsQuery>();
+            services.AddTransient<IGetErrorLogsQuery, EfGetErrorLogsQuery>();
+            services.AddTransient<IGetAdminDashboardQuery, EfGetAdminDashboardQuery>();
 
 
             //User

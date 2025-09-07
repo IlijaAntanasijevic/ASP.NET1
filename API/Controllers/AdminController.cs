@@ -1,5 +1,6 @@
 ﻿using Application.DTO.Search;
 using Application.UseCases.Queries;
+using Application.UseCases.Queries.Admin;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class AdminController : ControllerBase
     {
         private readonly UseCaseHandler _handler;
@@ -31,6 +32,13 @@ namespace API.Controllers
         // GET api/<AdminController>/5
         [HttpGet("errors")]
         public IActionResult GetErrors([FromQuery] BasicSearch search, [FromServices] IGetErrorLogsQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+
+        }
+
+        [HttpGet("dashboard")]
+        public IActionResult GetDashboardData([FromQuery] BasicSearch search, [FromServices] IGetAdminDashboardQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
 
