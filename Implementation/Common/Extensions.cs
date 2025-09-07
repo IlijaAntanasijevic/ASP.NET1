@@ -100,19 +100,13 @@ namespace Implementation.Common
             //39 - Add Apartment To Favorite
             //40 - Get Favorite Apartments
             //41 - Create Rating
-            //42 - Get Ratings
             //43 - Archive Apartment
             //44 - Get Archived Apartments
             //45 - Activate Apartment
-            //46 - Confirm Email
-            //47 - Resend Code
-            //48 - Forgot Password Send Email
-            //49 - Forgot Password Check Code
-            //50 - Change Password
 
             return new List<UserUseCase>()
             {
-                new UserUseCase { UseCaseId = 7},
+                //new UserUseCase { UseCaseId = 7},
                 new UserUseCase { UseCaseId = 8},
                 new UserUseCase { UseCaseId = 9},
                 new UserUseCase { UseCaseId = 17},
@@ -132,15 +126,9 @@ namespace Implementation.Common
                 new UserUseCase { UseCaseId = 39},
                 new UserUseCase { UseCaseId = 40},
                 new UserUseCase { UseCaseId = 41},
-                new UserUseCase { UseCaseId = 42},
                 new UserUseCase { UseCaseId = 43},
                 new UserUseCase { UseCaseId = 44},
                 new UserUseCase { UseCaseId = 45},
-                new UserUseCase { UseCaseId = 46},
-                new UserUseCase { UseCaseId = 47},
-                new UserUseCase { UseCaseId = 48},
-                new UserUseCase { UseCaseId = 49},
-                new UserUseCase { UseCaseId = 50},
              };
         }
     }
