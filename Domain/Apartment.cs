@@ -38,4 +38,12 @@ namespace App.Domain
         public virtual ICollection<Rating> Ratings { get; set;} = new HashSet<Rating>();
 
     }
+
+    public enum ApartmentStatus
+    {
+        Active = 1,
+        Deleted = 2,
+        Archived = 3,
+        Pending = 4
+    }
 }

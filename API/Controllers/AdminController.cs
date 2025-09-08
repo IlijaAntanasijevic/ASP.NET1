@@ -1,4 +1,5 @@
-﻿using Application.DTO.Search;
+﻿using Application.DTO.Admin;
+using Application.DTO.Search;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Admin;
 using Implementation.UseCases;
@@ -41,7 +42,18 @@ namespace API.Controllers
         public IActionResult GetDashboardData([FromQuery] BasicSearch search, [FromServices] IGetAdminDashboardQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
+        }
 
+        [HttpGet("apartments")]
+        public IActionResult GetApartmentsDashboard([FromQuery] AdminApartmentsSearchDto search, [FromServices] IGetAdminApartmentsQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+        }
+
+        [HttpGet("apartments/filters")]
+        public IActionResult GetApartmentFilters([FromQuery] BasicSearch search, [FromServices] IGetAdminApartmentsFiltersQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
         }
 
     }

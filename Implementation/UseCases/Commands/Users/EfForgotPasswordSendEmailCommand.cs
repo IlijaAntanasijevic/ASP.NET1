@@ -37,7 +37,7 @@ namespace Implementation.UseCases.Commands.Users
 
             if(user == null)
             {
-                throw new ValidationException("User not found");
+                throw new ValidationException("Email not found");
             }
 
             var oldEmailConfirmation = Context.EmailConfirmations.FirstOrDefault(x => x.UserId == user.Id);
