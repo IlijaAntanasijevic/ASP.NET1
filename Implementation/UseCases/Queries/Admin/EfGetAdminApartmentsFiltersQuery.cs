@@ -3,6 +3,7 @@ using Application.DTO.Admin;
 using Application.DTO.Search;
 using Application.UseCases.Queries.Admin;
 using DataAccess;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,30 +29,6 @@ namespace Implementation.UseCases.Queries.Admin
                 Id = x.Id,
                 Name = x.FirstName + " " + x.LastName,
             }).ToList();
-
-            var totalBookings = new List<BasicDto>
-            {
-                new BasicDto
-                {
-                     Id = 1,
-                     Name = "5+"
-                },
-                new BasicDto
-                {
-                     Id = 2,
-                     Name = "10+"
-                },
-                new BasicDto
-                {
-                     Id = 3,
-                     Name = "25+"
-                },
-                new BasicDto
-                {
-                     Id = 4,
-                     Name = "50+"
-                }
-            };
 
             var cities = Context.Cities.OrderBy(x => x.Name).Select(x => new BasicDto
             {
@@ -82,7 +59,7 @@ namespace Implementation.UseCases.Queries.Admin
             {
                 Cities = cities,
                 Statuses = status,
-                TotalBookings = totalBookings,
+                TotalBookings = Common.Extensions.GetTotalBookingsFilter(),
                 Users = users,
             };
 

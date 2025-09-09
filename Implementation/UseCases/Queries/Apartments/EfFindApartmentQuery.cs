@@ -106,6 +106,8 @@ namespace Implementation.UseCases.Queries.Apartments
                 Longitude = apartment.Longitude ?? 16.363449m,
                 Lattitude = apartment.Lattitude ?? 48.210033m,
                 IsArchived = apartment.IsArchived ?? false,
+                //Dodati pending
+                Status = (int)(apartment.IsArchived.GetValueOrDefault() ? ApartmentStatus.Archived : apartment.IsActive ? ApartmentStatus.Active : ApartmentStatus.Deleted),
                 RatingInfo = new RatingDto
                 {
                     TotalRatings = apartment.Ratings.Count(),

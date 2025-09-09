@@ -78,6 +78,33 @@ namespace Implementation.Common
             return html;
         }
 
+        public static List<BasicDto> GetTotalBookingsFilter()
+        {
+            return new List<BasicDto>
+            {
+                new BasicDto
+                {
+                     Id = 1,
+                     Name = "5+"
+                },
+                new BasicDto
+                {
+                     Id = 2,
+                     Name = "10+"
+                },
+                new BasicDto
+                {
+                     Id = 3,
+                     Name = "25+"
+                },
+                new BasicDto
+                {
+                     Id = 4,
+                     Name = "50+"
+                }
+            };
+        }
+
         public static List<UserUseCase> AddUserUseCases()
         {
             //7 - Delete user
