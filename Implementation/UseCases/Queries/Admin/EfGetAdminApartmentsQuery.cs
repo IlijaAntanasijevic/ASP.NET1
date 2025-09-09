@@ -26,7 +26,39 @@ namespace Implementation.UseCases.Queries.Admin
             var apartments = Context.Apartments.Include(x => x.User)
                                                .Include(x => x.CityCountry)
                                                .ThenInclude(x => x.City)
-                                               .Include(x => x.Bookings);
+                                               .Include(x => x.Bookings).AsQueryable();
+
+            if (search.UserId.HasValue)
+            {
+                if(search.UserId.Value != 0)
+                {
+                    apartments = apartments.Where(x => x.User.Id == search.UserId.Value);
+                }
+            }
+
+            if(search.TotalBookings.HasValue)
+            {
+                if(search.TotalBookings.Value != 0)
+                {
+                    var totalBookings = Common.Extensions.GetTotalBookingsFilter().FirstOrDefault(x => x.Id == search.TotalBookings.Value);
+                    var minBookings = int.Parse(totalBookings.Name.Replace("+", ""));
+
+                    apartments = apartments.Where(x => x.Bookings.Count(b => b.IsActive) >= minBookings);
+                }
+            }
+
+            if(search.CityId.HasValue)
+            {
+                if(search.CityId.Value != 0)
+                {
+                    apartments = apartments.Where(x => x.CityCountry.CityId == search.CityId.Value);
+                }
+            }
+
+            if(search.Status.HasValue)
+            {
+
+            }
 
             var response = apartments.Select(x => new AdminApartmentsDto
             {
