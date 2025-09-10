@@ -56,5 +56,17 @@ namespace API.Controllers
             return Ok(_handler.HandleQuery(query, search));
         }
 
+        [HttpGet("users")]
+        public IActionResult GetAllUsers([FromQuery] BasicSearch search, [FromServices] IGetUsersAdminQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+        }
+
+        [HttpGet("users/use-cases/{id}")]
+        public IActionResult GetAllUsers(int id, [FromServices] IGetUserUseCasesQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, id));
+        }
+
     }
 }

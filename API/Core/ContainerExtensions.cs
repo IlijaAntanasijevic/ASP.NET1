@@ -53,6 +53,8 @@ namespace API.Core
             services.AddTransient<IGetAdminDashboardQuery, EfGetAdminDashboardQuery>();
             services.AddTransient<IGetAdminApartmentsQuery, EfGetAdminApartmentsQuery>();
             services.AddTransient<IGetAdminApartmentsFiltersQuery, EfGetAdminApartmentsFiltersQuery>();
+            services.AddTransient<IGetUsersAdminQuery, EfGetUsersAdminQuery>();
+            services.AddTransient<IGetUserUseCasesQuery, EfGetUserUseCasesQuery>();
 
 
             //User
