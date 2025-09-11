@@ -1,5 +1,7 @@
 ﻿using Application.DTO.Admin;
 using Application.DTO.Search;
+using Application.DTO.Users;
+using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Admin;
 using Implementation.UseCases;
@@ -66,6 +68,16 @@ namespace API.Controllers
         public IActionResult GetAllUsers(int id, [FromServices] IGetUserUseCasesQuery query)
         {
             return Ok(_handler.HandleQuery(query, id));
+        }
+
+        //api/1/access => Modify user access 
+        [HttpPut("users/use-cases/{id}")]
+        public IActionResult ModifyAccess(int id, [FromBody] UpdateUserAccessDto data,
+                                                  [FromServices] IUpdateUseAccessCommand command)
+        {
+            data.UserId = id;
+            _handler.HandleCommand(command, data);
+            return NoContent();
         }
 
     }

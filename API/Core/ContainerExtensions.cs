@@ -55,6 +55,8 @@ namespace API.Core
             services.AddTransient<IGetAdminApartmentsFiltersQuery, EfGetAdminApartmentsFiltersQuery>();
             services.AddTransient<IGetUsersAdminQuery, EfGetUsersAdminQuery>();
             services.AddTransient<IGetUserUseCasesQuery, EfGetUserUseCasesQuery>();
+            services.AddTransient<IUpdateUseAccessCommand, EfUpdateUserAccessCommand>();
+            services.AddTransient<UpdateUserAccessValidator>();
 
 
             //User
