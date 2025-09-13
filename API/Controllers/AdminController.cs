@@ -1,5 +1,7 @@
 ﻿using Application.DTO.Admin;
 using Application.DTO.Search;
+using Application.DTO.Users;
+using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Admin;
 using Implementation.UseCases;
@@ -52,6 +54,34 @@ namespace API.Controllers
 
         [HttpGet("apartments/filters")]
         public IActionResult GetApartmentFilters([FromQuery] BasicSearch search, [FromServices] IGetAdminApartmentsFiltersQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+        }
+
+        [HttpGet("users")]
+        public IActionResult GetAllUsers([FromQuery] BasicSearch search, [FromServices] IGetUsersAdminQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+        }
+
+        [HttpGet("users/use-cases/{id}")]
+        public IActionResult GetAllUsers(int id, [FromServices] IGetUserUseCasesQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, id));
+        }
+
+        //api/1/access => Modify user access 
+        [HttpPut("users/use-cases/{id}")]
+        public IActionResult ModifyAccess(int id, [FromBody] UpdateUserAccessDto data,
+                                                  [FromServices] IUpdateUseAccessCommand command)
+        {
+            data.UserId = id;
+            _handler.HandleCommand(command, data);
+            return NoContent();
+        }
+
+        [HttpGet("bookings")]
+        public IActionResult GetBookings([FromQuery] AdminBookingsSearchDto search, [FromServices] IGetAdminBookingsQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
         }

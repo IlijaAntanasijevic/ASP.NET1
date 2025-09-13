@@ -59,6 +59,7 @@ namespace Application.DTO.Apartments
         public RatingDto RatingInfo { get; set; }
         public bool IsArchived { get; set; }
         public int Status { get; set; }
+        public int UserId { get; set; }
     }
 
     public class ApartmentImageDto

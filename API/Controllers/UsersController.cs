@@ -47,16 +47,7 @@ namespace API.Controllers
             return Created();
         }
 
-        //api/1/access => Modify user access 
-        [HttpPut("{id}/access")]
-        [Authorize]
-        public IActionResult ModifyAccess(int id, [FromBody] UpdateUserAccessDto data,
-                                                  [FromServices] IUpdateUseAccessCommand command)
-        {
-            data.UserId = id;
-            _handler.HandleCommand(command, data);
-            return NoContent();
-        }
+
         //api/1 => Update user
         [HttpPut("{id}")]
         [Authorize]
