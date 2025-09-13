@@ -32,6 +32,7 @@ namespace Implementation.UseCases.Commands.Users
             var userUseCases = Context.UserUseCases.Where(x => x.UserId == data.UserId).ToList();
 
             Context.UserUseCases.RemoveRange(userUseCases);
+            //Context.SaveChanges();
 
             var useCassesToAdd = data.UseCaseIds.Select(x => new UserUseCase
             {

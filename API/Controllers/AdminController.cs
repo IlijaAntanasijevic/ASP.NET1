@@ -80,5 +80,11 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [HttpGet("bookings")]
+        public IActionResult GetBookings([FromQuery] AdminBookingsSearchDto search, [FromServices] IGetAdminBookingsQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+        }
+
     }
 }

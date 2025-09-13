@@ -57,6 +57,7 @@ namespace API.Core
             services.AddTransient<IGetUserUseCasesQuery, EfGetUserUseCasesQuery>();
             services.AddTransient<IUpdateUseAccessCommand, EfUpdateUserAccessCommand>();
             services.AddTransient<UpdateUserAccessValidator>();
+            services.AddTransient<IGetAdminBookingsQuery, EfGetAdminBookingsQuery>();
 
 
             //User

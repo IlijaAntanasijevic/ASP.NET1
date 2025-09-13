@@ -23,8 +23,7 @@ namespace Implementation.Validators
                     .WithMessage("Requested user doesn't exist.");
 
             RuleFor(x => x.UseCaseIds)
-                .Must(x => x.All(id => id > 0 && id <= UseCaseInfo.MaxUseCaseId)).WithMessage("Invalid usecase id range.")
-                .Must(x => x.Distinct().Count() == x.Count()).WithMessage("Only unique usecase ids must be delivered.");
+                .Must(x => x.All(id => id > 0 && id <= UseCaseInfo.MaxUseCaseId)).WithMessage("Invalid usecase id range.");
 
 
 
