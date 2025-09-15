@@ -29,15 +29,20 @@ namespace API.Controllers.Lookup
             return Ok(_handler.HandleQuery(query, search));
 
         }
-
-
         // POST api/<FeaturesController>
         [HttpPost]
-        [Authorize]
-        public IActionResult Post([FromBody] NamedDto data, [FromServices] ICreateFeaturesCommand command)
+        public IActionResult Post([FromBody] LookupDto data, [FromServices] ICreateFeaturesCommand command)
         {
             _handler.HandleCommand(command, data);
+            return NoContent();
+        }
 
+        // POST api/<FeaturesController>
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] LookupDto data, [FromServices] IUpdateFeatureCommand command)
+        {
+            data.Id = id;
+            _handler.HandleCommand(command, data);
             return NoContent();
         }
     }

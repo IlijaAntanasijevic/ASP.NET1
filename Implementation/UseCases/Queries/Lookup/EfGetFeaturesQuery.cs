@@ -21,11 +21,15 @@ namespace Implementation.UseCases.Queries.Lookup
 
         public string Name => nameof(EfGetFeaturesQuery);
 
-        public IEnumerable<BasicDto> Execute(BasicSearch search)
+        public IEnumerable<LookupDto> Execute(BasicSearch search)
         {
-            return Context.Features.AsQueryable()
-                                   .ApplySearch(x => x.Name, search)
-                                   .ToList();
+            return Context.Features.Select(x => new LookupDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Icon = x.Icon,
+                IsActive = x.IsActive,
+            }).ToList();
         }
     }
 }

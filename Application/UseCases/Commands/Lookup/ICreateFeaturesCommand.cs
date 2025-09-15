@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Lookup
 {
-    public interface ICreateFeaturesCommand : ICommand<NamedDto>
+    public interface ICreateFeaturesCommand : ICommand<LookupDto>
     {
     }
 }

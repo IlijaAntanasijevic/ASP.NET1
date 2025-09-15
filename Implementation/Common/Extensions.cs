@@ -130,6 +130,7 @@ namespace Implementation.Common
             //43 - Archive Apartment
             //44 - Get Archived Apartments
             //45 - Activate Apartment
+            //60 - Get Cities With Details
 
             return new List<UserUseCase>()
             {
@@ -156,6 +157,7 @@ namespace Implementation.Common
                 new UserUseCase { UseCaseId = 43},
                 new UserUseCase { UseCaseId = 44},
                 new UserUseCase { UseCaseId = 45},
+                new UserUseCase { UseCaseId = 60},
              };
         }
     }

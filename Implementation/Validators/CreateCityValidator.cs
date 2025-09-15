@@ -38,7 +38,7 @@ namespace Implementation.Validators
         }
     }
 
-    public class CreateFeaturesValidator : AbstractValidator<NamedDto>
+    public class CreateFeaturesValidator : AbstractValidator<LookupDto>
     {
         public CreateFeaturesValidator(BookingContext context)
         {
@@ -52,7 +52,7 @@ namespace Implementation.Validators
         }
     }
 
-    public class CreatePaymentValidator : AbstractValidator<NamedDto>
+    public class CreatePaymentValidator : AbstractValidator<PaymentMethodsDto>
     {
         public CreatePaymentValidator(BookingContext context)
         {
@@ -63,10 +63,13 @@ namespace Implementation.Validators
                               .WithMessage("Min number of characters is 2.")
                               .Must(name => !context.Payments.Any(c => c.Name == name))
                               .WithMessage("Payment name must be unique");
+
+            RuleFor(x => x.ProcessingFee).Must(x => x >= 0)
+                                         .WithMessage("Processing fee must be greather then 0");
         }
     }
 
-    public class CreateApartmentTypeValidator : AbstractValidator<NamedDto>
+    public class CreateApartmentTypeValidator : AbstractValidator<LookupDto>
     {
 
         public CreateApartmentTypeValidator(BookingContext context)

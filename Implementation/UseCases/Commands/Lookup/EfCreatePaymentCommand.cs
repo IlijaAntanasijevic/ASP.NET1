@@ -25,11 +25,18 @@ namespace Implementation.UseCases.Commands.Lookup
 
         public string Name => nameof(EfCreatePaymentCommand);
 
-        public void Execute(NamedDto data)
+        public void Execute(PaymentMethodsDto data)
         {
             _validator.ValidateAndThrow(data);
 
-            var payment = new Payment { Name = data.Name };
+            var payment = new Payment
+            {
+                Name = data.Name,
+                ProcessingFee = data.ProcessingFee,
+                Icon = data.Icon,
+                IsActive = data.IsActive ?? false,
+            };
+
             Context.Payments.Add(payment);
             Context.SaveChanges();
         }

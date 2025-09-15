@@ -9,6 +9,7 @@ namespace Domain.Lookup
 {
     public class Country : BasicNamedEntity
     {
+        public string Currency {  get; set; }
         public virtual ICollection<CityCountry> CityCountries { get; set; } = new HashSet<CityCountry>();
 
     }

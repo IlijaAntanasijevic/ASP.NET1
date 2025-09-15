@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Lookup
 {
-    public interface IGetFeaturesQuery : IQuery<IEnumerable<BasicDto>, BasicSearch>
+    public interface IGetFeaturesQuery : IQuery<IEnumerable<LookupDto>, BasicSearch>
     {
     }
 }

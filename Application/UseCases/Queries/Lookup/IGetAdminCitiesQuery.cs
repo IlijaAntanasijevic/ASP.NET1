@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Lookup
 {
-    public interface IGetPaymentsQuery : IQuery<IEnumerable<PaymentMethodsDto>, BasicSearch>
+    public interface IGetAdminCitiesQuery : IQuery<List<CityDto>, BasicSearch>
     {
     }
 }

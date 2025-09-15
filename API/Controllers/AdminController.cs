@@ -4,6 +4,7 @@ using Application.DTO.Users;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Admin;
+using Application.UseCases.Queries.Lookup;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -82,6 +83,12 @@ namespace API.Controllers
 
         [HttpGet("bookings")]
         public IActionResult GetBookings([FromQuery] AdminBookingsSearchDto search, [FromServices] IGetAdminBookingsQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+        }
+
+        [HttpGet("cities")]
+        public IActionResult GetCities([FromQuery] BasicSearch search, [FromServices] IGetAdminCitiesQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
         }

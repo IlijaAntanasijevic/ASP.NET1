@@ -17,6 +17,8 @@ namespace DataAccess.Configurations
             builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
 
             builder.HasIndex(x => x.Name).IsUnique();
+
+            builder.Property(x => x.ProcessingFee).HasColumnType("decimal(10,2)");
         }
     }
 }

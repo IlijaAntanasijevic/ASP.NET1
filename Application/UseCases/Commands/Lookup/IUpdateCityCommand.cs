@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Lookup
 {
-    public interface ICreateApartmentTypeCommand : ICommand<LookupDto>
+    public interface IUpdateCityCommand : ICommand<CityCountryDto>
     {
     }
 }

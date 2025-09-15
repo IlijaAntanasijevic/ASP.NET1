@@ -58,6 +58,11 @@ namespace API.Core
             services.AddTransient<IUpdateUseAccessCommand, EfUpdateUserAccessCommand>();
             services.AddTransient<UpdateUserAccessValidator>();
             services.AddTransient<IGetAdminBookingsQuery, EfGetAdminBookingsQuery>();
+            services.AddTransient<IGetAdminCitiesQuery, EfGetAdminCitiesQuery>();
+            services.AddTransient<IUpdatePaymentMethodCommand, EfUpdatePaymentMethodCommand>();
+            services.AddTransient<IUpdateCityCommand, EfUpdateCityCommand>();
+            services.AddTransient<IUpdateApartmentTypeCommand, EfUpdateApartmentTypeCommand>();
+            services.AddTransient<IUpdateFeatureCommand, EfUpdateFeatureCommand>();
 
 
             //User

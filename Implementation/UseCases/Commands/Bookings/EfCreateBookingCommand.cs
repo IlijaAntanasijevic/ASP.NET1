@@ -37,10 +37,8 @@ namespace Implementation.UseCases.Commands.Bookings
 
         public void Execute(BookingDto data)
         {
+            //PROVERA DA LI KORISNIK IMA REZERVACIJU U TOM PERIODU!!!
             ExecuteInternal(data).GetAwaiter().GetResult();
-
-       
-
         }
 
         private async Task ExecuteInternal(BookingDto data)

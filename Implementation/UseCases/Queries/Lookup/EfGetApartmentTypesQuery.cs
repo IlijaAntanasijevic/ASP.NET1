@@ -21,11 +21,15 @@ namespace Implementation.UseCases.Queries.Lookup
 
         public string Name => nameof(EfGetApartmentTypesQuery);
 
-        public IEnumerable<BasicDto> Execute(BasicSearch search)
+        public IEnumerable<LookupDto> Execute(BasicSearch search)
         {
-            return Context.ApartmentTypes.AsQueryable()
-                                         .ApplySearch(x => x.Name, search)
-                                         .ToList();
+            return Context.ApartmentTypes.Select(x => new LookupDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Icon = x.Icon,
+                IsActive = x.IsActive,
+            }).ToList();
         }
     }
 }

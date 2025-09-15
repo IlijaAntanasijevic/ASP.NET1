@@ -29,17 +29,10 @@ namespace API.Controllers.Lookup
             return Ok(_handler.HandleQuery(query, search));
         }
 
-        // GET api/<ApartmentTypeController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<ApartmentTypeController>
-        [Authorize]
         [HttpPost]
-        public IActionResult Post([FromBody] NamedDto data, [FromServices] ICreateApartmentTypeCommand command)
+        public IActionResult Post([FromBody] LookupDto data, [FromServices] ICreateApartmentTypeCommand command)
         {
             _handler.HandleCommand(command, data);
             return Created();
@@ -47,8 +40,11 @@ namespace API.Controllers.Lookup
 
         // PUT api/<ApartmentTypeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] LookupDto data, [FromServices] IUpdateApartmentTypeCommand command)
         {
+            data.Id = id;
+            _handler.HandleCommand(command, data);
+            return Created();
         }
 
         // DELETE api/<ApartmentTypeController>/5

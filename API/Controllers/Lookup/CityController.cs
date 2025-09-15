@@ -28,7 +28,6 @@ namespace API.Controllers.Lookup
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Post([FromBody] NamedDto dto, [FromServices] ICreateCityCommand command)
         {
             _handler.HandleCommand(command, dto);
@@ -36,10 +35,17 @@ namespace API.Controllers.Lookup
             return Created();
         }
 
-        [HttpPost("/api/citycountry")]
-        [Authorize]
+        [HttpPost("/api/city-country")]
         public IActionResult CityCoutry([FromBody] CityCountryDto data, [FromServices] ICreateCityCountryCommand commad)
         {
+            _handler.HandleCommand(commad, data);
+            return Created();
+        }
+
+        [HttpPut("/api/city-country/{id}")]
+        public IActionResult UpdateCity(int id, [FromBody] CityCountryDto data, [FromServices] IUpdateCityCommand commad)
+        {
+            data.CityId = id;
             _handler.HandleCommand(commad, data);
             return Created();
         }
