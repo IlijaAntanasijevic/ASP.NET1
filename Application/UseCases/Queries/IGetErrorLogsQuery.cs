@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
-    public interface IGetErrorLogsQuery : IQuery<IEnumerable<ErrorLogsDto>, BasicSearch>
+    public interface IGetErrorLogsQuery : IQuery<PagedResponse<ErrorLogsDto>, ErrorLogsSearch>
     {
     }
 }

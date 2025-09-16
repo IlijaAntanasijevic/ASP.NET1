@@ -2,6 +2,7 @@
 using Application.DTO.Search;
 using Application.UseCases.Queries;
 using DataAccess;
+using Implementation.Common;
 using Newtonsoft.Json;
 
 
@@ -17,23 +18,27 @@ namespace Implementation.UseCases.Queries
 
         public string Name => nameof(EfGetUseCaseLogsQuery);
 
-        public IEnumerable<UseCaseLogsDto> Execute(BasicSearch search)
+        public PagedResponse<UseCaseLogsDto> Execute(UseCaseLogsSearch search)
         {
-            var query = Context.UseCaseLogs.AsQueryable();
+            var query = Context.UseCaseLogs.OrderByDescending(x => x.ExecutedAt).AsQueryable();
 
             if(!string.IsNullOrEmpty(search.Keyword))
             {
-                query = query.Where(x => x.Email.Contains(search.Keyword));
+                string keywrod = search.Keyword.Trim().ToLower();
+                query = query.Where(x => x.Email.ToLower().Contains(keywrod) || x.UseCaseName.ToLower().Contains(keywrod));
             }
 
-            return query.Select(x => new UseCaseLogsDto
+            var response = query.AsPagedReponse(search, x => new UseCaseLogsDto
             {
                 Id = x.Id,
                 Email = x.Email,
                 ExecutedAt = x.ExecutedAt,
                 UseCaseData = x.UseCaseData,
                 UseCaseName = x.UseCaseName
-            }).ToList();
+            });
+
+            return response;
+
         }
     }
 }
