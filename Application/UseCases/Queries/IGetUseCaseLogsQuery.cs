@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
-    public interface IGetUseCaseLogsQuery : IQuery<IEnumerable<UseCaseLogsDto>, BasicSearch>
+    public interface IGetUseCaseLogsQuery : IQuery<PagedResponse<UseCaseLogsDto>, UseCaseLogsSearch>
     {
     }
 }

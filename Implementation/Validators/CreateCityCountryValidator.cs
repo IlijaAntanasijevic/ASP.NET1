@@ -14,9 +14,9 @@ namespace Implementation.Validators
     {
         public CreateCityCountryValidator(BookingContext context)
         {
-            RuleFor(x => x.CityId).NotEmpty()
-                                  .WithMessage("City id is required")
-                                  .Must(cityId => !context.CitiesCountry.Any(c => c.CityId == cityId))
+            RuleFor(x => x.CityName).NotEmpty()
+                                  .WithMessage("City is required")
+                                  .Must(city => !context.CitiesCountry.Any(c => c.City.Name == city))
                                   .WithMessage("City already exist");
 
             RuleFor(x => x.CountryId).NotEmpty()

@@ -1,9 +1,11 @@
-﻿using Application.DTO.Admin;
+﻿using Application.DTO;
+using Application.DTO.Admin;
 using Application.DTO.Search;
 using Application.DTO.Users;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Admin;
+using Application.UseCases.Queries.Lookup;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +28,7 @@ namespace API.Controllers
 
         // GET: api/<AdminController>
         [HttpGet]
-        public IActionResult Get([FromQuery] BasicSearch search, [FromServices] IGetUseCaseLogsQuery query)
+        public IActionResult Get([FromQuery] UseCaseLogsSearch search, [FromServices] IGetUseCaseLogsQuery query)
         {
             return Ok(_handler.HandleQuery(query,search));
 
@@ -34,7 +36,7 @@ namespace API.Controllers
 
         // GET api/<AdminController>/5
         [HttpGet("errors")]
-        public IActionResult GetErrors([FromQuery] BasicSearch search, [FromServices] IGetErrorLogsQuery query)
+        public IActionResult GetErrors([FromQuery] ErrorLogsSearch search, [FromServices] IGetErrorLogsQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
 
@@ -82,6 +84,12 @@ namespace API.Controllers
 
         [HttpGet("bookings")]
         public IActionResult GetBookings([FromQuery] AdminBookingsSearchDto search, [FromServices] IGetAdminBookingsQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, search));
+        }
+
+        [HttpGet("cities")]
+        public IActionResult GetCities([FromQuery] BasicSearch search, [FromServices] IGetAdminCitiesQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
         }

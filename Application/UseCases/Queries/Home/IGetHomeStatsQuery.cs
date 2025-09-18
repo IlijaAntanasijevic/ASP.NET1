@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.UseCases.Commands.Lookup
+namespace Application.UseCases.Queries.Home
 {
-    public interface ICreateApartmentTypeCommand : ICommand<LookupDto>
+    public interface IGetHomeStatsQuery : IQuery<HomeStatsDto, int>
     {
     }
 }

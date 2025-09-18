@@ -10,6 +10,9 @@ namespace Domain.Lookup
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public decimal? ProcessingFee { get; set; }
+        public bool IsActive { get; set; } = true;
+        public string Icon { get; set; }
 
         public virtual ICollection<PaymentApartment> PaymentApartments { get; set; } = new HashSet<PaymentApartment>();
     }

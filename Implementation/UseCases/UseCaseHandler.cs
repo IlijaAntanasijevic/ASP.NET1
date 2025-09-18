@@ -16,14 +16,8 @@ namespace Implementation.UseCases
     {
         private readonly IApplicationActor _actor;
         private readonly IUseCaseLogger _logger;
-        //2 - Register | 6 - Find User | 4 - Get All Users | 4 - Get All Apartment Types
-        //15 - Get All Apartments | 16 - Find Apartment | 25+ Lookup tables get all | 42 - Get Apartment Ratings
-        //51 - oAuth, 52 - openAI, 53 - openAI message
 
-        //PRIVREMENO - 34,35,36,38,37(MyGuestBookings),39 (AddToFavorite), 40 (Get Favorites)
-        //41 - Create rating, 42 - Get Rating, 43 - Archive Apartment, 44 - Get Archived Apartment, 45 - Activate Apartment
-        //46 - Confirm email, 47 - Resend email, 48 - Forgot Pass Send Email, 49 - Check Code, 50 - Change Password
-        private List<int> GloballyAllowed = new List<int> { 2, 3, 6, 4, 15, 16, 25,26,27,28,29,32,42,46,47,48,49,50,51,52,53, /*start(delete)*/34,35,36,38,37,39,40,41,42,43,44,45 /*end*/};
+        private List<int> GloballyAllowed = new List<int> { 2, 3, 6, 4, 15, 16, 25,26,27,28,29,32,42,46,47,48,49,50,51,52,53,60,65,66};
 
         public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries.Lookup
 {
-    public interface IGetApartmentTypesQuery : IQuery<IEnumerable<BasicDto>, BasicSearch>
+    public interface IGetApartmentTypesQuery : IQuery<IEnumerable<LookupDto>, BasicSearch>
     {
     }
 }

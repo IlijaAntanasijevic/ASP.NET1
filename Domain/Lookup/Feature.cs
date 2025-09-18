@@ -9,7 +9,7 @@ namespace Domain.Lookup
 {
     public class Feature : NamedEntity
     {
-
+        public string Icon { get; set; }
         public virtual ICollection<FeatureApartment> FeatureApartments { get; set; }
     }
 }

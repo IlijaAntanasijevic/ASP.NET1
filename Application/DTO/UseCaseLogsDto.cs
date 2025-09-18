@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.DTO.Search;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,10 @@ namespace Application.DTO
         public string Email { get; set; }
         public object UseCaseData { get; set; }
         public DateTime ExecutedAt { get; set; }
+    }
+
+    public class UseCaseLogsSearch : PagedSearch
+    {
+        public string Keyword { get; set; }
     }
 }

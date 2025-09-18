@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using Application.UseCases.Commands.Lookup;
 using DataAccess;
+using Domain.Lookup;
 using FluentValidation;
 using Implementation.Validators;
 
@@ -24,11 +25,18 @@ namespace Implementation.UseCases.Commands.Lookup.CityCountry
         {
             _validator.ValidateAndThrow(data);
 
+            var city = new City
+            {
+                Name = data.CityName,
+                IsActive = data.IsActive ?? false,
+            };
+
+            Context.Add(city);
+
             var cityCountry = new App.Domain.CityCountry
             {
-                CityId = data.CityId,
-                CountryId = data.CountryId
-
+                City = city,
+                CountryId = data.CountryId.Value
             };
 
             Context.CitiesCountry.Add(cityCountry);

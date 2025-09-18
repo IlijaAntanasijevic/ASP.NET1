@@ -21,11 +21,18 @@ namespace Implementation.UseCases.Queries.Lookup
 
         public string Name => nameof(EfGetPaymentsQuery);
 
-        public IEnumerable<BasicDto> Execute(BasicSearch search)
+        public IEnumerable<PaymentMethodsDto> Execute(BasicSearch search)
         {
-            return Context.Payments.AsQueryable()
-                                   .ApplySearch(x => x.Name, search)
-                                   .ToList();
+            var payments = Context.Payments.AsQueryable();
+
+            return payments.Select(x => new PaymentMethodsDto
+            {
+                Id = x.Id,
+                Icon = x.Icon,
+                ProcessingFee = x.ProcessingFee.GetValueOrDefault(0),
+                IsActive = x.IsActive,
+                Name = x.Name,
+            }).ToList();
         }
     }
 }

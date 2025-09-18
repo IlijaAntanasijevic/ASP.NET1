@@ -20,13 +20,15 @@ namespace Implementation.UseCases.Commands.Lookup
 
         public string Name => nameof(EfCreateApartmentTypeCommand);
 
-        public void Execute(NamedDto data)
+        public void Execute(LookupDto data)
         {
             _validator.ValidateAndThrow(data);
 
             var type = new Domain.Lookup.ApartmentType
             {
                 Name = data.Name,
+                Icon = data.Icon,
+                IsActive = data.IsActive ?? false
             };
 
             Context.ApartmentTypes.Add(type);

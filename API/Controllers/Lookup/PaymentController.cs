@@ -29,11 +29,18 @@ namespace API.Controllers.Lookup
 
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, PaymentMethodsDto data, [FromServices] IUpdatePaymentMethodCommand command)
+        {
+            data.Id = id;
+            _handler.HandleCommand(command, data);
+            return NoContent();
+        }
+
 
         // POST api/<PaymentController>
         [HttpPost]
-        [Authorize]
-        public IActionResult Post([FromBody] NamedDto data, [FromServices] ICreatePaymentCommand command)
+        public IActionResult Post([FromBody] PaymentMethodsDto data, [FromServices] ICreatePaymentCommand command)
         {
             _handler.HandleCommand(command, data);
             return NoContent();

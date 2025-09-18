@@ -25,11 +25,17 @@ namespace Implementation.UseCases.Commands.Lookup
 
         public string Name => nameof(EfCreateFeaturesCommand);
 
-        public void Execute(NamedDto data)
+        public void Execute(LookupDto data)
         {
             _validator.ValidateAndThrow(data);
 
-            var feature = new Feature { Name = data.Name };
+            var feature = new Feature
+            {
+                Name = data.Name,
+                IsActive = data.IsActive ?? false,
+                Icon = data.Icon,
+            };
+
             Context.Features.Add(feature);
             Context.SaveChanges();
         }
