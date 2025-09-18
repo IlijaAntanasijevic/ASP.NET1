@@ -10,6 +10,7 @@ using Application.UseCases.Queries.Admin;
 using Application.UseCases.Queries.Apartment;
 using Application.UseCases.Queries.Bookings;
 using Application.UseCases.Queries.Chat;
+using Application.UseCases.Queries.Home;
 using Application.UseCases.Queries.Lookup;
 using Application.UseCases.Queries.Users;
 using Implementation.Common;
@@ -25,6 +26,7 @@ using Implementation.UseCases.Queries.Admin;
 using Implementation.UseCases.Queries.Apartments;
 using Implementation.UseCases.Queries.Bookings;
 using Implementation.UseCases.Queries.Chat;
+using Implementation.UseCases.Queries.Home;
 using Implementation.UseCases.Queries.Lookup;
 using Implementation.UseCases.Queries.Users;
 using Implementation.Validators;
@@ -102,6 +104,8 @@ namespace API.Core
             services.AddTransient<IGetFeaturesQuery, EfGetFeaturesQuery>();
             services.AddTransient<IGetPaymentsQuery, EfGetPaymentsQuery>();
             services.AddTransient<IGetCitiesByCountryQuery, EFGetCitiesByCountryQuery>();
+            services.AddTransient<IGetHomeStatsQuery, EfGetHomeStatsQuery>();
+            services.AddTransient<IGetHomeTestimonialsQuery, EfGetHomeTestimonialsQuery>();
 
 
             //Apartment
