@@ -1,4 +1,5 @@
-﻿using Application.DTO;
+﻿using App.Domain;
+using Application.DTO;
 using Application.DTO.Admin;
 using Application.DTO.Search;
 using Application.UseCases.Queries.Admin;
@@ -30,7 +31,7 @@ namespace Implementation.UseCases.Queries.Admin
                 Name = x.FirstName + " " + x.LastName,
             }).ToList();
 
-            var cities = Context.Cities.OrderBy(x => x.Name).Select(x => new BasicDto
+            var cities = Context.Cities.Where(x => x.IsActive).OrderBy(x => x.Name).Select(x => new BasicDto
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -46,14 +47,23 @@ namespace Implementation.UseCases.Queries.Admin
                 new BasicDto
                 {
                      Id = 2,
-                     Name = "Pending"
+                     Name = "Deleted"
                 },
                 new BasicDto
                 {
                      Id = 3,
-                     Name = "Deleted"
+                     Name = "Archived"
                 }
             };
+
+            var bookingStatus = Enum.GetValues(typeof(BookingStatus))
+             .Cast<BookingStatus>()
+             .Select(e => new BasicDto
+             {
+                 Id = (int)e,
+                 Name = e.ToString()
+             })
+             .ToList();
 
             var response = new AdminApartmentsFiltersDto
             {
@@ -61,6 +71,7 @@ namespace Implementation.UseCases.Queries.Admin
                 Statuses = status,
                 TotalBookings = Common.Extensions.GetTotalBookingsFilter(),
                 Users = users,
+                BookingStatuses = bookingStatus
             };
 
             return response;

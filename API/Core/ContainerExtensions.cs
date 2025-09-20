@@ -1,6 +1,7 @@
 ﻿using API.Core.JWT;
 using Application.Common;
 using Application.UseCases.Commands;
+using Application.UseCases.Commands.Admin;
 using Application.UseCases.Commands.Apartments;
 using Application.UseCases.Commands.Bookings;
 using Application.UseCases.Commands.Lookup;
@@ -16,6 +17,7 @@ using Application.UseCases.Queries.Users;
 using Implementation.Common;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands;
+using Implementation.UseCases.Commands.Admin;
 using Implementation.UseCases.Commands.Apartments;
 using Implementation.UseCases.Commands.Bookings;
 using Implementation.UseCases.Commands.Lookup;
@@ -65,6 +67,8 @@ namespace API.Core
             services.AddTransient<IUpdateCityCommand, EfUpdateCityCommand>();
             services.AddTransient<IUpdateApartmentTypeCommand, EfUpdateApartmentTypeCommand>();
             services.AddTransient<IUpdateFeatureCommand, EfUpdateFeatureCommand>();
+            services.AddTransient<IGetAdminTestimonialsQuery, EfGetAdminTestimonialsQuery>();
+            services.AddTransient<IUpdateTestimonialStatusCommand, EfUpdateTestimonialStatusCommand>();
 
 
             //User

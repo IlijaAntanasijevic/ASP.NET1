@@ -1,4 +1,5 @@
-﻿using Application.DTO.Admin;
+﻿using App.Domain;
+using Application.DTO.Admin;
 using Application.DTO.Search;
 using Application.UseCases.Queries.Admin;
 using DataAccess;
@@ -55,7 +56,7 @@ namespace Implementation.UseCases.Queries.Admin
                     CreatedAt = x.CreatedAt,
                     Location = x.CityCountry.City.Name + ", " + x.CityCountry.Country.Name,
                     OwnerName = x.User.FirstName,
-                    Status = x.IsActive ? 1 : 0,
+                    Status = (int)(x.IsArchived == true ? ApartmentStatus.Archived : x.IsActive ? ApartmentStatus.Active : ApartmentStatus.Deleted),
                     TotalRoomns = x.TotalRooms,
                     Price = x.Price
                 }).ToList(),
@@ -68,7 +69,7 @@ namespace Implementation.UseCases.Queries.Admin
                     OwnerName = x.Apartment.User.FirstName,
                     TotalGuests = x.TotalGuests,
                     TotalPrice = (decimal)x.TotalPrice,
-                    Status = x.IsActive ? 1 : 0,
+                    Status = (int)(!x.IsActive ? BookingStatus.Canceled : (x.CheckOut < DateTime.Today ? BookingStatus.Completed : BookingStatus.Upcoming)),
                     TotalNights = (x.CheckOut - x.CheckIn).Days
                 }).ToList(),
 

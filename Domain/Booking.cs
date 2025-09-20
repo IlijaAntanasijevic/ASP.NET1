@@ -19,4 +19,11 @@ namespace App.Domain
         public ICollection<BookingPayment> BookingPayments { get; set; } = new HashSet<BookingPayment>();
 
     }
+
+    public enum BookingStatus
+    {
+        Upcoming = 1,
+        Completed = 2,
+        Canceled = 3
+    }
 }

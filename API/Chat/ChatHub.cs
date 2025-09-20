@@ -41,7 +41,16 @@ public sealed class ChatHub : Hub, IChatHub
         };
 
 
-        _handler.HandleCommand(_command, dataForDb);
+        try
+        {
+            _handler.HandleCommand(_command, dataForDb);
+
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
 
         var dataForFront = new ChatMessagesDto
         {

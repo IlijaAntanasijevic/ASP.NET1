@@ -22,7 +22,7 @@ namespace Implementation.UseCases.Queries.Home
 
         public IEnumerable<HomeTestimonials> Execute(int search)
         {
-            var testimonials = Context.Ratings.Include(x => x.Apartment)
+            var testimonials = Context.Ratings.Where(x => x.IsVisibleOnHome).Include(x => x.Apartment)
                 .ThenInclude(a => a.CityCountry)
                 .ThenInclude(x => x.City)
                 .Include(x => x.Apartment)

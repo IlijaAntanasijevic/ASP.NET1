@@ -13,6 +13,7 @@ namespace Domain
         public DateTime Date { get; set; }
         public int UserId { get; set; }
         public int ApartmentId { get; set; }
+        public bool IsVisibleOnHome { get; set; }
 
         public virtual User User { get; set; }
         public virtual Apartment Apartment { get; set; }

@@ -86,7 +86,7 @@ namespace Implementation.Common
             };
 
             //mail.To.Add(emailTo);
-            mail.To.Add("ilija0308@gmail.com");
+            mail.To.Add("ilija.antanasijevic.48.21@ict.edu.rs");
 
             await client.SendMailAsync(mail);
         }

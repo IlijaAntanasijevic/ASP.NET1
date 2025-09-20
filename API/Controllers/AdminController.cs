@@ -2,6 +2,7 @@
 using Application.DTO.Admin;
 using Application.DTO.Search;
 using Application.DTO.Users;
+using Application.UseCases.Commands.Admin;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries;
 using Application.UseCases.Queries.Admin;
@@ -9,6 +10,7 @@ using Application.UseCases.Queries.Lookup;
 using Implementation.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -54,7 +56,7 @@ namespace API.Controllers
             return Ok(_handler.HandleQuery(query, search));
         }
 
-        [HttpGet("apartments/filters")]
+        [HttpGet("filters")]
         public IActionResult GetApartmentFilters([FromQuery] BasicSearch search, [FromServices] IGetAdminApartmentsFiltersQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
@@ -92,6 +94,19 @@ namespace API.Controllers
         public IActionResult GetCities([FromQuery] BasicSearch search, [FromServices] IGetAdminCitiesQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
+        }
+
+        [HttpGet("testimonials")]
+        public IActionResult GetTestimonials([FromServices] IGetAdminTestimonialsQuery query)
+        {
+            return Ok(_handler.HandleQuery(query, 0));
+        }
+
+        [HttpPut("testimonials/{id}")]
+        public IActionResult GetTestimonials(int id, [FromServices] IUpdateTestimonialStatusCommand command)
+        {
+            _handler.HandleCommand(command, id);
+            return NoContent();
         }
 
     }

@@ -24,7 +24,7 @@ namespace Implementation.UseCases.Commands.Lookup.CityCountry
         {
             var cityCountries = Context.CitiesCountry.Include(x => x.City).ToList();
 
-            IEnumerable<BasicDto> cities = cityCountries.Where(x => x.CountryId == countryId).Select(x => new BasicDto
+            IEnumerable<BasicDto> cities = cityCountries.Where(x => x.CountryId == countryId && x.City.IsActive).Select(x => new BasicDto
             {
                 Id = x.CityId,
                 Name = x.City.Name
