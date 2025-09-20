@@ -23,7 +23,7 @@ namespace Implementation.UseCases.Queries.Lookup
 
         public IEnumerable<PaymentMethodsDto> Execute(BasicSearch search)
         {
-            var payments = Context.Payments.AsQueryable();
+            var payments = Context.Payments.Where(x => search.IsActive ?? true ? x.IsActive : true).AsQueryable();
 
             return payments.Select(x => new PaymentMethodsDto
             {

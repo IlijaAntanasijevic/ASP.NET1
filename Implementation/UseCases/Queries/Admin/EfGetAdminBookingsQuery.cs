@@ -1,4 +1,5 @@
-﻿using Application.DTO.Admin;
+﻿using App.Domain;
+using Application.DTO.Admin;
 using Application.UseCases.Queries.Admin;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Implementation.UseCases.Queries.Admin
 {
@@ -44,9 +46,22 @@ namespace Implementation.UseCases.Queries.Admin
                 bookings = bookings.Where(x => x.Apartment.CityCountry.CityId  == search.CityId.Value);
             }
 
-            if(search.Status.HasValue && search.Status.Value > 0)
+            if (search.Status.HasValue && search.Status.Value > 0)
             {
-                //status
+                switch ((BookingStatus)search.Status.Value)
+                {
+                    case BookingStatus.Upcoming:
+                        bookings = bookings.Where(x => x.IsActive && x.CheckOut >= DateTime.Today);
+                        break;
+
+                    case BookingStatus.Completed:
+                        bookings = bookings.Where(x =>  x.IsActive && x.CheckOut < DateTime.Today);
+                        break;
+
+                    case BookingStatus.Canceled:
+                        bookings = bookings.Where(x => !x.IsActive);
+                        break;
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(search.Keyword))
@@ -68,7 +83,7 @@ namespace Implementation.UseCases.Queries.Admin
                 GuestId = x.User.Id,
                 OwnerFullName = x.Apartment.User.FirstName + " " + x.Apartment.User.LastName,
                 OwnerId = x.Apartment.UserId,
-                Status = x.IsActive ? 1 : 0,
+                Status = (int)(!x.IsActive ? BookingStatus.Canceled : (x.CheckOut < DateTime.Today ? BookingStatus.Completed : BookingStatus.Upcoming)),
                 TotalGuests = x.TotalGuests,
                 TotalPrice = (decimal)x.TotalPrice
             }).ToList();

@@ -23,7 +23,7 @@ namespace Implementation.UseCases.Queries.Lookup
 
         public IEnumerable<LookupDto> Execute(BasicSearch search)
         {
-            return Context.Features.Select(x => new LookupDto
+            return Context.Features.Where(x => search.IsActive ?? true ? x.IsActive : true).Select(x => new LookupDto
             {
                 Id = x.Id,
                 Name = x.Name,

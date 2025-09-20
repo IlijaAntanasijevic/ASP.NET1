@@ -51,6 +51,7 @@ namespace DataAccess.Configurations
             builder.Property(x => x.Lattitude).HasColumnType("decimal(9,6)");  
 
             builder.Property(x => x.Description).HasColumnType("nvarchar(MAX)");
+            builder.Property(x => x.IsPending).HasDefaultValue(true);
         }
     }
 }

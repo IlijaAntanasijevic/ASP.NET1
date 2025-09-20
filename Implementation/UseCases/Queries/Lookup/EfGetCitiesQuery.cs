@@ -23,7 +23,7 @@ namespace Implementation.UseCases.Queries.Lookup
 
         public IEnumerable<BasicDto> Execute(BasicSearch search)
         {
-            return Context.Cities.AsQueryable()
+            return Context.Cities.Where(x => x.IsActive).AsQueryable()
                                  .ApplySearch(x => x.Name, search)
                                  .ToList();
 

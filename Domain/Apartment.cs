@@ -24,7 +24,7 @@ namespace App.Domain
         public int MaxAdults { get; set; }
         public int MaxChildren { get; set; }
         public int TotalRooms { get; set; }
-
+        public bool IsPending { get; set; }
 
         public virtual CityCountry CityCountry { get; set; }
         public virtual User User { get; set; }

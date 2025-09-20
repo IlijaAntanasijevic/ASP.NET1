@@ -2,6 +2,7 @@
 using Application.DTO.Admin;
 using Application.UseCases.Queries.Admin;
 using DataAccess;
+using Implementation.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -57,7 +58,14 @@ namespace Implementation.UseCases.Queries.Admin
 
             if(search.Status.HasValue)
             {
-
+                int status = search.Status.Value;
+                if (status != 0)
+                {
+                    apartments = apartments.Where(x =>
+                    (status == (int)ApartmentStatus.Archived && x.IsArchived == true) ||
+                    (status == (int)ApartmentStatus.Active && x.IsActive && x.IsArchived != true) ||
+                    (status == (int)ApartmentStatus.Deleted && !x.IsActive && x.IsArchived != true));
+                }
             }
 
             var response = apartments.Select(x => new AdminApartmentsDto
@@ -69,8 +77,7 @@ namespace Implementation.UseCases.Queries.Admin
                 Price = x.Price,
                 OwnerFullName = x.User.FirstName + " " + x.User.LastName,
                 TotalBookings = x.Bookings.Where(x => x.IsActive).Count(),
-                //Dodati pending
-                Status = (int)(x.IsArchived.GetValueOrDefault() ? ApartmentStatus.Archived : x.IsActive ? ApartmentStatus.Active : ApartmentStatus.Deleted)
+                Status = (int)(x.IsArchived == true ? ApartmentStatus.Archived : x.IsActive ? ApartmentStatus.Active : ApartmentStatus.Deleted)
             });
 
             return response;

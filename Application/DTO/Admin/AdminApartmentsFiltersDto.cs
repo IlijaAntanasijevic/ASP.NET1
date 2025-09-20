@@ -12,5 +12,6 @@ namespace Application.DTO.Admin
         public List<BasicDto> TotalBookings {  get; set; }
         public List<BasicDto> Cities {  get; set; }
         public List<BasicDto> Statuses {  get; set; }
+        public List<BasicDto> BookingStatuses {  get; set; }
     }
 }

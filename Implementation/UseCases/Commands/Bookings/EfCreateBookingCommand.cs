@@ -37,7 +37,6 @@ namespace Implementation.UseCases.Commands.Bookings
 
         public void Execute(BookingDto data)
         {
-            //PROVERA DA LI KORISNIK IMA REZERVACIJU U TOM PERIODU!!!
             ExecuteInternal(data).GetAwaiter().GetResult();
         }
 
@@ -52,7 +51,25 @@ namespace Implementation.UseCases.Commands.Bookings
                 throw new PermissionDeniedException("The apartment belongs to the current user and cannot be booked.");
             }
 
-            var paymentApartment = Context.PaymentApartments.FirstOrDefault(x => x.IsActive && x.PaymentId == data.PaymentId &&
+            //var userAlreadyHaveBooking = Context.Bookings.Any(b => b.UserId == _actor.Id && b.IsActive &&
+            //           (
+            //               (data.CheckIn >= b.CheckIn && data.CheckIn < b.CheckOut) ||
+            //               (data.CheckOut > b.CheckIn && data.CheckOut <= b.CheckOut) ||
+            //               (data.CheckIn < b.CheckIn && data.CheckOut > b.CheckOut)
+            //           ));
+
+            var userAlreadyHaveBooking = Context.Bookings.Any(b =>
+    b.UserId == _actor.Id && b.IsActive &&
+    data.CheckIn <= b.CheckOut && b.CheckIn <= data.CheckOut
+);
+
+            if (userAlreadyHaveBooking)
+            {
+                throw new Application.Exceptions.ValidationException("You already have a reservation that overlaps with the selected dates.");
+            }
+
+
+           var paymentApartment = Context.PaymentApartments.FirstOrDefault(x => x.IsActive && x.PaymentId == data.PaymentId &&
                                                                             x.ApartmentId == data.ApartmentId);
 
 

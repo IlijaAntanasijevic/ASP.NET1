@@ -9,6 +9,6 @@ namespace Application.DTO.Search
     public class BasicSearch
     {
         public string Keyword { get; set; }
-        public bool? IsActive { get; set; }
+        public bool? IsActive { get; set; } = true;
     }
 }
