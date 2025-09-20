@@ -1,6 +1,7 @@
 ﻿using API.Core;
 using API.Core.JWT;
 using API.DTO;
+using Application.Auth;
 using Application.DTO;
 using Application.DTO.Users;
 using Application.UseCases.Commands.Users;
@@ -27,9 +28,11 @@ namespace API.Controllers
         // POST api/<AuthController>
         [HttpPost]
         [Route("/api/login")]
-        public IActionResult Post([FromBody] AuthRequest data, [FromServices] JwtTokenCreator tokenCreator)
+        public IActionResult Post([FromBody] AuthRequest data, [FromServices] ITokenService tokenService, [FromServices] JwtTokenCreator tokenCreator)
         {
-            var token = tokenCreator.Create(data.Email, data.Password);
+            //var token = tokenCreator.Create(data.Email, data.Password);
+
+            var token= tokenService.GenerateToken(data.Email, data.Password);
 
             return Ok(new AuthResponse { Token = token });
         }
@@ -85,12 +88,12 @@ namespace API.Controllers
         }
 
         [HttpGet("oauth")]
-        public IActionResult OAuth([FromQuery] OAuthDto data, [FromServices] IOAuthRegisterCommand command)
+        public IActionResult OAuth([FromQuery] OAuthDto data, [FromServices] IOAuthRegisterAndLoginQuery query)
         {
             try
             {
-                _handler.HandleCommand(command, data);
-                return Redirect($"http://localhost:4200/auth/login?isSuccess=true");
+                var response = _handler.HandleQuery(query,data);
+                return Redirect($"http://localhost:4200/auth/login?isSuccess=true&token={response.Token}");
             }
             catch (Exception ex)
             {

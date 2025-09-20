@@ -1,6 +1,8 @@
 ﻿using App.Domain;
+using Application.Auth;
 using Application.DTO.Users;
 using Application.Exceptions;
+using Application.UseCases;
 using Application.UseCases.Commands.Users;
 using DataAccess;
 using Implementation.Common;
@@ -11,27 +13,31 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Implementation.UseCases.Commands.Users
 {
-    public class EfOAuthRegisterCommand : EfUseCase, IOAuthRegisterCommand
+    public class EfOAuthRegisterAndLoginQuery : EfUseCase, IOAuthRegisterAndLoginQuery
     {
         private readonly OAuthGoogleSettings _settings;
-        public EfOAuthRegisterCommand(BookingContext context, OAuthGoogleSettings settings)
+        private readonly ITokenService _tokenService;
+        public EfOAuthRegisterAndLoginQuery(BookingContext context, OAuthGoogleSettings settings, ITokenService tokenService)
             : base(context)
         {
             _settings = settings;
+            _tokenService = tokenService;
         }
 
         public int Id => 51;
-        public string Name => nameof(EfOAuthRegisterCommand);
+        public string Name => nameof(EfOAuthRegisterAndLoginQuery);
 
-        public void Execute(OAuthDto data)
+        OAuthResponse IQuery<OAuthResponse, OAuthDto>.Execute(OAuthDto data)
         {
-            ExecuteInternal(data).GetAwaiter().GetResult();
+            var token = ExecuteInternal(data).GetAwaiter().GetResult();
+            return new OAuthResponse { Token = token };
         }
 
-        private async Task ExecuteInternal(OAuthDto data)
+        private async Task<string> ExecuteInternal(OAuthDto data)
         {
             if (data == null || string.IsNullOrEmpty(data.Code))
             {
@@ -59,12 +65,13 @@ namespace Implementation.UseCases.Commands.Users
 
             var googleUser = JsonSerializer.Deserialize<GoogleUserInfo>(userInfo);
 
-
+            string token = string.Empty;
             var user = Context.Users.FirstOrDefault(x => x.Email == googleUser.Email);
 
             if (user != null)
             {
-                throw new ValidationException("User already exist");
+                token = _tokenService.GenerateToken(user.Email, string.Empty);
+                return token;
             }
 
             User newUser = new User
@@ -73,7 +80,7 @@ namespace Implementation.UseCases.Commands.Users
                 Password = null,
                 FirstName = googleUser.Name,
                 LastName = googleUser.LastName,
-                Phone = "X",
+                Phone = string.Empty,
                 Avatar = googleUser.Picture,
                 IsActive = true,
                 IsOAuth = true,
@@ -82,6 +89,9 @@ namespace Implementation.UseCases.Commands.Users
 
             Context.Add(newUser);
             Context.SaveChanges();
+
+            token = _tokenService.GenerateToken(user.Email, string.Empty);
+            return token;
 
         }
     }

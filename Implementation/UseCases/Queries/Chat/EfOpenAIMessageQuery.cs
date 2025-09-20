@@ -34,12 +34,13 @@ namespace Implementation.UseCases.Queries.Chat
 
         private async Task<OpenAIResponseDto> ExecuteInternal(OpenAIConituneConversationDto request)
         {
-            ChatClient client = new ChatClient(model: _settings.Model, apiKey: _settings.ApiKey);
+            var openAiSettings = Context.OpenAiSetup.OrderByDescending(x => x.CreatedAt).FirstOrDefault(x => x.IsActive);
+            ChatClient client = new ChatClient(model: openAiSettings.Model, apiKey: _settings.ApiKey);
             var conversation = Context.OpenAiConversation.Include(x => x.Messages).FirstOrDefault(x => x.Id == request.ConversationId);
 
             if (conversation == null)
             {
-                var completionDef = await client.CompleteChatAsync(_settings.Prompt + "You cant find history about chat.");
+                var completionDef = await client.CompleteChatAsync(openAiSettings.DefaultPromt + "You cant find history about chat.");
                 var reply = completionDef.Value.Content.FirstOrDefault()?.Text ?? "";
                 return new OpenAIResponseDto
                 {

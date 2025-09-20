@@ -34,4 +34,9 @@ namespace Application.DTO.Users
         [JsonPropertyName("picture")]
         public string Picture { get; set; }
     }
+
+    public class OAuthResponse
+    {
+        public string Token { get; set; }
+    }
 }

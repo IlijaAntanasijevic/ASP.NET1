@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 var settings = new AppSettings();
 
 builder.Configuration.Bind(settings);
-builder.Services.AddSingleton(settings.Jwt);
+builder.Services.AddSingleton(settings.JwtSettings);
 
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
@@ -33,6 +33,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSettings").Get<EmailSettings>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("OAuthGoogleSettings").Get<OAuthGoogleSettings>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("OpenAISettings").Get<OpenAISettings>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("JwtSettings").Get<Implementation.Common.JwtSettings>());
 builder.Services.AddTransient(x => new BookingContext(settings.ConnectionString));
 builder.Services.AddTransient<IUseCaseLogger, DbUseCaseLogger>();
 builder.Services.AddTransient<IExceptionLogger, DbExceptionLogger>();

@@ -1,4 +1,5 @@
 ﻿using API.Core.JWT;
+using Application.Auth;
 using Application.Common;
 using Application.UseCases.Commands;
 using Application.UseCases.Commands.Admin;
@@ -14,6 +15,7 @@ using Application.UseCases.Queries.Chat;
 using Application.UseCases.Queries.Home;
 using Application.UseCases.Queries.Lookup;
 using Application.UseCases.Queries.Users;
+using Implementation.Auth;
 using Implementation.Common;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands;
@@ -50,6 +52,7 @@ namespace API.Core
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOpenAIStartChatQuery, EfOpenAIStartChatQuery>();
             services.AddTransient<IOpenAIMessageQuery, EfOpenAIMessageQuery>();
+            services.AddTransient<ITokenService, JwtTokenService>();
 
             //Admin
             services.AddTransient<IGetUseCaseLogsQuery, EfGetUseCaseLogsQuery>();
@@ -85,7 +88,10 @@ namespace API.Core
             services.AddTransient<IForgotPasswordSendEmailCommand, EfForgotPasswordSendEmailCommand>();
             services.AddTransient<IForgotPasswordCheckCodeCommand, EfForgotPasswordCheckCodeCommand>();
             services.AddTransient<IChangePasswordCommand, EfChangePasswordCommand>();
-            services.AddTransient<IOAuthRegisterCommand, EfOAuthRegisterCommand>();
+            services.AddTransient<IOAuthRegisterAndLoginQuery, EfOAuthRegisterAndLoginQuery>();
+            services.AddTransient<IGetOpenAiSetupQuery, EfGetOpenAiSetupQuery>();
+            services.AddTransient<IUpdateOpenAiSetupCommand, EfUpdateOpenAiSetupCommand>();
+            services.AddTransient<IGetOpenAiConversationsQuery, EfGetOpenAiConversationsQuery>();
 
             //Lookup
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
@@ -193,11 +199,11 @@ namespace API.Core
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = settings.Jwt.Issuer,
+                    ValidIssuer = settings.JwtSettings.Issuer,
                     ValidateIssuer = true,
                     ValidAudience = "Any",
                     ValidateAudience = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Jwt.SecretKey)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.JwtSettings.SecretKey)),
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero

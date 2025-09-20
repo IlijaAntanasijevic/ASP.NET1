@@ -50,7 +50,6 @@ namespace API.Controllers
 
         //api/1 => Update user
         [HttpPut("{id}")]
-        [Authorize]
         public IActionResult Put(int id, [FromBody] UpdateUserDto data,
                                          [FromServices] IUpdateUserCommand command)
         {

@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    partial class BookingContextModelSnapshot : ModelSnapshot
+    [Migration("20250920132912_OpenAi_Setup")]
+    partial class OpenAi_Setup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -692,17 +695,12 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SetupId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SetupId");
 
                     b.ToTable("OpenAiConversation");
                 });
@@ -727,14 +725,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("Sender")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ConversationId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("OpenAiMessages");
                 });
@@ -1017,17 +1010,6 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.OpenAiConversation", b =>
-                {
-                    b.HasOne("Domain.OpenAiSetup", "Setup")
-                        .WithMany("Conversations")
-                        .HasForeignKey("SetupId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Setup");
-                });
-
             modelBuilder.Entity("Domain.OpenAiMessages", b =>
                 {
                     b.HasOne("Domain.OpenAiConversation", "Conversation")
@@ -1036,14 +1018,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Domain.User", "User")
-                        .WithMany("OpenAiMessages")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Conversation");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Rating", b =>
@@ -1107,8 +1082,6 @@ namespace DataAccess.Migrations
 
                     b.Navigation("Favorites");
 
-                    b.Navigation("OpenAiMessages");
-
                     b.Navigation("UseCases");
                 });
 
@@ -1145,11 +1118,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.OpenAiConversation", b =>
                 {
                     b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("Domain.OpenAiSetup", b =>
-                {
-                    b.Navigation("Conversations");
                 });
 
             modelBuilder.Entity("Domain.Rating", b =>
