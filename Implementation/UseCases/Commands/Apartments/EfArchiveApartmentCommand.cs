@@ -42,7 +42,7 @@ namespace Implementation.UseCases.Commands.Apartments
             //}
 
             apartment.IsArchived = true;
-            Context.SaveChangesAsync();
+            Context.SaveChanges();
         }
     }
 }

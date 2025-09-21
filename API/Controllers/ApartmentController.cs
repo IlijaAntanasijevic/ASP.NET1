@@ -30,7 +30,6 @@ namespace API.Controllers
             => Ok(_handler.HandleQuery(query, search));
 
         [HttpGet("{id}")]
-        [Authorize]
         public IActionResult Get(int id, [FromServices] IFindApartmentQuery query)
             => Ok(_handler.HandleQuery(query, id));
 
