@@ -2,6 +2,7 @@
 using Application.UseCases.Commands.Apartments;
 using Application.UseCases.Queries.Apartment;
 using Implementation.UseCases;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,6 +27,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] CreateRatingDto request, [FromServices] ICreateRatingCommand command)
         {
             _handler.HandleCommand(command, request);

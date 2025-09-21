@@ -32,6 +32,7 @@ namespace API.Controllers.Lookup
 
         // POST api/<ApartmentTypeController>
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] LookupDto data, [FromServices] ICreateApartmentTypeCommand command)
         {
             _handler.HandleCommand(command, data);
@@ -40,17 +41,12 @@ namespace API.Controllers.Lookup
 
         // PUT api/<ApartmentTypeController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Put(int id, [FromBody] LookupDto data, [FromServices] IUpdateApartmentTypeCommand command)
         {
             data.Id = id;
             _handler.HandleCommand(command, data);
             return Created();
-        }
-
-        // DELETE api/<ApartmentTypeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

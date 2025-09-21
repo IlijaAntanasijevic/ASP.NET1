@@ -31,6 +31,7 @@ namespace API.Controllers.Lookup
         }
         // POST api/<FeaturesController>
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] LookupDto data, [FromServices] ICreateFeaturesCommand command)
         {
             _handler.HandleCommand(command, data);
@@ -39,6 +40,7 @@ namespace API.Controllers.Lookup
 
         // POST api/<FeaturesController>
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Put(int id, [FromBody] LookupDto data, [FromServices] IUpdateFeatureCommand command)
         {
             data.Id = id;

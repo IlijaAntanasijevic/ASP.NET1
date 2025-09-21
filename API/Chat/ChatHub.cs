@@ -10,12 +10,12 @@ namespace API.Chat;
 public sealed class ChatHub : Hub, IChatHub
 {
     private readonly UseCaseHandler _handler;
-    private readonly ISendMessageCommand _command;
+    private readonly ISendMessageService _sendMessageService;
 
-    public ChatHub(UseCaseHandler handler, ISendMessageCommand command)
+    public ChatHub(UseCaseHandler handler, ISendMessageService sendMessageService)
     {
         _handler = handler;
-        _command = command;
+        _sendMessageService = sendMessageService;
     }
 
     public override Task OnConnectedAsync()
@@ -43,8 +43,7 @@ public sealed class ChatHub : Hub, IChatHub
 
         try
         {
-            _handler.HandleCommand(_command, dataForDb);
-
+            _sendMessageService.SendMessage(dataForDb);
         }
         catch (Exception ex)
         {

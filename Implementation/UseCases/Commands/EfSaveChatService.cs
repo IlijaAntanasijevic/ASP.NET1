@@ -10,18 +10,26 @@ using System.Threading.Tasks;
 
 namespace Implementation.UseCases.Commands;
 
-public class EfSaveChatCommand : EfUseCase, ISendMessageCommand
+public class EfSaveChatService : EfUseCase, ISendMessageService
 {
-    public EfSaveChatCommand(BookingContext context) : base(context)
+    public EfSaveChatService(BookingContext context) : base(context)
     {
     }
 
     public int Id => 34;
 
-    public string Name => nameof(EfSaveChatCommand);
+    public string Name => nameof(EfSaveChatService);
 
-    public void Execute(ChatDto data)
+    public void SendMessage(ChatDto data)
     {
+        var user = Context.UserUseCases.Where(x => x.UserId == data.SenderId).ToList();
+        var canSendMessage = user.Select(x => x.UseCaseId).Contains(this.Id);
+
+        if(user == null || !user.Any() || !canSendMessage)
+        {
+            throw new UnauthorizedAccessException();
+        }
+
         var chatMessage = new ChatMessages
         {
             Message = data.Message,

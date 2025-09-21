@@ -42,6 +42,7 @@ namespace Implementation.UseCases.Queries.Chat
             {
                 var completionDef = await client.CompleteChatAsync(openAiSettings.DefaultPromt + "You cant find history about chat.");
                 var reply = completionDef.Value.Content.FirstOrDefault()?.Text ?? "";
+
                 return new OpenAIResponseDto
                 {
                     ConversationId = null,

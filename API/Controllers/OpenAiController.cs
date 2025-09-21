@@ -4,6 +4,7 @@ using Application.UseCases.Commands.Admin;
 using Application.UseCases.Commands.Users;
 using Application.UseCases.Queries.Admin;
 using Implementation.UseCases;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -21,12 +22,14 @@ namespace API.Controllers
             _handler = handler;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get([FromServices] IGetOpenAiSetupQuery query)
         {
             return Ok(_handler.HandleQuery(query,0));
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Post(OpenAiSetupDataDto data, [FromServices] IUpdateOpenAiSetupCommand command)
         {
@@ -34,6 +37,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/admin/openai-conversations")]
         public IActionResult GetUserConversations([FromServices] IGetOpenAiConversationsQuery query)

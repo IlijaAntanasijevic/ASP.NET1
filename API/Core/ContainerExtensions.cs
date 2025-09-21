@@ -147,7 +147,7 @@ namespace API.Core
             services.AddTransient<IFindBookingQuery, EfFindBookingQuery>();
 
             //Chat
-            services.AddScoped<ISendMessageCommand, EfSaveChatCommand>();
+            services.AddScoped<ISendMessageService, EfSaveChatService>();
             services.AddTransient<IGetChatListQuery, EfGetChatListQuery>();
             services.AddTransient<IGetChatMessagesQuery, EfGetChatMessages>();
             services.AddTransient<IPrepareChatQuery, EfPrepareChatQuery>();
@@ -210,35 +210,40 @@ namespace API.Core
                 };
                 cfg.Events = new JwtBearerEvents
                 {
-                    //OnTokenValidated = context =>
-                    //{
+                    OnTokenValidated = context =>
+                    {
 
-                    //    Guid tokenId = context.HttpContext.Request.GetTokenId().Value;
+                        var jti = context.Principal?.FindFirst(JwtRegisteredClaimNames.Jti)?.Value;
 
-                    //    ITokenStorage storage = services.BuildServiceProvider().GetService<ITokenStorage>();
+                        if (!Guid.TryParse(jti, out var tokenId))
+                        {
+                            context.Fail("Token does not contain a valid JTI");
+                            return Task.CompletedTask;
+                        }
+                        ITokenStorage storage = services.BuildServiceProvider().GetService<ITokenStorage>();
 
-                    //    if (!storage.Exists(tokenId))
-                    //    {
-                    //        context.Fail("Invalid token");
-                    //    }
+                        if (!storage.Exists(tokenId))
+                        {
+                            context.Fail("Invalid token");
+                        }
 
-                    //    return Task.CompletedTask;
+                        return Task.CompletedTask;
 
-                    //},
-                    //OnChallenge = context =>
-                    //{
-                    //    context.HandleResponse();
-                    //    if (!context.Response.HasStarted)
-                    //    {
-                    //        throw new UnauthorizedAccessException("Authentication Failed.");
-                    //    }
+                    },
+                    OnChallenge = context =>
+                    {
+                        context.HandleResponse();
+                        if (!context.Response.HasStarted)
+                        {
+                            throw new UnauthorizedAccessException("Authentication Failed.");
+                        }
 
-                    //    return Task.CompletedTask;
-                    //},
-                    //OnForbidden = _ =>
-                    //{
-                    //    throw new UnauthorizedAccessException("You are not authorized to access this resource.");
-                    //},
+                        return Task.CompletedTask;
+                    },
+                    OnForbidden = _ =>
+                    {
+                        throw new UnauthorizedAccessException("You are not authorized to access this resource.");
+                    },
                     OnMessageReceived = context =>
                     {
                         var accessToken = context.Request.Query["access_token"];

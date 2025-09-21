@@ -20,12 +20,15 @@ namespace API.Controllers
             _handler = handler;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get([FromServices] IGetChatListQuery query) => Ok(_handler.HandleQuery(query, null));
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get([FromServices] IGetChatMessagesQuery query, int id) => Ok(_handler.HandleQuery(query, id));
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/prepare-chat/{id}")]
         public IActionResult PrepareChat([FromServices] IPrepareChatQuery query, int id) => Ok(_handler.HandleQuery(query, id));
