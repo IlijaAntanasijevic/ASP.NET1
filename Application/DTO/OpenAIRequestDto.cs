@@ -10,8 +10,7 @@ namespace Application.DTO
     {
         public int Adults { get; set; } = 1;
         public int Childrens { get; set; } = 0;
-        public string City { get; set; }
-        public string Country { get; set; }
+        public int CityId { get; set; }
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
     }

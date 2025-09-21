@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands.Users
 {
-    public interface IOAuthRegisterCommand : ICommand<OAuthDto>
+    public interface IOAuthRegisterAndLoginQuery : IQuery<OAuthResponse, OAuthDto>
     {
     }
 }

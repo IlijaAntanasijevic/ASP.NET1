@@ -32,14 +32,23 @@ namespace Implementation.UseCases.Commands.Apartments
         public void Execute(CreateRatingDto data)
         {
             _validator.ValidateAndThrow(data);
-            var hasPastBooking = Context.Bookings.Any(x => x.UserId == _actor.Id && 
+            var pastBookingsCount = Context.Bookings.Count(x => x.UserId == _actor.Id && 
                                                       x.ApartmentId == data.ApartmentId && 
                                                       x.CheckOut < DateTime.UtcNow &&
                                                       x.IsActive);
 
-            if (!hasPastBooking)
+            if (pastBookingsCount == 0)
             {
-                throw new PermissionDeniedException("You cannot leave a rating.");
+                throw new PermissionDeniedException("You cannot leave a rating without a past booking.");
+            }
+
+            var existingRatingsCount = Context.Ratings.Count(x =>
+            x.UserId == _actor.Id &&
+            x.ApartmentId == data.ApartmentId);
+
+            if (existingRatingsCount >= pastBookingsCount)
+            {
+                throw new PermissionDeniedException("You have already submitted the maximum number of ratings for this apartment.");
             }
 
             var rating = new Rating

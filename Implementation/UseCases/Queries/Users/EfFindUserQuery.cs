@@ -32,7 +32,7 @@ namespace Implementation.UseCases.Queries.Users
 
             return new UserDto
             {
-                Avatar = url + "users/" + user.Avatar,
+                Avatar = user.Avatar,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,

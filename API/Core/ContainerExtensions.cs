@@ -1,4 +1,5 @@
 ﻿using API.Core.JWT;
+using Application.Auth;
 using Application.Common;
 using Application.UseCases.Commands;
 using Application.UseCases.Commands.Admin;
@@ -14,6 +15,7 @@ using Application.UseCases.Queries.Chat;
 using Application.UseCases.Queries.Home;
 using Application.UseCases.Queries.Lookup;
 using Application.UseCases.Queries.Users;
+using Implementation.Auth;
 using Implementation.Common;
 using Implementation.UseCases;
 using Implementation.UseCases.Commands;
@@ -50,6 +52,7 @@ namespace API.Core
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOpenAIStartChatQuery, EfOpenAIStartChatQuery>();
             services.AddTransient<IOpenAIMessageQuery, EfOpenAIMessageQuery>();
+            services.AddTransient<ITokenService, JwtTokenService>();
 
             //Admin
             services.AddTransient<IGetUseCaseLogsQuery, EfGetUseCaseLogsQuery>();
@@ -85,7 +88,10 @@ namespace API.Core
             services.AddTransient<IForgotPasswordSendEmailCommand, EfForgotPasswordSendEmailCommand>();
             services.AddTransient<IForgotPasswordCheckCodeCommand, EfForgotPasswordCheckCodeCommand>();
             services.AddTransient<IChangePasswordCommand, EfChangePasswordCommand>();
-            services.AddTransient<IOAuthRegisterCommand, EfOAuthRegisterCommand>();
+            services.AddTransient<IOAuthRegisterAndLoginQuery, EfOAuthRegisterAndLoginQuery>();
+            services.AddTransient<IGetOpenAiSetupQuery, EfGetOpenAiSetupQuery>();
+            services.AddTransient<IUpdateOpenAiSetupCommand, EfUpdateOpenAiSetupCommand>();
+            services.AddTransient<IGetOpenAiConversationsQuery, EfGetOpenAiConversationsQuery>();
 
             //Lookup
             services.AddTransient<ICreateApartmentTypeCommand, EfCreateApartmentTypeCommand>();
@@ -141,7 +147,7 @@ namespace API.Core
             services.AddTransient<IFindBookingQuery, EfFindBookingQuery>();
 
             //Chat
-            services.AddScoped<ISendMessageCommand, EfSaveChatCommand>();
+            services.AddScoped<ISendMessageService, EfSaveChatService>();
             services.AddTransient<IGetChatListQuery, EfGetChatListQuery>();
             services.AddTransient<IGetChatMessagesQuery, EfGetChatMessages>();
             services.AddTransient<IPrepareChatQuery, EfPrepareChatQuery>();
@@ -193,46 +199,51 @@ namespace API.Core
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = settings.Jwt.Issuer,
+                    ValidIssuer = settings.JwtSettings.Issuer,
                     ValidateIssuer = true,
                     ValidAudience = "Any",
                     ValidateAudience = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Jwt.SecretKey)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.JwtSettings.SecretKey)),
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };
                 cfg.Events = new JwtBearerEvents
                 {
-                    //OnTokenValidated = context =>
-                    //{
+                    OnTokenValidated = context =>
+                    {
 
-                    //    Guid tokenId = context.HttpContext.Request.GetTokenId().Value;
+                        var jti = context.Principal?.FindFirst(JwtRegisteredClaimNames.Jti)?.Value;
 
-                    //    ITokenStorage storage = services.BuildServiceProvider().GetService<ITokenStorage>();
+                        if (!Guid.TryParse(jti, out var tokenId))
+                        {
+                            context.Fail("Token does not contain a valid JTI");
+                            return Task.CompletedTask;
+                        }
+                        ITokenStorage storage = services.BuildServiceProvider().GetService<ITokenStorage>();
 
-                    //    if (!storage.Exists(tokenId))
-                    //    {
-                    //        context.Fail("Invalid token");
-                    //    }
+                        if (!storage.Exists(tokenId))
+                        {
+                            context.Fail("Invalid token");
+                        }
 
-                    //    return Task.CompletedTask;
+                        return Task.CompletedTask;
 
-                    //},
-                    //OnChallenge = context =>
-                    //{
-                    //    context.HandleResponse();
-                    //    if (!context.Response.HasStarted)
-                    //    {
-                    //        throw new UnauthorizedAccessException("Authentication Failed.");
-                    //    }
+                    },
+                    OnChallenge = context =>
+                    {
+                        context.HandleResponse();
+                        if (!context.Response.HasStarted)
+                        {
+                            throw new UnauthorizedAccessException("Authentication Failed.");
+                        }
 
-                    //    return Task.CompletedTask;
-                    //},
-                    //OnForbidden = _ =>
-                    //{
-                    //    throw new UnauthorizedAccessException("You are not authorized to access this resource.");
-                    //},
+                        return Task.CompletedTask;
+                    },
+                    OnForbidden = _ =>
+                    {
+                        throw new UnauthorizedAccessException("You are not authorized to access this resource.");
+                    },
                     OnMessageReceived = context =>
                     {
                         var accessToken = context.Request.Query["access_token"];

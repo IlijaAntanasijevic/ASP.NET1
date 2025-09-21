@@ -1,27 +1,38 @@
-﻿using Application.Exceptions;
+﻿using API.Core.JWT;
+using Application.Auth;
+using Application.Exceptions;
 using DataAccess;
 using Implementation.Common;
+using Implementation.UseCases;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Extensions.Msal;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Runtime;
 using System.Security.Claims;
 using System.Text;
-namespace API.Core.JWT
+using System.Threading.Tasks;
+
+namespace Implementation.Auth
 {
-    public class JwtTokenCreator
+    public class JwtTokenService : ITokenService
     {
         private readonly BookingContext _context;
         private readonly JwtSettings _settings;
         private readonly ITokenStorage _storage;
 
-        public JwtTokenCreator(BookingContext context, JwtSettings settings, ITokenStorage storage)
+        public JwtTokenService(BookingContext context, JwtSettings settings, ITokenStorage storage)
         {
             _context = context;
             _settings = settings;
             _storage = storage;
         }
 
-        public string Create(string email, string password)
+        public string GenerateToken(string email, string password)
         {
             var user = _context.Users.Where(x => x.Email == email).Select(x => new
             {
@@ -40,16 +51,16 @@ namespace API.Core.JWT
                 throw new UnauthorizedAccessException();
             }
 
-            if (!user.IsActive)
+            if (!user.IsActive && !user.IsOAuth)
             {
                 var userNotActive = _context.EmailConfirmations.FirstOrDefault(x => x.UserId == user.Id);
-                if(userNotActive != null)
+                if (userNotActive != null)
                 {
                     throw new PermissionDeniedException("Please activate your account");
                 }
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(password, user.Password) && !user.IsOAuth)
+            if (!user.IsOAuth && !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 throw new UnauthorizedAccessException();
             }
@@ -66,6 +77,7 @@ namespace API.Core.JWT
                  new Claim("Email", user.Email),
                  new Claim("FirstName", user.FirstName),
                  new Claim("LastName", user.LastName),
+                 new Claim("IsOAuth", user.IsOAuth.ToString()),
                  new Claim("Id", user.Id.ToString()),
                  new Claim("UseCaseIds", JsonConvert.SerializeObject(user.UseCaseIds)),
             };
@@ -89,5 +101,4 @@ namespace API.Core.JWT
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
-
 }

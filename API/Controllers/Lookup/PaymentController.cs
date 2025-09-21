@@ -30,6 +30,7 @@ namespace API.Controllers.Lookup
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Put(int id, PaymentMethodsDto data, [FromServices] IUpdatePaymentMethodCommand command)
         {
             data.Id = id;
@@ -40,6 +41,7 @@ namespace API.Controllers.Lookup
 
         // POST api/<PaymentController>
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] PaymentMethodsDto data, [FromServices] ICreatePaymentCommand command)
         {
             _handler.HandleCommand(command, data);

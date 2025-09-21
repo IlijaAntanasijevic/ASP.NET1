@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands;
 
-public interface ISendMessageCommand : ICommand<ChatDto>
+public interface ISendMessageService
 {
+    void SendMessage(ChatDto data);
 }

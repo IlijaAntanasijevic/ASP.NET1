@@ -30,11 +30,12 @@ namespace API.Controllers
             => Ok(_handler.HandleQuery(query, search));
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult Get(int id, [FromServices] IFindApartmentQuery query)
             => Ok(_handler.HandleQuery(query, id));
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public IActionResult Post([FromBody] CreateApartmentDto data, ICreateApartmentCommand command)
         {
             _handler.HandleCommand(command, data);
@@ -42,7 +43,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult Put(int id, [FromBody] UpdateApartmentDto data, [FromServices] IUpdateApartmentCommand command)
         {
             data.Id = id;
@@ -51,7 +52,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}/images")]
-        //[Authorize]
+        [Authorize]
         public IActionResult UpdateImages(int id, [FromBody] UpdateApartmentImagesDto data, [FromServices] IUpdateApartmentImagesCommand command)
         {
 
@@ -62,7 +63,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult Delete(int id, [FromServices] IDeleteApartmentCommand command)
         {
             _handler.HandleCommand(command, id);
@@ -70,6 +71,7 @@ namespace API.Controllers
         }
 
         [HttpPut("favorite/{id}")]
+        [Authorize]
         public IActionResult AddToFavorite(int id, [FromServices] IAddApartmentToFavoriteCommand command)
         {
             _handler.HandleCommand(command, id);
@@ -77,6 +79,7 @@ namespace API.Controllers
         }
 
         [HttpGet("favorite")]
+        [Authorize]
         public IActionResult GetFavorites([FromQuery] BasicApartmantSearch search, [FromServices] IGetFavoriteApartments query)
         {
             var response = _handler.HandleQuery(query, search);
@@ -85,6 +88,7 @@ namespace API.Controllers
 
 
         [HttpPut("archive/{id}")]
+        [Authorize]
         public IActionResult ArchiveApartment(int id, [FromServices] IArchiveApartmentCommand command)
         {
             _handler.HandleCommand(command, id);
@@ -92,6 +96,7 @@ namespace API.Controllers
         }
 
         [HttpGet("archive")]
+        [Authorize]
         public IActionResult GetArchived([FromQuery] BasicApartmantSearch search, [FromServices] IGetArchivedApartmentsQuery query)
         {
             var response = _handler.HandleQuery(query, search);
@@ -99,6 +104,7 @@ namespace API.Controllers
         }
 
         [HttpPut("activate/{id}")]
+        [Authorize]
         public IActionResult ActivateApartment(int id, [FromServices] IActivateApartmentCommand command)
         {
             _handler.HandleCommand(command, id);

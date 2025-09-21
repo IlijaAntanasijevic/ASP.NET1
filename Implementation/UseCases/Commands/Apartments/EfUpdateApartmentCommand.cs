@@ -112,7 +112,8 @@ namespace Implementation.UseCases.Commands.Apartments
             apartment.PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
             {
                 PaymentId = x,
-                ApartmentId = apartment.Id
+                ApartmentId = apartment.Id,
+                IsActive = true
             }).ToList();
 
             Context.SaveChanges();

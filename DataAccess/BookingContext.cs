@@ -48,8 +48,8 @@ namespace DataAccess
 
                 entity.HasIndex(e => e.UserId);
             });
-            
 
+  
             base.OnModelCreating(modelBuilder);
         }
 
@@ -104,5 +104,6 @@ namespace DataAccess
         public DbSet<EmailConfirmation> EmailConfirmations { get; set; }
         public DbSet<OpenAiConversation> OpenAiConversation { get; set; }
         public DbSet<OpenAiMessages> OpenAiMessages { get; set; }
+        public DbSet<OpenAiSetup> OpenAiSetup { get; set; }
     }
 }

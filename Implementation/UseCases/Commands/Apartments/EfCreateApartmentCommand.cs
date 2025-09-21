@@ -72,7 +72,8 @@ namespace Implementation.UseCases.Commands.Apartments
                 }).ToList(),
                 PaymentApartments = data.PaymentMethodIds.Select(x => new PaymentApartment
                 {
-                     PaymentId = x
+                     PaymentId = x,
+                     IsActive = true
                 }).ToList(),
                 Images = data.Images.Select(x => new Image
                 {
