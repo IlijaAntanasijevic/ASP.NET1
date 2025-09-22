@@ -45,4 +45,20 @@ namespace Application.DTO.Bookings
         public string OwnerPhone { get; set; }
         public string OwnerEmail { get; set; }
     }
+
+    public class NewReservationDto 
+    {
+        public string EmailToSend { get; set; }
+        public string CheckIn { get; set; }
+        public string CheckOut { get; set; }
+        public string Adults { get; set; }
+        public string Childrens { get; set; }
+        public string TotalPrice {  get; set; }
+        public string Address { get; set; }
+        public string UserName { get; set; }
+        public string UserLastName { get; set; }
+        public string UserPhone { get; set; }
+        public string UserEmail { get; set; }
+    }
+
 }

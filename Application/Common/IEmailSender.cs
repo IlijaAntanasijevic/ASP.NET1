@@ -12,5 +12,6 @@ namespace Application.Common
         Task ConfirmRegistrationAsync(string email, string code);
         Task ForgotPasswordAsync(string email, string code);
         Task BookingConfirmed(ConfirmedBookingEmailDto data);
+        Task NewReservationAsync(NewReservationDto data);
     }
 }
