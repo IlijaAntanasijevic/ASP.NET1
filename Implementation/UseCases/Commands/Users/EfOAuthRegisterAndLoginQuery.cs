@@ -90,7 +90,7 @@ namespace Implementation.UseCases.Commands.Users
             Context.Add(newUser);
             Context.SaveChanges();
 
-            token = _tokenService.GenerateToken(user.Email, string.Empty);
+            token = _tokenService.GenerateToken(newUser.Email, string.Empty);
             return token;
 
         }

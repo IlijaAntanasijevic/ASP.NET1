@@ -58,10 +58,10 @@ namespace Implementation.UseCases.Commands.Bookings
             //               (data.CheckIn < b.CheckIn && data.CheckOut > b.CheckOut)
             //           ));
 
-            var userAlreadyHaveBooking = Context.Bookings.Any(b =>
-    b.UserId == _actor.Id && b.IsActive &&
-    data.CheckIn <= b.CheckOut && b.CheckIn <= data.CheckOut
-);
+            var userAlreadyHaveBooking = Context.Bookings.Any(b =>  b.UserId == _actor.Id &&
+                                    b.IsActive && 
+                                    data.CheckIn <= b.CheckOut && 
+                                    b.CheckIn <= data.CheckOut);
 
             if (userAlreadyHaveBooking)
             {
@@ -114,6 +114,20 @@ namespace Implementation.UseCases.Commands.Bookings
             };
 
             await _emailSender.BookingConfirmed(emailData);
+            await _emailSender.NewReservationAsync(new NewReservationDto
+            {
+                CheckIn = booking.CheckIn.ToString("yyyy-MM-dd"),
+                CheckOut = booking.CheckOut.ToString("yyyy-MM-dd"),
+                Adults = booking.TotalGuests.ToString(),
+                Childrens = booking.TotalGuests.ToString(),
+                TotalPrice = booking.TotalPrice.ToString(),
+                Address = booking.Apartment.Address,
+                UserName = booking.User.FirstName,
+                UserLastName = booking.User.LastName,
+                UserPhone = booking.User.Phone,
+                UserEmail = booking.User.Email,
+                EmailToSend = booking.Apartment.User.Email
+            });
         }
     }
 }

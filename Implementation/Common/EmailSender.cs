@@ -69,6 +69,26 @@ namespace Implementation.Common
             return SendEmail(data.Email, "TRAVILA - Booking Confirmed", html);
         }
 
+        public Task NewReservationAsync(NewReservationDto data)
+        {
+            Dictionary<string, string> placeholders = new Dictionary<string, string>
+            {
+                { "checkIn", data.CheckIn },
+                { "checkOut", data.CheckOut },
+                { "adults", data.Adults },
+                { "childrens", data.Childrens },
+                { "totalPrice", data.TotalPrice },
+                { "address", data.Address },
+                { "userName", data.UserName },
+                { "userLastName", data.UserLastName },
+                { "userPhone", data.UserPhone },
+                { "userEmail", data.UserEmail },
+            };
+
+            var html = Extensions.LoadTemplateHtml("NewReservationTemplate.html", placeholders);
+            return SendEmail(data.EmailToSend, "TRAVILA - New Reservation Received", html);
+        }
+
         private async Task SendEmail(string emailTo, string subject, string body, bool isHtml = true)
         {
             var client = new SmtpClient(_settings.Host, _settings.Port)
