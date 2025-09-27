@@ -3,6 +3,7 @@ using Application;
 using Application.Exceptions;
 using Application.UseCases.Commands.Bookings;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Implementation.UseCases.Commands.Bookings
@@ -22,14 +23,14 @@ namespace Implementation.UseCases.Commands.Bookings
 
         public override void Execute(int bookingId)
         {
-            var booking = Context.Bookings.FirstOrDefault(x => x.Id == bookingId && x.IsActive);
+            var booking = Context.Bookings.Include(x => x.Apartment).FirstOrDefault(x => x.Id == bookingId && x.IsActive);
 
             if (booking == null)
             {
                 throw new EntityNotFoundException(nameof(booking), bookingId);
             }
 
-            if(_actor.Id != booking.UserId)
+            if(_actor.Id != booking.UserId && _actor.Id != booking.Apartment.UserId)
             {
                 throw new PermissionDeniedException("You do not have permission to cancel this booking.");
             }
