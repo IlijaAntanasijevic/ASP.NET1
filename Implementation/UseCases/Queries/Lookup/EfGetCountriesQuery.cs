@@ -23,9 +23,8 @@ namespace Implementation.UseCases.Queries.Lookup
 
         public IEnumerable<BasicDto> Execute(BasicSearch search)
         {
-            return Context.Countries.AsQueryable()
-                                    .ApplySearch(x => x.Name, search)
-                                    .ToList();
+            return Context.Countries.Where(x => search.IsActive.Value ? x.CityCountries.Any() : true)
+                                    .Select(x => new BasicDto { Id = x.Id, Name = x.Name }).ToList();
         }
     }
 }

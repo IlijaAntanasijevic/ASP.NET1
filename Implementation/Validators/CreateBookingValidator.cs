@@ -85,7 +85,7 @@ namespace Implementation.Validators
 
             if (apartment != null)
             {
-                maximun = (apartment.MaxChildren + apartment.MaxChildren) >= number;
+                maximun = (apartment.MaxAdults + apartment.MaxChildren) >= number;
             }
             return maximun;
         }

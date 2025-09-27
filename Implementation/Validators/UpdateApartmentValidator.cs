@@ -26,22 +26,19 @@ namespace Implementation.Validators
                                        .MinimumLength(10)
                                        .WithMessage("Description must be at least 10 characters long.");
 
-            RuleFor(x => x.Guests.Adults).NotEmpty()
-                                     .WithMessage("Number of adults is required.")
+            RuleFor(x => x.Guests.Adults)
                                      .LessThan(16)
                                      .WithMessage("Maximun number of adults is 15.")
                                      .GreaterThan(0)
                                      .WithMessage("Minimun number of adults is 1.");
 
-            RuleFor(x => x.Guests.Childrens).NotEmpty()
-                                  .WithMessage("Number of childrens is required.")
+            RuleFor(x => x.Guests.Childrens)
                                   .LessThan(16)
                                   .WithMessage("Maximun number of childrens is 15.")
-                                  .GreaterThan(0)
+                                  .GreaterThanOrEqualTo(0)
                                   .WithMessage("Minimun number of childrens is 1.");
 
-            RuleFor(x => x.Guests.TotalRooms).NotEmpty()
-                                  .WithMessage("Number of total rooms is required.")
+            RuleFor(x => x.Guests.TotalRooms)
                                   .LessThan(16)
                                   .WithMessage("Maximun number of total rooms is 15.")
                                   .GreaterThan(0)

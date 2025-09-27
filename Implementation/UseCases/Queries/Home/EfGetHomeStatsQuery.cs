@@ -24,7 +24,7 @@ namespace Implementation.UseCases.Queries.Home
 
             int rounderBy10 = (int)Math.Pow(10, (int)Math.Floor(Math.Log10(totalReviews)));
 
-            int roundedReviews = (totalReviews / rounderBy10) * rounderBy10;
+            int roundedReviews = rounderBy10 == 0 ? 0 : (totalReviews / rounderBy10) * rounderBy10;
 
             return new HomeStatsDto
             {
