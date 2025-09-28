@@ -62,9 +62,9 @@ namespace Implementation.UseCases.Queries.Admin
                 if (status != 0)
                 {
                     apartments = apartments.Where(x =>
-                    (status == (int)ApartmentStatus.Archived && x.IsArchived == true) ||
+                    (status == (int)ApartmentStatus.Archived && x.IsArchived == true && x.IsActive) ||
                     (status == (int)ApartmentStatus.Active && x.IsActive && x.IsArchived != true) ||
-                    (status == (int)ApartmentStatus.Deleted && !x.IsActive && x.IsArchived != true));
+                    (status == (int)ApartmentStatus.Deleted && !x.IsActive));
                 }
             }
 
@@ -77,7 +77,7 @@ namespace Implementation.UseCases.Queries.Admin
                 Price = x.Price,
                 OwnerFullName = x.User.FirstName + " " + x.User.LastName,
                 TotalBookings = x.Bookings.Where(x => x.IsActive).Count(),
-                Status = (int)(x.IsArchived == true ? ApartmentStatus.Archived : x.IsActive ? ApartmentStatus.Active : ApartmentStatus.Deleted)
+                Status = (int)(x.IsArchived == true && x.IsActive ? ApartmentStatus.Archived : x.IsActive ? ApartmentStatus.Active : ApartmentStatus.Deleted)
             });
 
             return response;
